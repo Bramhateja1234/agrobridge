@@ -24,7 +24,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 # HTTPS/SSL Settings for Proxy (Render)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False  # Render handles SSL redirection at the load balancer level
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
