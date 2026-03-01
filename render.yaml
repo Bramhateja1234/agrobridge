@@ -3,7 +3,7 @@ services:
     name: agrobridge
     env: python
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
-    startCommand: gunicorn agro_platform.wsgi:application
+    startCommand: gunicorn agro_platform.wsgi:application --env DJANGO_SETTINGS_MODULE=agro_platform.settings.prod
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: agro_platform.settings.prod
