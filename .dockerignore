@@ -1,0 +1,13 @@
+.git
+__pycache__
+*.pyc
+venv
+.venv
+.env
+db.sqlite3
+build.sqlite3
+staticfiles
+media
+.antigravity
+.gemini
+*.log
