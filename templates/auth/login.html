@@ -15,6 +15,7 @@
                             <p class="text-muted">Sign in to your AgroBridge account</p>
                         </div>
                         <form id="loginForm">
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">I am a...</label>
                                 <div class="input-group">
@@ -154,15 +155,32 @@
         errBox.classList.add('d-none');
 
         try {
+            const formData = {
+                email: document.getElementById('loginEmail').value,
+                password: document.getElementById('loginPassword').value
+            };
+
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
             const res = await fetch('/api/auth/login/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: document.getElementById('loginEmail').value,
-                    password: document.getElementById('loginPassword').value
-                })
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify(formData)
             });
-            const data = await res.json();
+
+            let data;
+            const contentType = res.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                data = await res.json();
+            } else {
+                const text = await res.text();
+                console.error("Non-JSON response:", text);
+                throw new Error("Server returned non-JSON response");
+            }
+
             if (res.ok) {
                 const selectedRole = document.getElementById('loginRole').value;
                 const actualRole = data.user.role;

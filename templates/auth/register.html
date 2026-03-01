@@ -32,6 +32,7 @@
                         </div>
                         <input type="hidden" id="selectedRole" value="consumer">
                         <form id="registerForm">
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Full Name</label>
                                 <input type="text" class="form-control" id="regName" placeholder="Your full name"
@@ -146,12 +147,26 @@
         }
 
         try {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             const res = await fetch('/api/auth/register/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
                 body: JSON.stringify(body)
             });
-            const data = await res.json();
+
+            let data;
+            const contentType = res.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                data = await res.json();
+            } else {
+                const text = await res.text();
+                console.error("Non-JSON response:", text);
+                throw new Error("Server returned non-JSON response");
+            }
+
             if (res.ok) {
                 localStorage.setItem('accessToken', data.access);
                 localStorage.setItem('refreshToken', data.refresh);
