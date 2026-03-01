@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: agrobridge
+    env: python
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate --settings=agro_platform.settings.prod
+    startCommand: gunicorn agro_platform.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: agro_platform.settings.prod
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+
+databases:
+  - name: agrobridge-db
+    databaseName: agrobridge
+    plan: free

@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login – AgroBridge{% endblock %}
+
+{% block content %}
+<div class="auth-page min-vh-100 d-flex align-items-center">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-tree-fill text-success fs-1"></i>
+                            <h2 class="fw-bold mt-2">Welcome Back</h2>
+                            <p class="text-muted">Sign in to your AgroBridge account</p>
+                        </div>
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">I am a...</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                    <select class="form-select" id="loginRole" required>
+                                        <option value="consumer">Consumer (Buyer)</option>
+                                        <option value="farmer">Farmer (Seller)</option>
+                                        <option value="delivery">Delivery Agent</option>
+                                        <option value="admin">Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input type="email" class="form-control" id="loginEmail"
+                                        placeholder="you@example.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                    <input type="password" class="form-control" id="loginPassword"
+                                        placeholder="Your password" required>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        onclick="togglePassword('loginPassword', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="text-end mt-2">
+                                    <a href="#" class="text-success text-decoration-none small fw-semibold"
+                                        data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot
+                                        Password?</a>
+                                </div>
+                            </div>
+                            <div id="loginError" class="alert alert-danger d-none"></div>
+                            <button type="submit" class="btn btn-success w-100 py-2 fw-semibold" id="loginBtn">
+                                <span class="btn-text">Sign In</span>
+                                <span class="spinner-border spinner-border-sm d-none ms-2" id="loginSpinner"></span>
+                            </button>
+                        </form>
+                        <hr class="my-4">
+                        <p class="text-center text-muted mb-0">
+                            Don't have an account? <a href="/auth/register/" class="text-success fw-semibold">Create one
+                                →</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-0 pb-0">
+                <i class="bi bi-shield-lock text-success fs-1"></i>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4 pb-4">
+                <h4 class="fw-bold mb-1">Reset Password</h4>
+                <p class="text-muted small mb-4">Enter your registered phone number to receive a secure OTP.</p>
+
+                <!-- Step 1: Send OTP -->
+                <div id="fpStep1">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                            <input type="text" class="form-control" id="fpPhone"
+                                placeholder="Enter your 10-digit number">
+                        </div>
+                    </div>
+                    <div id="fpError1" class="alert alert-danger d-none py-2 small"></div>
+                    <button class="btn btn-success w-100 fw-semibold" onclick="fpSendOTP()" id="fpSendBtn">Send
+                        OTP</button>
+                </div>
+
+                <!-- Step 2: Verify & Reset -->
+                <div id="fpStep2" class="d-none">
+                    <div class="alert alert-success py-2 small mb-3">
+                        <i class="bi bi-check-circle me-1"></i> OTP sent successfully! Check your phone.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Enter OTP</label>
+                        <input type="text" class="form-control text-center tracking-widest fw-bold ms-auto me-auto"
+                            id="fpOtp" maxlength="6" style="letter-spacing: 0.5rem; font-size: 1.25rem;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">New Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="fpNewPassword"
+                                placeholder="Minimum 8 characters">
+                            <button class="btn btn-outline-secondary" type="button"
+                                onclick="togglePassword('fpNewPassword', this)">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="fpError2" class="alert alert-danger d-none py-2 small"></div>
+                    <button class="btn btn-success w-100 fw-semibold" onclick="fpResetPassword()" id="fpResetBtn">Reset
+                        Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Handle role pre-selection from URL
+    window.addEventListener('load', () => {
+        const params = new URLSearchParams(window.location.search);
+        const role = params.get('role');
+        if (role) {
+            const select = document.getElementById('loginRole');
+            if (select.querySelector(`option[value="${role}"]`)) {
+                select.value = role;
+            }
+        }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById('loginBtn');
+        const spinner = document.getElementById('loginSpinner');
+        const errBox = document.getElementById('loginError');
+        btn.disabled = true;
+        spinner.classList.remove('d-none');
+        errBox.classList.add('d-none');
+
+        try {
+            const res = await fetch('/api/auth/login/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: document.getElementById('loginEmail').value,
+                    password: document.getElementById('loginPassword').value
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                const selectedRole = document.getElementById('loginRole').value;
+                const actualRole = data.user.role;
+
+                if (selectedRole !== actualRole) {
+                    errBox.textContent = `Error: Your account is a ${actualRole}, but you selected ${selectedRole}. Please select the correct role.`;
+                    errBox.classList.remove('d-none');
+                    return;
+                }
+
+                localStorage.setItem('accessToken', data.access);
+                localStorage.setItem('refreshToken', data.refresh);
+                localStorage.setItem('user', JSON.stringify(data.user));
+
+                if (actualRole === 'farmer') window.location.href = '/farmer/dashboard/';
+                else if (actualRole === 'admin') window.location.href = '/farmer/dashboard/'; // Admin gets full access here
+                else if (actualRole === 'delivery') window.location.href = '/delivery/dashboard/';
+                else window.location.href = '/browse/';
+            }
+            else {
+                errBox.textContent = JSON.stringify(data);
+                errBox.classList.remove('d-none');
+            }
+        } catch (err) {
+            errBox.textContent = 'Network error. Please try again.';
+            errBox.classList.remove('d-none');
+        } finally {
+            btn.disabled = false;
+            spinner.classList.add('d-none');
+        }
+    });
+
+    function togglePassword(id, btn) {
+        const input = document.getElementById(id);
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
+        } else {
+            input.type = 'password';
+            btn.innerHTML = '<i class="bi bi-eye"></i>';
+        }
+    }
+
+    // --- Forgot Password Logic ---
+    let fpPhoneGlobal = '';
+
+    async function fpSendOTP() {
+        const phone = document.getElementById('fpPhone').value.trim();
+        const err = document.getElementById('fpError1');
+        const btn = document.getElementById('fpSendBtn');
+        err.classList.add('d-none');
+
+        if (!phone || phone.length < 10) {
+            err.textContent = "Please enter a valid phone number.";
+            err.classList.remove('d-none');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending...';
+
+        try {
+            const res = await fetch('/api/auth/otp/send/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phone })
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                fpPhoneGlobal = phone;
+                document.getElementById('fpStep1').classList.add('d-none');
+                document.getElementById('fpStep2').classList.remove('d-none');
+                if (data.otp) {
+                    alert(`[DEV MODE] Your OTP is: ${data.otp}\n(In production, this would be an SMS)`);
+                }
+            } else {
+                err.textContent = data.error || data.detail || 'Failed to send OTP.';
+                err.classList.remove('d-none');
+            }
+        } catch (e) {
+            err.textContent = 'Network error. Please try again.';
+            err.classList.remove('d-none');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Send OTP';
+        }
+    }
+
+    async function fpResetPassword() {
+        const otp = document.getElementById('fpOtp').value.trim();
+        const newPassword = document.getElementById('fpNewPassword').value;
+        const err = document.getElementById('fpError2');
+        const btn = document.getElementById('fpResetBtn');
+        err.classList.add('d-none');
+
+        if (!otp || otp.length < 6) {
+            err.textContent = "Please enter the 6-digit OTP.";
+            err.classList.remove('d-none');
+            return;
+        }
+        if (newPassword.length < 8) {
+            err.textContent = "New password must be at least 8 characters long.";
+            err.classList.remove('d-none');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Resetting...';
+
+        try {
+            const res = await fetch('/api/auth/password/reset/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    phone: fpPhoneGlobal,
+                    otp: otp,
+                    new_password: newPassword
+                })
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                alert("Password successfully reset! You can now log in.");
+                const modalEl = document.getElementById('forgotPasswordModal');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+                window.location.reload();
+            } else {
+                err.textContent = data.error || 'Invalid OTP or network error.';
+                err.classList.remove('d-none');
+            }
+        } catch (e) {
+            err.textContent = 'Network error. Please try again.';
+            err.classList.remove('d-none');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Reset Password';
+        }
+    }
+</script>
+{% endblock %}

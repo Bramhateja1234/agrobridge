@@ -1,0 +1,132 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AgroBridge – Directly from Farmers{% endblock %}</title>
+    <meta name="description"
+        content="{% block meta_description %}AgroBridge - The smartest platform connecting farmers directly with consumers. Buy fresh crops, support local farming, and get AI-powered price insights.{% endblock %}">
+    <meta name="keywords"
+        content="agriculture, farmers market, organic crops, buy fresh produce, direct from farm, crop price prediction, agrobridge">
+    <meta name="author" content="AgroBridge">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3 d-flex align-items-center" href="/">
+                <i class="bi bi-leaf-fill me-2 text-warning"></i>AgroBridge
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="/">{% trans "Home" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/browse/">{% trans "Browse Crops" %}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#about">{% trans "About" %}</a></li>
+                </ul>
+
+                <!-- Language Switcher -->
+                <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center me-3">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                    <select name="language" class="form-select form-select-sm bg-transparent text-white border-0"
+                        onchange="this.form.submit()" style="cursor: pointer; width: auto;">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                        <option value="{{ language.code }}" {% if language.code==LANGUAGE_CODE %}selected{% endif %}
+                            class="text-dark">
+                            {{ language.name_local }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </form>
+
+                <ul class="navbar-nav align-items-center" id="navAuthLinks">
+                    <!-- Populated by JS based on JWT token -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-2">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="py-0">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-bg text-white py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-tree-fill text-success fs-3"></i>
+                        <span class="fw-bold fs-4">AgroBridge</span>
+                    </div>
+                    <p class="text-muted">Smart platform connecting farmers directly with consumers for fresh, quality
+                        produce.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-semibold mb-3">Platform</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/browse/" class="footer-link">Browse Crops</a></li>
+                        <li><a href="/auth/register/" class="footer-link">Become a Farmer</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-semibold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="fw-semibold mb-3">AI Tools</h6>
+                    <p class="text-muted small">Use our AI-powered price prediction and demand forecasting for smarter
+                        farming decisions.</p>
+                </div>
+            </div>
+            <hr class="border-secondary mt-4">
+            <p class="text-center text-muted small mb-0">© 2025 AgroBridge. Built with ❤️ for Indian farmers.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

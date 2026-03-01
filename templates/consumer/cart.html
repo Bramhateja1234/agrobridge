@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}{% trans "Your Cart" %} – AgroBridge{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">{% trans "Your Cart" %}</h2>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div id="cartItems"></div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top:80px">
+                <h5 class="fw-bold mb-3">{% trans "Order Summary" %}</h5>
+                <div id="cartSummary"></div>
+
+                <hr class="my-3">
+                <h6 class="fw-bold">{% trans "Delivery Details" %}</h6>
+                <div class="mb-3">
+                    <textarea id="deliveryAddress" class="form-control form-control-sm" rows="2"
+                        placeholder="{% trans 'Enter your delivery address...' %}" required></textarea>
+                </div>
+
+                <h6 class="fw-bold">{% trans "Payment Method" %}</h6>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="payOnline" value="online"
+                        checked>
+                    <label class="form-check-label small" for="payOnline">
+                        <i class="bi bi-credit-card me-1 text-primary"></i>{% trans "Online Payment" %}
+                    </label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="payCOD" value="cod">
+                    <label class="form-check-label small" for="payCOD">
+                        <i class="bi bi-cash me-1 text-success"></i>{% trans "Cash on Delivery (COD)" %}
+                    </label>
+                </div>
+
+                <div id="checkoutError" class="alert alert-danger d-none mt-3"></div>
+                <button class="btn btn-success w-100 py-2 fw-semibold mt-3" id="checkoutBtn" onclick="checkout()">
+                    <i class="bi bi-bag-check me-2"></i>{% trans "Place Order" %}
+                </button>
+                <p class="text-center text-muted small mt-2">
+                    <i class="bi bi-shield-check me-1"></i>
+                    {% blocktrans trimmed %}
+                    Secured connection
+                    {% endblocktrans %}
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const i18n = {
+        cartEmpty: "{% trans 'Your cart is empty.' %}",
+        browseCrops: "{% trans 'Browse Crops' %}",
+        noItems: "{% trans 'No items in cart.' %}",
+        total: "{% trans 'Total' %}",
+        checkoutFailed: "{% trans 'Checkout failed:' %}",
+        processing: "{% trans 'Processing...' %}",
+        proceedToPayment: "{% trans 'Proceed to Payment' %}"
+    };
+    const token = localStorage.getItem('accessToken');
+    if (!token) window.location.href = '/auth/login/';
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    function renderCart() {
+        const container = document.getElementById('cartItems');
+        const summary = document.getElementById('cartSummary');
+        if (!cart.length) {
+            container.innerHTML = `<div class="text-center py-5 text-muted"><i class="bi bi-cart-x fs-1"></i><p class="mt-2">${i18n.cartEmpty}</p><a href="/browse/" class="btn btn-success">${i18n.browseCrops}</a></div>`;
+            summary.innerHTML = `<p class="text-muted">${i18n.noItems}</p>`;
+            document.getElementById('checkoutBtn').disabled = true;
+            return;
+        }
+        container.innerHTML = cart.map((item, idx) => `
+        <div class="card border-0 shadow-sm rounded-4 mb-3 p-3">
+            <div class="row align-items-center">
+                <div class="col-2 text-center">
+                    ${item.image_url ? `<img src="${item.image_url}" class="img-fluid rounded-3" style="width:60px;height:60px;object-fit:cover">` : '<i class="bi bi-flower1 fs-2 text-success"></i>'}
+                </div>
+                <div class="col-5">
+                    <h6 class="fw-bold mb-0">${item.name}</h6>
+                    <small class="text-muted">${item.farmer_name} · ₹${item.price_per_kg}/kg</small>
+                </div>
+                <div class="col-3">
+                    <div class="input-group input-group-sm">
+                        <button class="btn btn-outline-secondary" onclick="changeQty(${idx}, -1)">–</button>
+                        <input type="number" class="form-control text-center" value="${item.order_qty}" min="1" max="${item.quantity_available}" onchange="setQty(${idx}, this.value)">
+                        <button class="btn btn-outline-secondary" onclick="changeQty(${idx}, 1)">+</button>
+                    </div>
+                </div>
+                <div class="col-2 text-end">
+                    <div class="fw-bold text-success">₹${(item.price_per_kg * item.order_qty).toFixed(2)}</div>
+                    <button class="btn btn-link btn-sm text-danger p-0" onclick="removeItem(${idx})"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        </div>`).join('');
+        const baseTotal = cart.reduce((s, i) => s + i.price_per_kg * i.order_qty, 0);
+        const deliveryCharge = baseTotal > 0 ? 10 : 0;
+        const finalTotal = baseTotal + deliveryCharge;
+        summary.innerHTML = `
+        ${cart.map(i => `<div class="d-flex justify-content-between small mb-1"><span>${i.name} ×${i.order_qty}kg</span><span>₹${(i.price_per_kg * i.order_qty).toFixed(2)}</span></div>`).join('')}
+        ${deliveryCharge > 0 ? `<div class="d-flex justify-content-between small mb-1 text-danger"><span>Delivery Charge</span><span>₹${deliveryCharge.toFixed(2)}</span></div>` : `<div class="d-flex justify-content-between small mb-1 text-success"><span>Delivery Charge</span><span>FREE</span></div>`}
+        <hr><div class="d-flex justify-content-between fw-bold"><span>${i18n.total}</span><span class="text-success">₹${finalTotal.toFixed(2)}</span></div>`;
+    }
+
+    function changeQty(idx, delta) {
+        cart[idx].order_qty = Math.max(1, Math.min(cart[idx].quantity_available, cart[idx].order_qty + delta));
+        saveCart(); renderCart();
+    }
+    function setQty(idx, val) {
+        cart[idx].order_qty = Math.max(1, Math.min(cart[idx].quantity_available, parseInt(val) || 1));
+        saveCart(); renderCart();
+    }
+    function removeItem(idx) { cart.splice(idx, 1); saveCart(); renderCart(); }
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+    document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const btn = document.getElementById('checkoutBtn');
+            if (e.target.value === 'online') {
+                btn.innerHTML = `<i class="bi bi-credit-card me-2"></i>${i18n.proceedToPayment}`;
+            } else {
+                btn.innerHTML = `<i class="bi bi-bag-check me-2"></i>Place Order`;
+            }
+        });
+    });
+
+    async function checkout() {
+        const errBox = document.getElementById('checkoutError');
+        const address = document.getElementById('deliveryAddress').value.trim();
+        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+        const baseTotal = cart.reduce((s, i) => s + i.price_per_kg * i.order_qty, 0);
+        const deliveryCharge = baseTotal > 0 ? 10 : 0;
+        const finalTotal = baseTotal + deliveryCharge;
+
+        if (paymentMethod === 'online' && finalTotal < 50) {
+            errBox.innerHTML = `Minimum order amount for Online Payment is ₹50.00 due to payment gateway limits. Please increase your quantity or choose Cash on Delivery.`;
+            errBox.classList.remove('d-none');
+            return;
+        }
+
+        if (!address) {
+            errBox.textContent = "Please provide a delivery address.";
+            errBox.classList.remove('d-none');
+            return;
+        }
+
+        errBox.classList.add('d-none');
+        document.getElementById('checkoutBtn').disabled = true;
+        document.getElementById('checkoutBtn').innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>${i18n.processing}`;
+        try {
+            // Place all orders first, then checkout first one (MVP: checkout first item)
+            const item = cart[0];
+            const orderRes = await fetch('/api/orders/place/', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    crop_id: item.id,
+                    quantity: item.order_qty,
+                    payment_method: paymentMethod,
+                    delivery_address: address
+                })
+            });
+            const orderData = await orderRes.json();
+            if (orderRes.status === 401) {
+                localStorage.removeItem('accessToken');
+                window.location.href = '/auth/login/?role=consumer';
+                return;
+            }
+            if (!orderRes.ok) {
+                if (orderData.requires_review) {
+                    alert('You must review your previous delivered orders before placing a new one. Redirecting to your orders page...');
+                    window.location.href = '/orders/';
+                    return;
+                }
+                throw new Error(JSON.stringify(orderData.error || orderData));
+            }
+
+            if (paymentMethod === 'cod') {
+                localStorage.setItem('cart', '[]');
+                window.location.href = '/orders/success/?method=cod';
+                return;
+            }
+
+            const checkoutRes = await fetch('/api/payments/checkout/', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ order_id: orderData.id })
+            });
+            const checkoutData = await checkoutRes.json();
+            if (checkoutRes.status === 401) {
+                localStorage.removeItem('accessToken');
+                window.location.href = '/auth/login/?role=consumer';
+                return;
+            }
+            if (!checkoutRes.ok) { throw new Error(JSON.stringify(checkoutData)); }
+
+            // Redirect to Stripe
+            localStorage.setItem('cart', '[]');
+            window.location.href = checkoutData.checkout_url;
+        } catch (e) {
+            errBox.textContent = `${i18n.checkoutFailed} ${e.message}`;
+            errBox.classList.remove('d-none');
+            document.getElementById('checkoutBtn').disabled = false;
+            document.getElementById('checkoutBtn').innerHTML = `<i class="bi bi-bag-check me-2"></i>Place Order`;
+        }
+    }
+    renderCart();
+</script>
+{% endblock %}

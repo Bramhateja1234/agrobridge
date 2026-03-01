@@ -1,0 +1,1 @@
+"""AgroBridge Django Project."""

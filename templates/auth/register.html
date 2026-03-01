@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register – AgroBridge{% endblock %}
+
+{% block content %}
+<div class="auth-page min-vh-100 d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-tree-fill text-success fs-1"></i>
+                            <h2 class="fw-bold mt-2">Join AgroBridge</h2>
+                            <p class="text-muted">Create your account today</p>
+                        </div>
+                        <!-- Role Selection -->
+                        <div class="role-selector d-flex gap-2 mb-4">
+                            <button class="btn role-btn flex-fill active" id="roleConsumer"
+                                onclick="selectRole('consumer')">
+                                <i class="bi bi-person-fill d-block fs-3 mb-1"></i>Consumer
+                            </button>
+                            <button class="btn role-btn flex-fill" id="roleFarmer" onclick="selectRole('farmer')">
+                                <i class="bi bi-flower1 d-block fs-3 mb-1"></i>Farmer
+                            </button>
+                            <button class="btn role-btn flex-fill" id="roleDelivery" onclick="selectRole('delivery')">
+                                <i class="bi bi-truck d-block fs-3 mb-1"></i>Delivery Agent
+                            </button>
+                            <button class="btn role-btn flex-fill" id="roleAdmin" onclick="selectRole('admin')">
+                                <i class="bi bi-shield-lock d-block fs-3 mb-1"></i>Admin
+                            </button>
+                        </div>
+                        <input type="hidden" id="selectedRole" value="consumer">
+                        <form id="registerForm">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Full Name</label>
+                                <input type="text" class="form-control" id="regName" placeholder="Your full name"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Email Address</label>
+                                <input type="email" class="form-control" id="regEmail" placeholder="you@example.com"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Phone Number</label>
+                                <input type="tel" class="form-control" id="regPhone" placeholder="+91 9876543210">
+                            </div>
+                            <div class="row g-3 mb-3 farmer-only" style="display:none!important" id="locationFields">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Latitude</label>
+                                    <input type="number" class="form-control" id="regLat" placeholder="e.g. 18.5204"
+                                        step="0.000001">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Longitude</label>
+                                    <input type="number" class="form-control" id="regLon" placeholder="e.g. 73.8567"
+                                        step="0.000001">
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm w-100"
+                                        onclick="detectLocation()">
+                                        <i class="bi bi-geo-alt me-1"></i>Detect My Location
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="regPassword"
+                                        placeholder="Min 8 characters" required>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        onclick="togglePassword('regPassword', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Confirm Password</label>
+                                <input type="password" class="form-control" id="regPasswordConfirm"
+                                    placeholder="Repeat password" required>
+                            </div>
+                            <div id="regError" class="alert alert-danger d-none"></div>
+                            <button type="submit" class="btn btn-success w-100 py-2 fw-semibold" id="regBtn">
+                                <span class="btn-text">Create Account</span>
+                                <span class="spinner-border spinner-border-sm d-none ms-2" id="regSpinner"></span>
+                            </button>
+                        </form>
+                        <hr class="my-4">
+                        <p class="text-center text-muted mb-0">
+                            Already have an account? <a href="/auth/login/" class="text-success fw-semibold">Sign in
+                                →</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function selectRole(role) {
+        document.getElementById('selectedRole').value = role;
+        document.getElementById('roleConsumer').classList.toggle('active', role === 'consumer');
+        document.getElementById('roleFarmer').classList.toggle('active', role === 'farmer');
+        document.getElementById('roleDelivery').classList.toggle('active', role === 'delivery');
+        document.getElementById('roleAdmin').classList.toggle('active', role === 'admin');
+        document.getElementById('locationFields').style.display = role === 'farmer' ? 'flex' : 'none';
+    }
+
+    function detectLocation() {
+        if (!navigator.geolocation) return alert('Geolocation not supported.');
+        navigator.geolocation.getCurrentPosition(pos => {
+            document.getElementById('regLat').value = pos.coords.latitude.toFixed(6);
+            document.getElementById('regLon').value = pos.coords.longitude.toFixed(6);
+        });
+    }
+
+    function togglePassword(id, btn) {
+        const input = document.getElementById(id);
+        input.type = input.type === 'password' ? 'text' : 'password';
+        btn.innerHTML = input.type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById('regBtn');
+        const spinner = document.getElementById('regSpinner');
+        const errBox = document.getElementById('regError');
+        btn.disabled = true; spinner.classList.remove('d-none'); errBox.classList.add('d-none');
+
+        const role = document.getElementById('selectedRole').value;
+        const body = {
+            name: document.getElementById('regName').value,
+            email: document.getElementById('regEmail').value,
+            phone: document.getElementById('regPhone').value,
+            role,
+            password: document.getElementById('regPassword').value,
+            password_confirm: document.getElementById('regPasswordConfirm').value,
+        };
+        if (role === 'farmer') {
+            body.latitude = parseFloat(document.getElementById('regLat').value) || null;
+            body.longitude = parseFloat(document.getElementById('regLon').value) || null;
+        }
+
+        try {
+            const res = await fetch('/api/auth/register/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                localStorage.setItem('accessToken', data.access);
+                localStorage.setItem('refreshToken', data.refresh);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                window.location.href = role === 'farmer' ? '/farmer/dashboard/' : (role === 'delivery' ? '/delivery/dashboard/' : '/browse/');
+            } else {
+                const msgs = Object.entries(data).map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : v}`).join('\n');
+                errBox.textContent = msgs; errBox.classList.remove('d-none');
+            }
+        } catch {
+            errBox.textContent = 'Network error. Please try again.'; errBox.classList.remove('d-none');
+        } finally {
+            btn.disabled = false; spinner.classList.add('d-none');
+        }
+    });
+</script>
+{% endblock %}

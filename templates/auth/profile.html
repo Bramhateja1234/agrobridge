@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Profile – AgroBridge{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row g-4">
+        <!-- Profile Details -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 position-sticky" style="top: 80px;">
+                <div class="card-body p-4 text-center">
+                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center mx-auto mb-3 shadow-sm"
+                        style="width: 80px; height: 80px; font-size: 2.2rem;">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <h4 class="fw-bold mb-1" id="profileName">Loading...</h4>
+                    <p class="text-muted mb-3"><span id="profileRole"
+                            class="badge bg-light text-dark border">Role</span></p>
+
+                    <ul class="list-group list-group-flush text-start mt-4">
+                        <li class="list-group-item px-0 py-3 border-light d-flex align-items-center">
+                            <i class="bi bi-envelope-fill text-primary me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block fw-bold">Email Address</small>
+                                <span class="fw-medium" id="profileEmail">--</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0 py-3 border-light d-flex align-items-center">
+                            <i class="bi bi-telephone-fill text-success me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block fw-bold">Phone Number</small>
+                                <span class="fw-medium" id="profilePhone">--</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0 py-3 border-light d-flex align-items-center">
+                            <i class="bi bi-geo-alt-fill text-danger me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block fw-bold">Address</small>
+                                <span class="fw-medium text-wrap" id="profileAddress"
+                                    style="font-size: 0.9rem;">--</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0 py-3 border-light d-flex align-items-center">
+                            <i class="bi bi-shield-fill-check text-warning me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block fw-bold">Account Status</small>
+                                <span class="badge bg-success" id="profileStatus">Verified</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="btn btn-outline-success w-100 mt-3" onclick="openEditModal()">Edit Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Audit / Delivery History -->
+        <div class="col-lg-8" id="auditWrapper">
+            <!-- Rendered by JS based on role -->
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Full Name</label>
+                        <input type="text" class="form-control" id="editName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Phone Number</label>
+                        <input type="text" class="form-control" id="editPhone">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Address Line</label>
+                        <input type="text" class="form-control" id="editAddress">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label text-muted small fw-bold">City</label>
+                            <input type="text" class="form-control" id="editCity">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label text-muted small fw-bold">State</label>
+                            <input type="text" class="form-control" id="editState">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label text-muted small fw-bold">Country</label>
+                            <input type="text" class="form-control" id="editCountry">
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label text-muted small fw-bold">Pin Code</label>
+                            <input type="text" class="form-control" id="editPin">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-success" onclick="saveProfile()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const token = localStorage.getItem('accessToken');
+    if (!token) window.location.href = '/auth/login/';
+    let currentUserData = null;
+
+    async function loadProfile() {
+        try {
+            const res = await fetch('/api/auth/profile/', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (res.status === 401) {
+                localStorage.clear(); window.location.href = '/auth/login/'; return;
+            }
+            const data = await res.json();
+            currentUserData = data;
+
+            // Sync local storage and navbar with updated profile data
+            localStorage.setItem('user', JSON.stringify(data));
+            if (typeof populateNav === 'function') populateNav();
+
+            document.getElementById('profileName').textContent = data.name;
+            document.getElementById('profileRole').textContent = data.role.charAt(0).toUpperCase() + data.role.slice(1);
+            document.getElementById('profileEmail').textContent = data.email || 'Not provided';
+            document.getElementById('profilePhone').textContent = data.phone || 'Not provided';
+
+            const addrParts = [];
+            if (data.address_line) addrParts.push(data.address_line);
+            if (data.city) addrParts.push(data.city);
+            if (data.state) addrParts.push(data.state);
+            if (data.pin_code) addrParts.push(data.pin_code);
+            if (data.country) addrParts.push(data.country);
+            document.getElementById('profileAddress').textContent = addrParts.length > 0 ? addrParts.join(', ') : 'No Address Provided';
+
+            document.getElementById('profileStatus').className = data.is_verified ? 'badge bg-success' : 'badge bg-secondary';
+            document.getElementById('profileStatus').textContent = data.is_verified ? 'Verified' : 'Unverified';
+
+            if (data.role === 'delivery') {
+                const wrapper = document.getElementById('auditWrapper');
+                if (wrapper) wrapper.style.display = 'none';
+            } else {
+                loadAuditHistory();
+            }
+        } catch {
+            alert('Error loading profile');
+        }
+    }
+
+    function openEditModal() {
+        if (!currentUserData) return;
+        document.getElementById('editName').value = currentUserData.name || '';
+        document.getElementById('editPhone').value = currentUserData.phone || '';
+        document.getElementById('editAddress').value = currentUserData.address_line || '';
+        document.getElementById('editCity').value = currentUserData.city || '';
+        document.getElementById('editState').value = currentUserData.state || '';
+        document.getElementById('editCountry').value = currentUserData.country || '';
+        document.getElementById('editPin').value = currentUserData.pin_code || '';
+        new bootstrap.Modal(document.getElementById('editProfileModal')).show();
+    }
+
+    async function saveProfile() {
+        try {
+            const payload = {
+                name: document.getElementById('editName').value,
+                phone: document.getElementById('editPhone').value,
+                address_line: document.getElementById('editAddress').value,
+                city: document.getElementById('editCity').value,
+                state: document.getElementById('editState').value,
+                country: document.getElementById('editCountry').value,
+                pin_code: document.getElementById('editPin').value,
+            };
+            const res = await fetch('/api/auth/profile/', {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (res.ok) {
+                bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+                loadProfile();
+            } else {
+                alert('Failed to update profile.');
+            }
+        } catch (e) { alert('Network error'); }
+    }
+
+    async function loadAuditHistory() {
+        const container = document.getElementById('auditWrapper');
+        container.innerHTML = `
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0 px-4">
+                    <h5 class="fw-bold"><i class="bi bi-receipt me-2 text-primary"></i>Payment Audit History</h5>
+                    <p class="text-muted small">A complete security and financial log of your transactions on AgroBridge (including failed attempts).</p>
+                </div>
+                <div class="card-body p-4">
+                    <div id="auditInner">
+                        <div class="text-center py-5"><div class="spinner-border text-success"></div></div>
+                    </div>
+                </div>
+            </div>`;
+        const inner = document.getElementById('auditInner');
+        try {
+            const res = await fetch('/api/payments/logs/', { headers: { 'Authorization': `Bearer ${token}` } });
+            const data = await res.json();
+            const logs = data.results || data;
+            if (!logs.length) {
+                inner.innerHTML = '<div class="text-center py-4 text-muted"><p>No payment history found.</p></div>';
+                return;
+            }
+            inner.innerHTML = `
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-3"><i class="bi bi-hash"></i> Audit ID</th>
+                            <th>Order</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Status</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${logs.map(l => `
+                        <tr>
+                            <td class="ps-3"><small class="text-muted font-monospace">${l.id.toString().startsWith('fail_') ? 'SYSTEM-FAIL' : l.stripe_payment_id || 'COD-TXN'}</small></td>
+                            <td><a href="/orders/" class="text-decoration-none fw-medium text-primary">#${l.order_id}</a></td>
+                            <td class="fw-bold ${l.status === 'failed' || l.status === 'cancelled' ? 'text-danger' : 'text-success'}">₹${l.amount}</td>
+                            <td><span class="badge bg-light text-dark border"><i class="bi ${l.stripe_payment_id ? 'bi-credit-card me-1' : 'bi-cash me-1'}"></i>${l.stripe_payment_id ? 'Stripe' : 'COD'}</span></td>
+                            <td><span class="badge ${l.status === 'succeeded' ? 'bg-success' : 'bg-danger'}">${l.status.toUpperCase()}</span></td>
+                            <td class="small text-muted"><i class="bi bi-clock me-1"></i>${new Date(l.created_at).toLocaleString('en-IN')}</td>
+                        </tr>`).join('')}
+                    </tbody>
+                </table>
+            </div>`;
+        } catch {
+            inner.innerHTML = '<div class="alert alert-danger">Failed to load audit history.</div>';
+        }
+    }
+
+
+    loadProfile();
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Payment Successful – AgroBridge{% endblock %}
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="py-5">
+        <div class="mb-4" style="animation: bounceIn 0.6s both">
+            <i class="bi bi-check-circle-fill text-success" style="font-size:5rem"></i>
+        </div>
+        <h2 class="fw-bold mb-2" id="successTitle">Order Confirmed! 🎉</h2>
+        <p class="text-muted mb-4" id="successDesc">Your order has been placed. The farmer will prepare your fresh produce!</p>
+        <a href="/orders/" class="btn btn-success px-4 me-2">View My Orders</a>
+        <a href="/browse/" class="btn btn-outline-success px-4">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.addEventListener('load', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get('session_id');
+        const method = params.get('method');
+        const token = localStorage.getItem('accessToken');
+        
+        if (method === 'cod') {
+            document.getElementById('successTitle').textContent = 'Order Placed Successfully! 🎉';
+            document.getElementById('successDesc').textContent = 'Your order is confirmed for Cash on Delivery (COD). You will pay when it arrives!';
+            return;
+        }
+
+        if (sessionId && token) {
+            try {
+                await fetch('/api/payments/verify/', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ session_id: sessionId })
+                });
+                console.log('Payment verified locally.');
+            } catch (err) {
+                console.error('Failed to verify payment', err);
+            }
+        }
+    });
+</script>
+{% endblock %}

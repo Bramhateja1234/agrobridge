@@ -1,0 +1,330 @@
+# Hindi translations for AgroBridge
+msgid ""
+msgstr ""
+"Project-Id-Version: AgroBridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-26 15:15+0530\n"
+"PO-Revision-Date: 2026-02-26 15:15+0530\n"
+"Last-Translator: \n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home – AgroBridge"
+msgstr "होम – एग्रोब्रिज"
+
+msgid "Connecting"
+msgstr "जोड़ रहे हैं"
+
+msgid "Farmers"
+msgstr "किसानों"
+
+msgid "Directly to You"
+msgstr "सीधे आपसे"
+
+msgid ""
+"Buy fresh, organic, and seasonal crops directly from local farms. Support "
+"farmers, eat healthy, and save money with AI-driven price insights."
+msgstr ""
+"स्थानीय खेतों से सीधे ताजी, जैविक और मौसमी फसलें खरीदें। किसानों का समर्थन "
+"करें, स्वस्थ खाएं, और एआई-संचालित मूल्य अंतर्दृष्टि के साथ पैसे बचाएं।"
+
+msgid "Shop Fresh Crops"
+msgstr "ताजी फसलें खरीदें"
+
+msgid "Sell Your Produce"
+msgstr "अपनी उपज बेचें"
+
+msgid "Active Farmers"
+msgstr "सक्रिय किसान"
+
+msgid "Orders Placed"
+msgstr "आर्डर दिए गए"
+
+msgid "Crop Varieties"
+msgstr "फसलों की किस्में"
+
+msgid "Why Choose AgroBridge?"
+msgstr "एग्रोब्रिज क्यों चुनें?"
+
+msgid "A platform built for farmers, loved by consumers"
+msgstr "किसानों के लिए बना प्लेटफॉर्म, उपभोक्ताओं द्वारा पसंद किया गया"
+
+msgid "Nearby Farmers"
+msgstr "आसपास के किसान"
+
+msgid "Discover farmers in your area using GPS-based geolocation filtering."
+msgstr ""
+"जीपीएस-आधारित जियोलोकेशन फ़िल्टरिंग का उपयोग करके अपने क्षेत्र के किसानों को"
+" खोजें।"
+
+msgid "AI Price Insights"
+msgstr "एआई समर्थित कीमतें"
+
+msgid "Get ML-powered crop price predictions and demand forecasts."
+msgstr ""
+"एमएल-संचालित फसल मूल्य भविष्यवाणियां और मांग पूर्वानुमान प्राप्त करें।"
+
+msgid "Secure Payments"
+msgstr "सुरक्षित भुगतान"
+
+msgid "Pay safely with Stripe's industry-leading payment infrastructure."
+msgstr ""
+"स्ट्राइप के उद्योग-अग्रणी भुगतान बुनियादी ढांचे के साथ सुरक्षित रूप से "
+"भुगतान करें।"
+
+msgid "AI-Powered"
+msgstr "एआई-संचालित"
+
+msgid "Smart Crop Insights"
+msgstr "स्मार्ट फसल जानकारी"
+
+msgid ""
+"Use our machine learning tools to predict crop prices and forecast demand — "
+"helping farmers price better and consumers plan smarter."
+msgstr ""
+"फसल की कीमतों की भविष्यवाणी करने और मांग का पूर्वानुमान लगाने के लिए हमारे "
+"मशीन लर्निंग टूल का उपयोग करें - किसानों को बेहतर मूल्य निर्धारण में और "
+"उपभोक्ताओं को समझदारी से योजना बनाने में मदद करें।"
+
+msgid "Price Prediction"
+msgstr "मूल्य भविष्यवाणी"
+
+msgid "Wheat · Winter"
+msgstr "गेहूं · सर्दी"
+
+msgid "Demand Forecast"
+msgstr "मांग का अनुमान"
+
+msgid "Next 3 months"
+msgstr "अगले 3 महीने"
+
+msgid "Try AI Tools"
+msgstr "एआई टूल्स आज़माएं"
+
+msgid "Price Predictor"
+msgstr "मूल्य भविष्यवक्ता"
+
+msgid "Grain"
+msgstr "अनाज"
+
+msgid "Vegetable"
+msgstr "सब्जी"
+
+msgid "Fruit"
+msgstr "फल"
+
+msgid "Pulse"
+msgstr "दाल"
+
+msgid "Oilseed"
+msgstr "तिलहन"
+
+msgid "Spice"
+msgstr "मसाला"
+
+msgid "Summer"
+msgstr "गर्मी"
+
+msgid "Winter"
+msgstr "सर्दी"
+
+msgid "Monsoon"
+msgstr "मानसून"
+
+msgid "Spring"
+msgstr "वसंत"
+
+msgid "Quantity (kg)"
+msgstr "मात्रा (किलो)"
+
+msgid "Predict Price"
+msgstr "मूल्य की भविष्यवाणी करें"
+
+msgid "Predicted Price:"
+msgstr "अनुमानित मूल्य:"
+
+msgid "Our Story"
+msgstr "हमारी कहानी"
+
+msgid "Empowering Farmers, Enriching Lives"
+msgstr "किसानों को सशक्त बनाना, जीवन को समृद्ध करना"
+
+msgid ""
+"AgroBridge is a movement built to connect the heart of India directly to "
+"your home. We've built a bridge of trust to eliminate middlemen, ensuring "
+"farmers get a fair price and you get the freshest crops."
+msgstr ""
+"एग्रोब्रिज भारत के दिल को सीधे आपके घर से जोड़ने के लिए बनाया गया एक आंदोलन "
+"है। बिचौलियों को खत्म करने के लिए हमने विश्वास का एक पुल बनाया है, यह "
+"सुनिश्चित करते हुए कि किसानों को उचित मूल्य मिले और आपको सबसे ताजी फसलें "
+"मिलें।"
+
+msgid "Transparency"
+msgstr "पारदर्शिता"
+
+msgid "Honest Pricing"
+msgstr "ईमानदार मूल्य निर्धारण"
+
+msgid "Efficiency"
+msgstr "क्षमता"
+
+msgid "Fresh Deliveries"
+msgstr "ताजा डिलीवरी"
+
+msgid "Locations"
+msgstr "स्थानों"
+
+msgid "AgroBridge – Directly from Farmers"
+msgstr "एग्रोब्रिज – सीधे किसानों से"
+
+msgid ""
+"AgroBridge - The smartest platform connecting farmers directly with "
+"consumers. Buy fresh crops, support local farming, and get AI-powered price "
+"insights."
+msgstr ""
+"एग्रोब्रिज - किसानों को सीधे उपभोक्ताओं से जोड़ने वाला सबसे स्मार्ट "
+"प्लेटफॉर्म। ताजी फसलें खरीदें, स्थानीय खेती का समर्थन करें, और एआई-संचालित "
+"मूल्य अंतर्दृष्टि प्राप्त करें।"
+
+msgid ""
+"Smart platform connecting farmers directly with consumers for fresh, quality"
+" produce."
+msgstr ""
+"किसानों को सीधे उपभोक्ताओं से ताजी, गुणवत्तापूर्ण उपज के लिए जोड़ने वाला "
+"स्मार्ट प्लेटफॉर्म।"
+
+msgid "Platform"
+msgstr "मंच"
+
+msgid "Become a Farmer"
+msgstr "किसान बनें"
+
+msgid "Support"
+msgstr "सहयोग"
+
+msgid "Help Center"
+msgstr "सहायता केंद्र"
+
+msgid "Privacy Policy"
+msgstr "गोपनीयता नीति"
+
+msgid "AI Tools"
+msgstr "एआई टूल्स"
+
+msgid ""
+"Use our AI-powered price prediction and demand forecasting for smarter "
+"farming decisions."
+msgstr ""
+"बेहतर खेती के फैसलों के लिए हमारे एआई-संचालित मूल्य पूर्वानुमान और मांग "
+"पूर्वानुमान का उपयोग करें।"
+
+msgid "© 2025 AgroBridge. Built with ❤️ for Indian farmers."
+msgstr "© 2025 एग्रोब्रिज। भारतीय किसानों के लिए ❤️ के साथ निर्मित।"
+
+msgid "Your Cart"
+msgstr "आपका कार्ट"
+
+msgid "Order Summary"
+msgstr "ऑर्डर सारांश"
+
+msgid "Total"
+msgstr "कुल"
+
+msgid "Proceed to Payment"
+msgstr "भुगतान के लिए आगे बढ़ें"
+
+msgid "Secured by Stripe"
+msgstr "स्ट्राइप द्वारा सुरक्षित"
+
+msgid "Your cart is empty."
+msgstr "आपका कार्ट खाली है।"
+
+msgid "No items in cart."
+msgstr "कार्ट में कोई आइटम नहीं है।"
+
+msgid "Checkout failed:"
+msgstr "चेकआउट विफल हुआ:"
+
+msgid "Processing..."
+msgstr "प्रसंस्करण..."
+
+msgid "Browse Fresh Crops"
+msgstr "ताजी फसलें ब्राउज़ करें"
+
+msgid "Fresh produce directly from farmers near you"
+msgstr "आपके आस-पास के किसानों से सीधे ताजी उपज"
+
+msgid "Filters"
+msgstr "फ़िल्टर"
+
+msgid "Crop Type"
+msgstr "फसल का प्रकार"
+
+msgid "All Types"
+msgstr "सभी प्रकार"
+
+msgid "Price Range (₹/kg)"
+msgstr "मूल्य सीमा (₹/किग्रा)"
+
+msgid "Min"
+msgstr "न्यूनतम"
+
+msgid "Max"
+msgstr "अधिकतम"
+
+msgid "All Locations"
+msgstr "सभी स्थान"
+
+msgid "Within 10 km"
+msgstr "10 किमी के भीतर"
+
+msgid "Within 25 km"
+msgstr "25 किमी के भीतर"
+
+msgid "Within 50 km"
+msgstr "50 किमी के भीतर"
+
+msgid "Use My Location"
+msgstr "मेरे स्थान का उपयोग करें"
+
+msgid "Clear Filters"
+msgstr "फ़िल्टर साफ़ करें"
+
+msgid "Loading fresh produce..."
+msgstr "ताजी उपज लोड हो रही है..."
+
+msgid "No crops found with selected filters."
+msgstr "चयनित फ़िल्टर के साथ कोई फसल नहीं मिली।"
+
+msgid "Loading..."
+msgstr "लोड हो रहा है..."
+
+msgid "Failed to load crops."
+msgstr "फसलें लोड करने में विफल।"
+
+msgid "Add to Cart"
+msgstr "कार्ट में डालें"
+
+msgid "This crop is already in your cart."
+msgstr "यह फसल आपके कार्ट में पहले से ही है।"
+
+msgid "added to cart"
+msgstr "कार्ट में जोड़ा गया"
+
+msgid "Geolocation not supported."
+msgstr "जियोलोकेशन समर्थित नहीं है।"
+
+msgid "Could not get location."
+msgstr "स्थान प्राप्त नहीं किया जा सका।"
+
+msgid "AgroBridge"
+msgstr "एग्रोब्रिज"
+
+msgid "Browse Crops"
+msgstr "फसलें ब्राउज़ करें"
+
+msgid "About"
+msgstr "हमारे बारे में"

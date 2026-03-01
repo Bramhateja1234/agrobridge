@@ -1,0 +1,332 @@
+# Telugu translations for AgroBridge
+msgid ""
+msgstr ""
+"Project-Id-Version: AgroBridge\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-26 15:15+0530\n"
+"PO-Revision-Date: 2026-02-26 15:15+0530\n"
+"Last-Translator: \n"
+"Language-Team: Telugu\n"
+"Language: te\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home – AgroBridge"
+msgstr "హోమ్ – ఆగ్రో బ్రిడ్జ్"
+
+msgid "Connecting"
+msgstr "కనెక్ట్ చేయడం"
+
+msgid "Farmers"
+msgstr "రైతులు"
+
+msgid "Directly to You"
+msgstr "నేరుగా మీకు"
+
+msgid ""
+"Buy fresh, organic, and seasonal crops directly from local farms. Support "
+"farmers, eat healthy, and save money with AI-driven price insights."
+msgstr ""
+"స్థానిక పొలాల నుండి నేరుగా తాజా, సేంద్రీయ మరియు కాలానుగుణ పంటలను కొనుగోలు "
+"చేయండి. రైతులను ఆదుకోండి, ఆరోగ్యకరమైన ఆహారం తీసుకోండి మరియు AI- ఆధారిత ధరల "
+"అంతర్దృష్టులతో డబ్బు ఆదా చేయండి."
+
+msgid "Shop Fresh Crops"
+msgstr "తాజా పంటలను కొనుగోలు చేయండి"
+
+msgid "Sell Your Produce"
+msgstr "మీ ఉత్పత్తులను అమ్మండి"
+
+msgid "Active Farmers"
+msgstr "క్రియాశీల రైతులు"
+
+msgid "Orders Placed"
+msgstr "ఆర్డర్లు చేయబడ్డాయి"
+
+msgid "Crop Varieties"
+msgstr "పంట రకాలు"
+
+msgid "Why Choose AgroBridge?"
+msgstr "ఆగ్రో బ్రిడ్జ్‌ను ఎందుకు ఎంచుకోవాలి?"
+
+msgid "A platform built for farmers, loved by consumers"
+msgstr "రైతుల కోసం నిర్మించిన ప్లాట్‌ఫారమ్, వినియోగదారులచే ఇష్టపడబడేది"
+
+msgid "Nearby Farmers"
+msgstr "సమీపంలోని రైతులు"
+
+msgid "Discover farmers in your area using GPS-based geolocation filtering."
+msgstr ""
+"GPS ఆధారిత జియోలొకేషన్ ఫిల్టరింగ్‌ని ఉపయోగించి మీ ప్రాంతంలోని రైతులను "
+"కనుగొనండి."
+
+msgid "AI Price Insights"
+msgstr "AI ధర అంతర్దృష్టులు"
+
+msgid "Get ML-powered crop price predictions and demand forecasts."
+msgstr "ML-ఆధారిత పంట ధర అంచనాలు మరియు డిమాండ్ సూచనలను పొందండి."
+
+msgid "Secure Payments"
+msgstr "సురక్షిత చెల్లింపులు"
+
+msgid "Pay safely with Stripe's industry-leading payment infrastructure."
+msgstr ""
+"Stripe యొక్క పరిశ్రమ-ప్రముఖ చెల్లింపు మౌలిక సదుపాయాలతో సురక్షితంగా "
+"చెల్లించండి."
+
+msgid "AI-Powered"
+msgstr "AI-ఆధారిత"
+
+msgid "Smart Crop Insights"
+msgstr "స్మార్ట్ పంట అంతర్దృష్టులు"
+
+msgid ""
+"Use our machine learning tools to predict crop prices and forecast demand — "
+"helping farmers price better and consumers plan smarter."
+msgstr ""
+"పంట ధరలను అంచనా వేయడానికి మరియు డిమాండ్‌ను సూచించడానికి మా మెషిన్ లెర్నింగ్ "
+"సాధనాలను ఉపయోగించండి - ఇది రైతులు మెరుగ్గా ధర నిర్ణయించడానికి మరియు "
+"వినియోగదారులు తెలివిగా ప్లాన్ చేయడానికి సహాయపడుతుంది."
+
+msgid "Price Prediction"
+msgstr "ధర అంచనా"
+
+msgid "Wheat · Winter"
+msgstr "గోధుమ · శీతాకాలం"
+
+msgid "Demand Forecast"
+msgstr "డిమాండ్ సూచన"
+
+msgid "Next 3 months"
+msgstr "తదుపరి 3 నెలలు"
+
+msgid "Try AI Tools"
+msgstr "AI సాధనాలను ప్రయత్నించండి"
+
+msgid "Price Predictor"
+msgstr "ధర అంచనా వేసేది"
+
+msgid "Grain"
+msgstr "ధాన్యం"
+
+msgid "Vegetable"
+msgstr "కూరగాయలు"
+
+msgid "Fruit"
+msgstr "పండు"
+
+msgid "Pulse"
+msgstr "పప్పు దినుసులు"
+
+msgid "Oilseed"
+msgstr "నూనెగింజలు"
+
+msgid "Spice"
+msgstr "మసాలా దినుసులు"
+
+msgid "Summer"
+msgstr "వేసవి"
+
+msgid "Winter"
+msgstr "శీతాకాలం"
+
+msgid "Monsoon"
+msgstr "వర్షాకాలం"
+
+msgid "Spring"
+msgstr "వసంతకాలం"
+
+msgid "Quantity (kg)"
+msgstr "పరిమాణం (కిలోలు)"
+
+msgid "Predict Price"
+msgstr "ధరను అంచనా వేయండి"
+
+msgid "Predicted Price:"
+msgstr "అంచనా వేసిన ధర:"
+
+msgid ""
+"Our\n"
+"                    Story"
+msgstr "మా కథ"
+
+msgid "Empowering Farmers, Enriching Lives"
+msgstr "రైతులకు సాధికారత, జీవితాలను సుసంపన్నం చేయడం"
+
+msgid ""
+"AgroBridge is a movement built to connect the heart of India directly to "
+"your home. We've built a bridge of trust to eliminate middlemen, ensuring "
+"farmers get a fair price and you get the freshest crops."
+msgstr ""
+"ఆగ్రో బ్రిడ్జ్ అనేది భారతదేశ హృదయాన్ని నేరుగా మీ ఇంటికి కనెక్ట్ చేయడానికి "
+"నిర్మించిన ఉద్యమం. దళారీలను తొలగించడానికి, రైతులకు తగిన ధర లభించేలా "
+"చేయడానికి మరియు మీకు తాజా పంటలు అందేలా చేయడానికి మేము నమ్మకమైన వంతెనను "
+"నిర్మించాము."
+
+msgid "Transparency"
+msgstr "పారదర్శకత"
+
+msgid "Honest Pricing"
+msgstr "నిజాయితీ గల ధర"
+
+msgid "Efficiency"
+msgstr "సామర్థ్యం"
+
+msgid "Fresh Deliveries"
+msgstr "తాజా డెలివరీలు"
+
+msgid "Locations"
+msgstr "స్థానాలు"
+
+msgid "AgroBridge – Directly from Farmers"
+msgstr "ఆగ్రో బ్రిడ్జ్ – నేరుగా రైతుల నుండి"
+
+msgid ""
+"AgroBridge - The smartest platform connecting farmers directly with "
+"consumers. Buy fresh crops, support local farming, and get AI-powered price "
+"insights."
+msgstr ""
+"ఆగ్రో బ్రిడ్జ్ - రైతులను నేరుగా వినియోగదారులతో కనెక్ట్ చేసే తెలివైన "
+"ప్లాట్‌ఫారమ్. తాజా పంటలను కొనుగోలు చేయండి, స్థానిక వ్యవసాయానికి మద్దతు "
+"ఇవ్వండి మరియు AI-ఆధారిత ధరల అంతర్దృష్టులను పొందండి."
+
+msgid ""
+"Smart platform connecting farmers directly with consumers for fresh, quality"
+" produce."
+msgstr ""
+"తాజా, నాణ్యమైన ఉత్పత్తుల కోసం రైతులను నేరుగా వినియోగదారులతో కనెక్ట్ చేసే "
+"స్మార్ట్ ప్లాట్‌ఫారమ్."
+
+msgid "Platform"
+msgstr "వేదిక"
+
+msgid "Become a Farmer"
+msgstr "రైతుగా మారండి"
+
+msgid "Support"
+msgstr "మద్దతు"
+
+msgid "Help Center"
+msgstr "సహాయ కేంద్రం"
+
+msgid "Privacy Policy"
+msgstr "గోప్యతా విధానం"
+
+msgid "AI Tools"
+msgstr "AI సాధనాలు"
+
+msgid ""
+"Use our AI-powered price prediction and demand forecasting for smarter "
+"farming decisions."
+msgstr ""
+"తెలివిగా వ్యవసాయ నిర్ణయాలు తీసుకోవడానికి మా AI-ఆధారిత ధర అంచనా మరియు డిమాండ్"
+" సూచనలను ఉపయోగించండి."
+
+msgid "© 2025 AgroBridge. Built with ❤️ for Indian farmers."
+msgstr "© 2025 ఆగ్రో బ్రిడ్జ్. భారతీయ రైతుల కోసం ❤️తో నిర్మించబడింది."
+
+msgid "Your Cart"
+msgstr "మీ కార్ట్"
+
+msgid "Order Summary"
+msgstr "ఆర్డర్ సారాంశం"
+
+msgid "Total"
+msgstr "మొత్తం"
+
+msgid "Proceed to Payment"
+msgstr "చెల్లింపు కోసం ముందుకు సాగండి"
+
+msgid "Secured by Stripe"
+msgstr "స్ట్రైప్ ద్వారా సురక్షితం"
+
+msgid "Your cart is empty."
+msgstr "మీ కార్ట్ ఖాళీగా ఉంది."
+
+msgid "No items in cart."
+msgstr "కార్ట్‌లో అంశాలు లేవు."
+
+msgid "Checkout failed:"
+msgstr "చెక్‌అవుట్ విఫలమైంది:"
+
+msgid "Processing..."
+msgstr "ప్రాసెస్ చేయబడుతోంది..."
+
+msgid "Browse Fresh Crops"
+msgstr "తాజా పంటలను బ్రౌజ్ చేయండి"
+
+msgid "Fresh produce directly from farmers near you"
+msgstr "మీ సమీపంలోని రైతుల నుండి నేరుగా తాజా ఉత్పత్తులు"
+
+msgid "Filters"
+msgstr "ఫిల్టర్లు"
+
+msgid "Crop Type"
+msgstr "పంట రకం"
+
+msgid "All Types"
+msgstr "అన్ని రకాలు"
+
+msgid "Price Range (₹/kg)"
+msgstr "ధర పరిధి (₹/కిలో)"
+
+msgid "Min"
+msgstr "కనిష్ట"
+
+msgid "Max"
+msgstr "గరిష్ట"
+
+msgid "All Locations"
+msgstr "అన్ని స్థానాలు"
+
+msgid "Within 10 km"
+msgstr "10 కి.మీ అడుగున"
+
+msgid "Within 25 km"
+msgstr "25 కి.మీ అడుగున"
+
+msgid "Within 50 km"
+msgstr "50 కి.మీ అడుగున"
+
+msgid "Use My Location"
+msgstr "నా స్థానాన్ని ఉపయోగించండి"
+
+msgid "Clear Filters"
+msgstr "ఫిల్టర్లను క్లియర్ చేయండి"
+
+msgid "Loading fresh produce..."
+msgstr "తాజా ఉత్పత్తులను లోడ్ చేస్తోంది..."
+
+msgid "No crops found with selected filters."
+msgstr "ఎంచుకున్న ఫిల్టర్లతో పంటలు కనుగొనబడలేదు."
+
+msgid "Loading..."
+msgstr "లోడ్ అవుతోంది..."
+
+msgid "Failed to load crops."
+msgstr "పంటలను లోడ్ చేయడంలో విఫలమైంది."
+
+msgid "Add to Cart"
+msgstr "కార్ట్‌లో చేర్చండి"
+
+msgid "This crop is already in your cart."
+msgstr "ఈ పంట ఇప్పటికే మీ కార్ట్‌లో ఉంది."
+
+msgid "added to cart"
+msgstr "కార్ట్‌కు జోడించబడింది"
+
+msgid "Geolocation not supported."
+msgstr "జియోలొకేషన్‌కు మద్దతు లేదు."
+
+msgid "Could not get location."
+msgstr "స్థానాన్ని పొందలేకపోయాము."
+
+msgid "AgroBridge"
+msgstr "ఆగ్రో బ్రిడ్జ్"
+
+msgid "Browse Crops"
+msgstr "పంటలను బ్రౌజ్ చేయండి"
+
+msgid "About"
+msgstr "మా గురించి"
