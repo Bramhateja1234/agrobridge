@@ -1,6 +1,7 @@
 from .base import *
 from decouple import config
 import dj_database_url
+import os
 
 DEBUG = False
 
@@ -8,9 +9,8 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default=''),
-        conn_max_age=600,
-        conn_health_checks=True,
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600
     )
 }
 
