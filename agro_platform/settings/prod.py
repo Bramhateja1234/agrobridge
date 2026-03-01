@@ -1,5 +1,5 @@
-"""Production settings."""
 from .base import *
+from decouple import config
 import dj_database_url
 
 DEBUG = False
