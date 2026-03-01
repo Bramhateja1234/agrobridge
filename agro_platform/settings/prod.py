@@ -22,6 +22,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
+    print("✅ DATABASE_URL found. Connecting to PostgreSQL...")
     DATABASES = {
         "default": dj_database_url.config(
             default=DATABASE_URL,
@@ -30,6 +31,7 @@ if DATABASE_URL:
         )
     }
 else:
+    print("⚠️ DATABASE_URL not found! Falling back to SQLite (Data will not persist).")
     # Fallback for build phase only
     DATABASES = {
         "default": {
