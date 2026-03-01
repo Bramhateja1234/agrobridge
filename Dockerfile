@@ -25,8 +25,8 @@ COPY . /app/
 # Run collectstatic (using a dummy key to avoid build errors)
 RUN SECRET_KEY=build-time-only-key python manage.py collectstatic --noinput
 
-# Expose port
-EXPOSE 8000
+# Expose port (Render uses 10000 by default)
+EXPOSE 10000
 
-# Start Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "agro_platform.wsgi:application"]
+# Start Gunicorn (Binding to 0.0.0.0:$PORT which Render provides)
+CMD gunicorn --bind 0.0.0.0:$PORT agro_platform.wsgi:application
