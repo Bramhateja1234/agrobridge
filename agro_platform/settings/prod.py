@@ -9,15 +9,15 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-change-me-in-production")
 # Trust Render/Railway hostname and any custom domains
 ALLOWED_HOSTS = ['*']
 
-# CSRF & CORS Security for Render
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
-CORS_ALLOWED_ORIGINS = ['https://*.onrender.com']
+# CSRF & CORS Security for Railway
+CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app']
+CORS_ALLOWED_ORIGINS = ['https://*.up.railway.app']
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+RAILWAY_STATIC_URL = os.environ.get('RAILWAY_STATIC_URL')
 
-if RENDER_EXTERNAL_HOSTNAME:
-    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
-    CORS_ALLOWED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
+if RAILWAY_STATIC_URL:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RAILWAY_STATIC_URL}')
+    CORS_ALLOWED_ORIGINS.append(f'https://{RAILWAY_STATIC_URL}')
 
 # HTTPS/SSL Settings for Proxy (Render)
 USE_X_FORWARDED_HOST = True
