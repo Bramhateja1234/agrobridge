@@ -1,1 +1,1 @@
-web: gunicorn agro_platform.wsgi:application
+web: gunicorn agro_platform.wsgi

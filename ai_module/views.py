@@ -60,6 +60,7 @@ class PredictDemandView(APIView):
 from .gemini_service import GeminiService
 from .external_services import WeatherService, NewsService
 from rest_framework.decorators import api_view, permission_classes
+from django.utils.translation import get_language
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -69,6 +70,7 @@ def crop_recommendation(request):
     Body: { "state": "...", "district": "...", "season": "...", "n": 50, "p": 30, "k": 40, "ph": 6.5, "temp": 28, "hum": 70, "rain": 1000 }
     """
     data = request.data
+    lang = get_language() or 'en'
     prompt = f"""
     Recommend the best crop for these parameters in India:
     State: {data.get('state', 'Unknown')}
@@ -76,6 +78,8 @@ def crop_recommendation(request):
     Season: {data.get('season', 'Unknown')}
     Soil: N={data.get('n', 0)}, P={data.get('p', 0)}, K={data.get('k', 0)}, pH={data.get('ph', 7)}
     Weather: Temp={data.get('temp', 25)}°C, Humidity={data.get('hum', 50)}%, Rainfall={data.get('rain', 800)}mm
+    
+    IMPORTANT: Respond completely in the language corresponding to this ISO code: '{lang}'.
 
     Return ONLY valid JSON:
     {{
@@ -100,8 +104,9 @@ def crop_recommendation(request):
         ],
         "reasoning": "Based on balanced soil parameters and seasonal conditions."
     }
+    user_key = request.user.id if request.user.is_authenticated else request.META.get('REMOTE_ADDR', 'anonymous')
     service = GeminiService()
-    result = service.generate_json(prompt, fallback)
+    result = service.generate_json(prompt, fallback, lang=lang, user_key=user_key, prompt_type="crop")
     return Response(result)
 
 
@@ -113,11 +118,14 @@ def fertilizer_advice(request):
     Body: { "crop_name": "Wheat", "n": 50, "p": 30, "k": 40, "soil_health": "..." }
     """
     data = request.data
+    lang = get_language() or 'en'
     prompt = f"""
     Provide professional fertilizer advice for:
     Crop Name: {data.get('crop_name', 'unknown')}
     Current Soil Levels: N={data.get('n', 0)}, P={data.get('p', 0)}, K={data.get('k', 0)}
     Soil Health/Condition: {data.get('soil_health', 'Normal')}
+
+    IMPORTANT: Respond completely in the language corresponding to this ISO code: '{lang}'.
 
     Return ONLY valid JSON:
     {{
@@ -137,8 +145,9 @@ def fertilizer_advice(request):
         "precautions": ["Apply during cool hours", "Ensure soil moisture"],
         "soil_analysis": "Levels indicate slight nitrogen deficiency for the selected crop."
     }
+    user_key = request.user.id if request.user.is_authenticated else request.META.get('REMOTE_ADDR', 'anonymous')
     service = GeminiService()
-    result = service.generate_json(prompt, fallback)
+    result = service.generate_json(prompt, fallback, lang=lang, user_key=user_key, prompt_type="crop")
     return Response(result)
 
 
@@ -150,12 +159,15 @@ def yield_prediction(request):
     Body: { "crop_name": "Rice", "area_acres": 5, "rainfall_mm": 1200, "fertilizer_used": "Urea" }
     """
     data = request.data
+    lang = get_language() or 'en'
     prompt = f"""
     Predict crop yield for:
     Crop Name: {data.get('crop_name', 'Rice')}
     Area (Acres): {data.get('area_acres', 1)}
     Rainfall (mm): {data.get('rainfall_mm', 1000)}
     Fertilizer Used: {data.get('fertilizer_used', 'standard')}
+
+    IMPORTANT: Respond completely in the language corresponding to this ISO code: '{lang}'.
 
     Return ONLY valid JSON:
     {{
@@ -171,8 +183,9 @@ def yield_prediction(request):
         "environmental_factors": ["Standard rainfall", "Standard soil"],
         "optimization_tips": ["Improve irrigation", "Use balanced fertilization"]
     }
+    user_key = request.user.id if request.user.is_authenticated else request.META.get('REMOTE_ADDR', 'anonymous')
     service = GeminiService()
-    result = service.generate_json(prompt, fallback)
+    result = service.generate_json(prompt, fallback, lang=lang, user_key=user_key, prompt_type="crop")
     return Response(result)
 
 
@@ -184,10 +197,13 @@ def rainfall_prediction(request):
     Body: { "location": "Maharastra", "month": "July" }
     """
     data = request.data
+    lang = get_language() or 'en'
     prompt = f"""
     Predict rainfall pattern for:
     Location: {data.get('location', 'India')}
     Month: {data.get('month', 'current monsoon')}
+
+    IMPORTANT: Respond completely in the language corresponding to this ISO code: '{lang}'.
 
     Return ONLY valid JSON:
     {{
@@ -203,8 +219,9 @@ def rainfall_prediction(request):
         "impact_on_crops": "Suitable for most seasonal crops",
         "action_plan": ["Standard irrigation", "Ensure proper drainage"]
     }
+    user_key = request.user.id if request.user.is_authenticated else request.META.get('REMOTE_ADDR', 'anonymous')
     service = GeminiService()
-    result = service.generate_json(prompt, fallback)
+    result = service.generate_json(prompt, fallback, lang=lang, user_key=user_key, prompt_type="weather")
     return Response(result)
 
 

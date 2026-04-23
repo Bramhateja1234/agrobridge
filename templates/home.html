@@ -16,16 +16,16 @@
                 <p class="lead mb-4 opacity-75" style="animation: fadeInUp 1s both">
                     {% blocktrans trimmed %}
                     Buy fresh, organic, and seasonal crops directly from local farms. Support farmers,
-                    eat healthy, and save money with AI-driven price insights.
+                    eat healthy, and save money with direct-to-consumer pricing.
                     {% endblocktrans %}
                 </p>
                 <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start"
                     style="animation: fadeInUp 1.2s both">
-                    <a href="/auth/login/?role=consumer" class="btn btn-warning btn-lg px-4 fs-6 fw-bold shadow">
-                        <i class="bi bi-shop me-2"></i>{% trans "Shop Fresh Crops" %}
+                    <a href="/auth/login/" class="btn btn-warning btn-lg px-4 fs-6 fw-bold shadow">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>{% trans "Login" %}
                     </a>
-                    <a href="/auth/login/?role=farmer" class="btn btn-outline-light btn-lg px-4 fs-6 fw-bold border-2">
-                        {% trans "Sell Your Produce" %}
+                    <a href="/auth/register/" class="btn btn-outline-light btn-lg px-4 fs-6 fw-bold border-2">
+                        <i class="bi bi-person-plus me-2"></i>{% trans "Register" %}
                     </a>
                 </div>
                 <!-- Stats Row -->
@@ -85,10 +85,10 @@
                 <div class="feature-card h-100 p-4 rounded-4 bg-white shadow-sm text-center">
                     <div class="feature-icon bg-primary-subtle rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
                         style="width:64px;height:64px">
-                        <i class="bi bi-cpu-fill text-primary fs-3"></i>
+                        <i class="bi bi-patch-check-fill text-primary fs-3"></i>
                     </div>
-                    <h5 class="fw-bold">{% trans "AI Price Insights" %}</h5>
-                    <p class="text-muted">{% trans "Get ML-powered crop price predictions and demand forecasts." %}</p>
+                    <h5 class="fw-bold">{% trans "Quality Verification" %}</h5>
+                    <p class="text-muted">{% trans "Rigorous quality checks ensure you get the best produce every time." %}</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -109,74 +109,16 @@
     </div>
 </section>
 
-<!-- AI Tools Promo -->
-<section class="py-5">
-    <div class="container">
-        <div class="row align-items-center g-5">
-            <div class="col-md-6">
-                <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill mb-3">{% trans "AI-Powered" %}</span>
-                <h2 class="fw-bold mb-3">{% trans "Smart Crop Insights" %}</h2>
-                <p class="text-muted">
-                    {% blocktrans trimmed %}
-                    Use our machine learning tools to predict crop prices and forecast
-                    demand — helping farmers price better and consumers plan smarter.
-                    {% endblocktrans %}
-                </p>
-                <div class="d-flex gap-4 mt-4">
-                    <div class="ai-demo-card p-3 rounded-3 border">
-                        <div class="small text-muted mb-1">{% trans "Price Prediction" %}</div>
-                        <div class="fw-bold fs-5 text-success">₹42.50/kg</div>
-                        <div class="small text-muted">{% trans "Wheat · Winter" %}</div>
-                    </div>
-                    <div class="ai-demo-card p-3 rounded-3 border">
-                        <div class="small text-muted mb-1">{% trans "Demand Forecast" %}</div>
-                        <div class="fw-bold fs-5 text-primary">↑ 12%</div>
-                        <div class="small text-muted">{% trans "Next 3 months" %}</div>
-                    </div>
-                </div>
-                <a href="#ai-tools" class="btn btn-primary mt-4">{% trans "Try AI Tools" %}</a>
-            </div>
-            <div class="col-md-6">
-                <!-- AI Price Tool -->
-                <div id="ai-tools" class="card shadow-sm border-0 rounded-4">
-                    <div class="card-body p-4">
-                        <h6 class="fw-bold mb-3"><i class="bi bi-cpu me-2 text-primary"></i>{% trans "Price Predictor" %}</h6>
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <select class="form-select form-select-sm" id="aiCropType">
-                                    <option value="grain">{% trans "Grain" %}</option>
-                                    <option value="vegetable">{% trans "Vegetable" %}</option>
-                                    <option value="fruit">{% trans "Fruit" %}</option>
-                                    <option value="pulse">{% trans "Pulse" %}</option>
-                                    <option value="oilseed">{% trans "Oilseed" %}</option>
-                                    <option value="spice">{% trans "Spice" %}</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <select class="form-select form-select-sm" id="aiSeason">
-                                    <option value="summer">{% trans "Summer" %}</option>
-                                    <option value="winter">{% trans "Winter" %}</option>
-                                    <option value="monsoon">{% trans "Monsoon" %}</option>
-                                    <option value="spring">{% trans "Spring" %}</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <input type="number" class="form-control form-control-sm" id="aiQuantity"
-                                    placeholder="{% trans 'Quantity (kg)' %}" value="100">
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary btn-sm w-100" onclick="predictPrice()">{% trans "Predict Price" %}</button>
-                            </div>
-                            <div class="col-12" id="aiPriceResult" style="display:none">
-                                <div class="alert alert-success mb-0 py-2">
-                                    <strong>{% trans "Predicted Price:" %}</strong> <span id="aiPriceValue"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- Vision Section -->
+<section class="py-5 bg-success bg-opacity-10">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">{% trans "Supporting Our Farming Community" %}</h2>
+        <p class="text-muted mx-auto" style="max-width: 800px;">
+            {% blocktrans trimmed %}
+            AgroBridge provides farmers with a direct marketplace to sell their crops at fair prices. 
+            By eliminating middlemen, we help farmers earn more while keeping prices affordable for you.
+            {% endblocktrans %}
+        </p>
     </div>
 </section>
 
@@ -247,23 +189,6 @@
 
 {% block extra_js %}
 <script>
-    async function predictPrice() {
-        const cropType = document.getElementById('aiCropType').value;
-        const season = document.getElementById('aiSeason').value;
-        const quantity = document.getElementById('aiQuantity').value;
-        try {
-            const res = await fetch('/api/predict-price/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ crop_type: cropType, season, quantity: parseFloat(quantity) })
-            });
-            const data = await res.json();
-            document.getElementById('aiPriceValue').textContent =
-                `₹${data.predicted_price_per_kg}/kg · Total: ₹${data.total_estimated_value}`;
-            document.getElementById('aiPriceResult').style.display = 'block';
-        } catch (e) {
-            alert('Prediction failed. Try again later.');
-        }
-    }
+    // AI Price Prediction logic removed from public home page per requirement.
 </script>
 {% endblock %}

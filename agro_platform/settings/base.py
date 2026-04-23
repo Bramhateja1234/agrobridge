@@ -6,15 +6,13 @@ from pathlib import Path
 from datetime import timedelta
 from decouple import config
 
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-production')
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 DJANGO_APPS = [
@@ -158,3 +156,13 @@ FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:8000')
 GEMINI_API_KEY = config('GEMINI_API_KEY', default='')
 OPENWEATHER_API_KEY = config('OPENWEATHER_API_KEY', default='')
 NEWS_API_KEY = config('NEWS_API_KEY', default='')
+FAST2SMS_API_KEY = config('FAST2SMS_API_KEY', default='')
+
+# Email Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

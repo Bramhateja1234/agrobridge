@@ -2,81 +2,80 @@
 {% load static i18n %}
 {% block title %}{% trans "Browse Crops" %} – AgroBridge{% endblock %}
 
+{% block extra_css %}
+<style>
+    .filter-chip { transition: all 0.2s ease-in-out; }
+    .filter-chip.active { font-weight: bold; box-shadow: 0 4px 10px rgba(25, 135, 84, 0.2); }
+    .crop-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .crop-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important; }
+    .skeleton-card { background: #f8f9fa; border-radius: 1rem; overflow: hidden; height: 100%; }
+    .skeleton-img { height: 180px; background: #e9ecef; animation: pulse 1.5s infinite ease-in-out; }
+    .skeleton-line { height: 15px; background: #e9ecef; border-radius: 4px; margin-bottom: 10px; animation: pulse 1.5s infinite ease-in-out; }
+    @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container py-5">
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="fw-bold mb-1">{% trans "Browse Fresh Crops" %}</h2>
-            <p class="text-muted mb-0">{% trans "Fresh produce directly from farmers near you" %}</p>
+    <!-- Redesigned Top Section -->
+    <div class="row align-items-center mb-4 bg-success bg-opacity-10 p-4 rounded-4 shadow-sm border border-success border-opacity-25">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <h2 class="fw-bold mb-1 text-success"><i class="bi bi-flower1 me-2"></i>{% trans "Fresh Crops Near You" %}</h2>
+            <p class="text-muted mb-0">
+                <i class="bi bi-geo-alt-fill text-danger me-1"></i>{% trans "Delivering to:" %} 
+                <span id="userLocationText" class="fw-bold text-dark">{% trans "Your Location" %}</span>
+            </p>
         </div>
-        <a href="/cart/" class="btn btn-success position-relative" id="cartBtn">
-            <i class="bi bi-cart3 me-2"></i>{% trans "Cart" %}
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartBadge"
-                style="display:none">0</span>
-        </a>
+        <div class="col-md-6">
+            <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden border bg-white">
+                <span class="input-group-text bg-white border-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" class="form-control border-0 shadow-none" id="searchInput" placeholder="{% trans 'Search crops, farmers...' %}" onkeyup="clientSideSearch()">
+            </div>
+        </div>
     </div>
 
-    <div class="row g-4">
-        <!-- Filters Sidebar -->
-        <div class="col-lg-3">
-            <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top:80px">
-                <h6 class="fw-bold mb-3"><i class="bi bi-funnel me-2"></i>{% trans "Filters" %}</h6>
-                <!-- Type Filter -->
-                <div class="mb-3">
-                    <label class="form-label fw-semibold small">{% trans "Crop Type" %}</label>
-                    <select class="form-select form-select-sm" id="filterType" onchange="applyFilters()">
-                        <option value="">{% trans "All Types" %}</option>
-                        <option value="grain">{% trans "Grain" %}</option>
-                        <option value="vegetable">{% trans "Vegetable" %}</option>
-                        <option value="fruit">{% trans "Fruit" %}</option>
-                        <option value="pulse">{% trans "Pulse" %}</option>
-                        <option value="oilseed">{% trans "Oilseed" %}</option>
-                        <option value="spice">{% trans "Spice" %}</option>
-                    </select>
-                </div>
-                <!-- Price Range -->
-                <div class="mb-3">
-                    <label class="form-label fw-semibold small">{% trans "Price Range (₹/kg)" %}</label>
-                    <div class="d-flex gap-2 align-items-center">
-                        <input type="number" class="form-control form-control-sm" id="minPrice"
-                            placeholder="{% trans 'Min' %}" onchange="applyFilters()">
-                        <span>–</span>
-                        <input type="number" class="form-control form-control-sm" id="maxPrice"
-                            placeholder="{% trans 'Max' %}" onchange="applyFilters()">
-                    </div>
-                </div>
-                <!-- Location Filter -->
-                <div class="mb-3">
-                    <label class="form-label fw-semibold small">{% trans "Nearby Farmers" %}</label>
-                    <select class="form-select form-select-sm" id="filterRadius" onchange="applyFilters()">
-                        <option value="">{% trans "All Locations" %}</option>
-                        <option value="10">{% trans "Within 10 km" %}</option>
-                        <option value="25">{% trans "Within 25 km" %}</option>
-                        <option value="50">{% trans "Within 50 km" %}</option>
-                    </select>
-                    <button class="btn btn-outline-secondary btn-sm mt-2 w-100" onclick="detectAndFilter()">
-                        <i class="bi bi-geo-alt me-1"></i>{% trans "Use My Location" %}
-                    </button>
-                </div>
-                <button class="btn btn-outline-danger btn-sm w-100" onclick="clearFilters()">{% trans "Clear Filters"
-                    %}</button>
-            </div>
-        </div>
+    <!-- Modern Filters -->
+    <div class="d-flex flex-wrap gap-2 mb-3" id="categoryChips">
+        <button class="btn btn-success rounded-pill px-4 filter-chip active" data-type="" onclick="setCategory(this, '')">{% trans "All" %}</button>
+        <button class="btn btn-outline-success rounded-pill px-4 filter-chip" data-type="vegetable" onclick="setCategory(this, 'vegetable')">{% trans "Vegetables" %}</button>
+        <button class="btn btn-outline-success rounded-pill px-4 filter-chip" data-type="fruit" onclick="setCategory(this, 'fruit')">{% trans "Fruits" %}</button>
+        <button class="btn btn-outline-success rounded-pill px-4 filter-chip" data-type="grain" onclick="setCategory(this, 'grain')">{% trans "Grains" %}</button>
+        <button class="btn btn-outline-success rounded-pill px-4 filter-chip" data-type="pulse" onclick="setCategory(this, 'pulse')">{% trans "Pulses" %}</button>
+        <button class="btn btn-outline-success rounded-pill px-4 filter-chip" data-type="spice" onclick="setCategory(this, 'spice')">{% trans "Spices" %}</button>
+    </div>
 
-        <!-- Crop Grid -->
-        <div class="col-lg-9">
-            <div class="row g-3" id="cropGrid">
-                <div class="col-12 text-center py-5">
-                    <div class="spinner-border text-success" role="status"></div>
-                    <p class="mt-2 text-muted">{% trans "Loading fresh produce..." %}</p>
-                </div>
-            </div>
-            <div id="noResults" class="text-center py-5 d-none">
-                <i class="bi bi-search fs-1 text-muted"></i>
-                <p class="text-muted mt-2">{% trans "No crops found with selected filters." %}</p>
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 bg-light p-3 rounded-4 border shadow-sm">
+        <div class="d-flex align-items-center gap-3">
+            <label class="fw-bold text-muted mb-0 small"><i class="bi bi-tags-fill me-1"></i>{% trans "Price Range:" %}</label>
+            <div class="input-group input-group-sm" style="max-width: 200px;">
+                <span class="input-group-text bg-white border-end-0">₹</span>
+                <input type="number" class="form-control border-start-0" id="minPrice" placeholder="{% trans 'Min' %}" onchange="applyFilters()">
+                <span class="input-group-text bg-white border-start-0 border-end-0">-</span>
+                <input type="number" class="form-control border-start-0" id="maxPrice" placeholder="{% trans 'Max' %}" onchange="applyFilters()">
             </div>
         </div>
+        <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+            <div class="form-check form-switch fs-5">
+                <input class="form-check-input bg-success border-success shadow-none" type="checkbox" role="switch" id="nearbyToggle" onchange="toggleNearby()" style="cursor: pointer;">
+                <label class="form-check-label fs-6 fw-bold text-muted ms-2 mt-1" for="nearbyToggle" style="cursor: pointer;">{% trans "Within 10km" %}</label>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="clearFilters()"><i class="bi bi-arrow-counterclockwise me-1"></i>{% trans "Reset" %}</button>
+        </div>
+    </div>
+
+    <!-- Crop Grid -->
+    <div class="row g-4" id="cropGrid">
+        <!-- Skeleton Loading State -->
+        <div class="col-12 col-md-6 col-lg-4"><div class="skeleton-card"><div class="skeleton-img"></div><div class="p-3"><div class="skeleton-line w-75"></div><div class="skeleton-line w-50"></div><div class="skeleton-line w-100 mt-3"></div></div></div></div>
+        <div class="col-12 col-md-6 col-lg-4"><div class="skeleton-card"><div class="skeleton-img"></div><div class="p-3"><div class="skeleton-line w-75"></div><div class="skeleton-line w-50"></div><div class="skeleton-line w-100 mt-3"></div></div></div></div>
+        <div class="col-12 col-md-6 col-lg-4"><div class="skeleton-card"><div class="skeleton-img"></div><div class="p-3"><div class="skeleton-line w-75"></div><div class="skeleton-line w-50"></div><div class="skeleton-line w-100 mt-3"></div></div></div></div>
+    </div>
+    
+    <div id="noResults" class="text-center py-5 d-none bg-light rounded-4 border shadow-sm mt-4">
+        <i class="bi bi-basket3 fs-1 text-muted mb-3 d-block"></i>
+        <h5 class="fw-bold text-dark">{% trans "No crops available near you" %}</h5>
+        <p class="text-muted">{% trans "Try adjusting your filters or search term." %}</p>
+        <button class="btn btn-outline-success rounded-pill px-4 mt-2 fw-semibold" onclick="clearFilters()">{% trans "Try another location" %}</button>
     </div>
 </div>
 
@@ -85,7 +84,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content rounded-4">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold" id="cropReviewsTitle">Crop Reviews</h5>
+                <h5 class="modal-title fw-bold" id="cropReviewsTitle">{% trans 'Crop Reviews' %}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="cropReviewsBody">
@@ -107,114 +106,245 @@
         alreadyInCart: "{% trans 'This crop is already in your cart.' %}",
         addedToCart: "{% trans 'added to cart' %}",
         geolocationNotSupported: "{% trans 'Geolocation not supported.' %}",
-        couldNotGetLocation: "{% trans 'Could not get location.' %}"
+        couldNotGetLocation: "{% trans 'Could not get location.' %}",
+        popular: "{% trans 'Popular' %}",
+        bestPrice: "{% trans 'Best Price' %}",
+        fresh: "{% trans 'Fresh' %}",
+        reviews: "{% trans 'Reviews' %}",
+        boughtBy: "{% trans 'Bought by' %}",
+        people: "{% trans 'people' %}",
+        perKg: "{% trans '/kg' %}"
     };
 
     let userLat = null, userLon = null;
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let currentType = '';
+    let allCropsCache = []; // Cache for client-side search
 
-    function updateCartBadge() {
-        const badge = document.getElementById('cartBadge');
-        badge.textContent = cart.length;
-        badge.style.display = cart.length ? 'block' : 'none';
+    // 1. Geolocation integration
+    function initLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async pos => {
+                userLat = pos.coords.latitude; 
+                userLon = pos.coords.longitude;
+                try {
+                    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLat}&lon=${userLon}&zoom=10`);
+                    const data = await res.json();
+                    let city = data.address.city || data.address.town || data.address.village || data.address.county || i18n.yourLocation;
+                    document.getElementById('userLocationText').textContent = city;
+                } catch {
+                    document.getElementById('userLocationText').textContent = "{% trans 'Your Location' %}";
+                }
+            }, () => {
+                document.getElementById('userLocationText').textContent = "{% trans 'Your Location' %}";
+            });
+        }
     }
-    updateCartBadge();
 
+    // 2. Load Crops API
     async function loadCrops(params = {}) {
         const grid = document.getElementById('cropGrid');
         const noResults = document.getElementById('noResults');
-        grid.innerHTML = `<div class="col-12 text-center py-5"><div class="spinner-border text-success"></div><p class="mt-2 text-muted">${i18n.loading}</p></div>`;
+        
+        // Show skeleton
+        grid.innerHTML = `
+            <div class="col-12 col-md-6 col-lg-4"><div class="skeleton-card"><div class="skeleton-img"></div><div class="p-3"><div class="skeleton-line w-75"></div><div class="skeleton-line w-50"></div><div class="skeleton-line w-100 mt-3"></div></div></div></div>
+            <div class="col-12 col-md-6 col-lg-4"><div class="skeleton-card"><div class="skeleton-img"></div><div class="p-3"><div class="skeleton-line w-75"></div><div class="skeleton-line w-50"></div><div class="skeleton-line w-100 mt-3"></div></div></div></div>
+            <div class="col-12 col-md-6 col-lg-4"><div class="skeleton-card"><div class="skeleton-img"></div><div class="p-3"><div class="skeleton-line w-75"></div><div class="skeleton-line w-50"></div><div class="skeleton-line w-100 mt-3"></div></div></div></div>
+        `;
         noResults.classList.add('d-none');
 
         const qs = new URLSearchParams(params).toString();
         try {
             const res = await fetch(`/api/crops/?${qs}`);
             const data = await res.json();
-            const crops = data.results || data;
-            if (!crops.length) { grid.innerHTML = ''; noResults.classList.remove('d-none'); return; }
-            grid.innerHTML = crops.map(c => `
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm rounded-4 crop-card hover-lift">
+            allCropsCache = data.results || data;
+            renderCrops(allCropsCache);
+        } catch { 
+            grid.innerHTML = `<div class="col-12"><div class="alert alert-danger shadow-sm rounded-4">${i18n.failedToLoad}</div></div>`; 
+        }
+    }
+
+    // Render crop cards dynamically
+    function renderCrops(cropsToRender) {
+        const grid = document.getElementById('cropGrid');
+        const noResults = document.getElementById('noResults');
+
+        if (!cropsToRender || !cropsToRender.length) { 
+            grid.innerHTML = ''; 
+            noResults.classList.remove('d-none'); 
+            return; 
+        }
+        noResults.classList.add('d-none');
+
+        grid.innerHTML = cropsToRender.map(c => {
+            // Dynamic Badges
+            let badgeHtml = '';
+            if (c.total_orders > 10 && c.average_rating >= 4.0) {
+                badgeHtml = `<span class="badge bg-danger position-absolute top-0 end-0 m-3 shadow-sm rounded-pill py-2 px-3 fw-semibold"><i class="bi bi-fire me-1"></i>${i18n.popular}</span>`;
+            } else if (c.price_per_kg < 50) {
+                badgeHtml = `<span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3 shadow-sm rounded-pill py-2 px-3 fw-semibold"><i class="bi bi-cash-coin me-1"></i>${i18n.bestPrice}</span>`;
+            } else {
+                badgeHtml = `<span class="badge bg-success position-absolute top-0 end-0 m-3 shadow-sm rounded-pill py-2 px-3 fw-semibold"><i class="bi bi-stars me-1"></i>${i18n.fresh}</span>`;
+            }
+
+            return `
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 border border-success border-opacity-10 shadow-sm rounded-4 crop-card position-relative overflow-hidden bg-white">
+                    ${badgeHtml}
                     ${c.image_url
-                    ? `<img src="${c.image_url}" class="card-img-top rounded-top-4" style="height:180px;object-fit:cover">`
-                    : `<div class="d-flex align-items-center justify-content-center rounded-top-4" style="height:180px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9)"><i class="bi bi-flower1 fs-1 text-success"></i></div>`}
-                    <div class="card-body p-3">
+                    ? `<img src="${c.image_url}" class="card-img-top" style="height:200px;object-fit:cover">`
+                    : `<div class="d-flex align-items-center justify-content-center" style="height:200px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9)"><i class="bi bi-flower1 fs-1 text-success"></i></div>`}
+                    <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h6 class="fw-bold mb-0">${c.name}</h6>
-                            <span class="badge bg-success-subtle text-success small">${c.type}</span>
+                            <h5 class="fw-bold text-dark mb-0">${c.name}</h5>
+                            <span class="badge bg-success-subtle text-success border border-success border-opacity-25 rounded-pill px-2 py-1">${c.type}</span>
                         </div>
-                        <p class="text-muted small mb-2"><i class="bi bi-person me-1"></i>${c.farmer_name}</p>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge bg-warning text-dark" style="cursor: pointer;" onclick="showCropReviews(${c.id}, '${c.name.replace(/'/g, "\\'")}')" title="Click to read reviews">
-                                <i class="bi bi-star-fill me-1"></i>${c.average_rating} <small class="fw-normal text-muted ms-1 text-dark text-decoration-underline">Reviews</small>
+                        <p class="text-muted small mb-3"><i class="bi bi-person-circle me-1 text-secondary"></i>${c.farmer_name}</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3 bg-light p-2 rounded-3 border">
+                            <span class="text-warning fw-bold" style="cursor: pointer;" onclick="showCropReviews(${c.id}, '${c.name.replace(/'/g, "\\'")}')" title="Click to read reviews">
+                                <i class="bi bi-star-fill me-1"></i>${c.average_rating} 
+                                <small class="text-muted fw-normal text-decoration-underline ms-1">${i18n.reviews}</small>
                             </span>
-                            <small class="text-muted"><i class="bi bi-bag-check me-1"></i>Bought by ${c.total_orders} people</small>
+                            <small class="text-muted fw-semibold"><i class="bi bi-cart-check me-1 text-primary"></i>${c.total_orders} ${i18n.people}</small>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
+                        
+                        <div class="d-flex justify-content-between align-items-end mt-2">
                             <div>
-                                <span class="fw-bold text-success fs-5">₹${c.price_per_kg}<small class="text-muted fw-normal fs-6">/kg</small></span>
+                                <span class="d-block text-muted small fw-bold mb-1"><i class="bi bi-box-seam me-1"></i>{% trans "Stock:" %} <span class="text-dark">${c.quantity_available}kg</span></span>
+                                <span class="fw-bold text-success fs-4">₹${c.price_per_kg}<small class="text-muted fw-normal fs-6">${i18n.perKg}</small></span>
                             </div>
-                            <small class="text-muted"><i class="bi bi-box me-1"></i>${c.quantity_available}kg</small>
                         </div>
                     </div>
-                    <div class="card-footer bg-transparent border-0 pb-3 px-3">
-                        <button class="btn btn-success btn-sm w-100 fw-semibold" onclick="addToCart(${JSON.stringify(c).replace(/"/g, '&quot;')})">
-                            <i class="bi bi-cart-plus me-1"></i>${i18n.addToCart}
+                    <div class="card-footer bg-transparent border-0 p-4 pt-0 mt-auto">
+                        <button class="btn btn-success w-100 fw-bold rounded-pill py-2 shadow-sm hover-lift" onclick="addToCartLocal(${JSON.stringify(c).replace(/"/g, '&quot;')})">
+                            <i class="bi bi-cart-plus me-2"></i>${i18n.addToCart}
                         </button>
                     </div>
                 </div>
-            </div>`).join('');
-        } catch { grid.innerHTML = `<div class="col-12"><div class="alert alert-danger">${i18n.failedToLoad}</div></div>`; }
+            </div>`;
+        }).join('');
+    }
+
+    // 3. Client Side Search
+    function clientSideSearch() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        if (!query) {
+            renderCrops(allCropsCache);
+            return;
+        }
+        const filtered = allCropsCache.filter(c => 
+            c.name.toLowerCase().includes(query) || 
+            c.farmer_name.toLowerCase().includes(query) ||
+            c.type.toLowerCase().includes(query)
+        );
+        renderCrops(filtered);
+    }
+
+    // 4. Chip Selection & Filters
+    function setCategory(btn, type) {
+        document.querySelectorAll('.filter-chip').forEach(b => {
+            b.classList.remove('active', 'btn-success');
+            b.classList.add('btn-outline-success');
+        });
+        btn.classList.remove('btn-outline-success');
+        btn.classList.add('active', 'btn-success');
+        currentType = type;
+        applyFilters();
+    }
+
+    function toggleNearby() {
+        const isNearby = document.getElementById('nearbyToggle').checked;
+        if (isNearby) {
+            if (!navigator.geolocation) {
+                alert(i18n.geolocationNotSupported);
+                document.getElementById('nearbyToggle').checked = false;
+                return;
+            }
+            if (!userLat || !userLon) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    userLat = pos.coords.latitude; userLon = pos.coords.longitude;
+                    applyFilters();
+                }, () => {
+                    alert(i18n.couldNotGetLocation);
+                    document.getElementById('nearbyToggle').checked = false;
+                });
+            } else {
+                applyFilters();
+            }
+        } else {
+            applyFilters();
+        }
     }
 
     function applyFilters() {
         const params = {};
-        const type = document.getElementById('filterType').value;
+        if (currentType) params.type = currentType;
+        
         const min = document.getElementById('minPrice').value;
         const max = document.getElementById('maxPrice').value;
-        const radius = document.getElementById('filterRadius').value;
-        if (type) params.type = type;
         if (min) params.min_price = min;
         if (max) params.max_price = max;
-        if (radius && userLat && userLon) { params.lat = userLat; params.lon = userLon; params.radius = radius; }
+        
+        const isNearby = document.getElementById('nearbyToggle').checked;
+        if (isNearby && userLat && userLon) {
+            params.lat = userLat;
+            params.lon = userLon;
+            params.radius = 10;
+        }
+        
+        // Reset search input when applying hard filters
+        document.getElementById('searchInput').value = '';
         loadCrops(params);
     }
 
     function clearFilters() {
-        document.getElementById('filterType').value = '';
+        // Reset UI
+        document.querySelectorAll('.filter-chip').forEach(b => {
+            b.classList.remove('active', 'btn-success');
+            b.classList.add('btn-outline-success');
+        });
+        const allBtn = document.querySelector('.filter-chip[data-type=""]');
+        if (allBtn) {
+            allBtn.classList.remove('btn-outline-success');
+            allBtn.classList.add('active', 'btn-success');
+        }
+        
         document.getElementById('minPrice').value = '';
         document.getElementById('maxPrice').value = '';
-        document.getElementById('filterRadius').value = '';
-        userLat = null; userLon = null;
+        document.getElementById('nearbyToggle').checked = false;
+        document.getElementById('searchInput').value = '';
+        currentType = '';
+        
         loadCrops();
     }
 
-    function detectAndFilter() {
-        if (!navigator.geolocation) return alert(i18n.geolocationNotSupported);
-        navigator.geolocation.getCurrentPosition(pos => {
-            userLat = pos.coords.latitude; userLon = pos.coords.longitude;
-            if (!document.getElementById('filterRadius').value) document.getElementById('filterRadius').value = '10';
-            applyFilters();
-        }, () => alert(i18n.couldNotGetLocation));
-    }
-
-    function addToCart(crop) {
-        const existing = cart.find(i => i.id === crop.id);
+    // 5. Cart local function
+    function addToCartLocal(crop) {
+        let cartArray = JSON.parse(localStorage.getItem('cart') || '[]');
+        const existing = cartArray.find(i => i.id === crop.id);
         if (existing) { alert(i18n.alreadyInCart); return; }
-        cart.push({ ...crop, order_qty: 1 });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartBadge();
+        
+        cartArray.push({ ...crop, order_qty: 1 });
+        localStorage.setItem('cart', JSON.stringify(cartArray));
+        
+        if (typeof updateCartCount === 'function') updateCartCount();
+        
         // Show toast
         const toast = document.createElement('div');
-        toast.className = 'position-fixed bottom-0 end-0 m-3 alert alert-success shadow-sm py-2 px-3';
-        toast.textContent = `✓ ${crop.name} ${i18n.addedToCart}`;
+        toast.className = 'position-fixed bottom-0 end-0 m-4 alert alert-success shadow-lg py-3 px-4 rounded-4 border-0 z-3';
+        toast.style.animation = 'slideInUp 0.3s ease forwards';
+        toast.innerHTML = `<i class="bi bi-check-circle-fill me-2 fs-5"></i><span class="fw-bold">${crop.name}</span> ${i18n.addedToCart}`;
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2000);
+        setTimeout(() => {
+            toast.style.animation = 'slideOutDown 0.3s ease forwards';
+            setTimeout(() => toast.remove(), 300);
+        }, 2500);
     }
 
-
+    // 6. Review Modal
     async function showCropReviews(cropId, cropName) {
-        document.getElementById('cropReviewsTitle').textContent = `Reviews for ${cropName}`;
+        document.getElementById('cropReviewsTitle').textContent = `{% trans 'Reviews for' %} ${cropName}`;
         const body = document.getElementById('cropReviewsBody');
         body.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-success"></div></div>';
 
@@ -227,25 +357,35 @@
             const list = reviews.results || reviews;
 
             if (!list.length) {
-                body.innerHTML = '<p class="text-center text-muted py-5">No reviews yet for this crop.</p>';
+                body.innerHTML = '<div class="text-center py-5"><i class="bi bi-chat-left-dots fs-1 text-muted mb-3 d-block"></i><p class="text-muted fw-bold">{% trans "No reviews yet for this crop." %}</p></div>';
                 return;
             }
 
             body.innerHTML = list.map(r => `
-                <div class="mb-3 border-bottom pb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <span class="fw-bold">${r.consumer_name}</span>
-                        <span class="badge bg-warning text-dark"><i class="bi bi-star-fill me-1"></i>${r.rating}</span>
+                <div class="mb-3 border-bottom pb-3 bg-light p-3 rounded-4 shadow-sm border-0">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fw-bold text-dark"><i class="bi bi-person-circle text-secondary me-2"></i>${r.consumer_name}</span>
+                        <span class="badge bg-warning text-dark px-2 py-1"><i class="bi bi-star-fill me-1"></i>${r.rating}</span>
                     </div>
-                    <p class="mb-1 small">${r.comment || '<em class="text-muted">No comment provided.</em>'}</p>
-                    <small class="text-muted" style="font-size: 0.7rem;">${new Date(r.created_at).toLocaleDateString()}</small>
+                    <p class="mb-2 text-dark">${r.comment || '<em class="text-muted">{% trans "No comment provided." %}</em>'}</p>
+                    <small class="text-muted fw-semibold" style="font-size: 0.75rem;"><i class="bi bi-calendar3 me-1"></i>${new Date(r.created_at).toLocaleDateString()}</small>
                 </div>
             `).join('');
         } catch {
-            body.innerHTML = '<div class="alert alert-danger">Failed to load reviews.</div>';
+            body.innerHTML = '<div class="alert alert-danger rounded-4 shadow-sm">{% trans "Failed to load reviews." %}</div>';
         }
     }
 
+    // Add CSS animations dynamically
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes slideInUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideOutDown { from { transform: translateY(0); opacity: 1; } to { transform: translateY(100%); opacity: 0; } }
+    `;
+    document.head.appendChild(style);
+
+    // Init
+    initLocation();
     loadCrops();
 </script>
 {% endblock %}

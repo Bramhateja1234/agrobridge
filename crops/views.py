@@ -76,9 +76,6 @@ class CropCreateView(generics.CreateAPIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     def perform_create(self, serializer):
-        if not self.request.user.is_verified:
-            from rest_framework.exceptions import PermissionDenied
-            raise PermissionDenied("Your account must be manually verified by an Admin before you can add crops.")
         serializer.save(farmer=self.request.user)
 
 

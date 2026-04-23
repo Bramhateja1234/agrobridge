@@ -43,21 +43,28 @@
                 </ul>
 
                 <!-- Language Switcher -->
-                <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center me-3">
+                <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center me-3" id="langSwitcherForm">
                     {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                    <input name="next" type="hidden" value="{{ request.get_full_path }}" id="langNextInput">
                     <select name="language" class="form-select form-select-sm bg-transparent text-white border-0"
-                        onchange="this.form.submit()" style="cursor: pointer; width: auto;">
+                        onchange="submitLangForm()" style="cursor: pointer; width: auto;">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
                         {% for language in languages %}
-                        <option value="{{ language.code }}" class="text-dark">
+                        <option value="{{ language.code }}" class="text-dark" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
                             {{ language.name_local }}
                         </option>
                         {% endfor %}
                     </select>
                 </form>
+                <script>
+                function submitLangForm() {
+                    // Always use the current page URL so we return to exact same page
+                    document.getElementById('langNextInput').value = window.location.pathname + window.location.search + window.location.hash;
+                    document.getElementById('langSwitcherForm').submit();
+                }
+                </script>
                 <div id="languageData" data-current-lang="{{ LANGUAGE_CODE }}" style="display:none"></div>
 
                 <ul class="navbar-nav align-items-center" id="navAuthLinks">
@@ -114,13 +121,11 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h6 class="fw-semibold mb-3">{% trans "AI Tools" %}</h6>
-                    <p class="text-muted small">
-                        {% blocktrans trimmed %}
-                        Use our AI-powered price prediction and demand forecasting for
-                        smarter farming decisions.
-                        {% endblocktrans %}
-                    </p>
+                    <h6 class="fw-semibold mb-3">{% trans "Contact" %}</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="bi bi-geo-alt me-2"></i>{% trans "Farmer's Market, Hyderabad, India" %}</li>
+                        <li><i class="bi bi-envelope me-2"></i>support@agrobridge.in</li>
+                    </ul>
                 </div>
             </div>
             <hr class="border-secondary mt-4">

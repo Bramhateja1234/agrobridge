@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 {% block title %}Login – AgroBridge{% endblock %}
 
 {% block content %}
@@ -11,25 +11,25 @@
                     <div class="card-body p-5">
                         <div class="text-center mb-4">
                             <i class="bi bi-tree-fill text-success fs-1"></i>
-                            <h2 class="fw-bold mt-2">Welcome Back</h2>
-                            <p class="text-muted">Sign in to your AgroBridge account</p>
+                            <h2 class="fw-bold mt-2">{% trans "Welcome Back" %}</h2>
+                            <p class="text-muted">{% trans "Sign in to your AgroBridge account" %}</p>
                         </div>
                         <form id="loginForm">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">I am a...</label>
+                                <label class="form-label fw-semibold">{% trans "I am a..." %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                     <select class="form-select" id="loginRole" required>
-                                        <option value="consumer">Consumer (Buyer)</option>
-                                        <option value="farmer">Farmer (Seller)</option>
-                                        <option value="delivery">Delivery Agent</option>
-                                        <option value="admin">Administrator</option>
+                                        <option value="consumer">{% trans "Consumer (Buyer)" %}</option>
+                                        <option value="farmer">{% trans "Farmer (Seller)" %}</option>
+                                        <option value="delivery">{% trans "Delivery Agent" %}</option>
+                                        <option value="admin">{% trans "Administrator" %}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Email Address</label>
+                                <label class="form-label fw-semibold">{% trans "Email Address" %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input type="email" class="form-control" id="loginEmail"
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label fw-semibold">Password</label>
+                                <label class="form-label fw-semibold">{% trans "Password" %}</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                     <input type="password" class="form-control" id="loginPassword"
@@ -49,20 +49,18 @@
                                 </div>
                                 <div class="text-end mt-2">
                                     <a href="#" class="text-success text-decoration-none small fw-semibold"
-                                        data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot
-                                        Password?</a>
+                                        data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">{% trans "Forgot Password?" %}</a>
                                 </div>
                             </div>
                             <div id="loginError" class="alert alert-danger d-none"></div>
                             <button type="submit" class="btn btn-success w-100 py-2 fw-semibold" id="loginBtn">
-                                <span class="btn-text">Sign In</span>
+                                <span class="btn-text">{% trans "Sign In" %}</span>
                                 <span class="spinner-border spinner-border-sm d-none ms-2" id="loginSpinner"></span>
                             </button>
                         </form>
                         <hr class="my-4">
                         <p class="text-center text-muted mb-0">
-                            Don't have an account? <a href="/auth/register/" class="text-success fw-semibold">Create one
-                                →</a>
+                            {% trans "Don't have an account?" %} <a href="/auth/register/" class="text-success fw-semibold">{% trans "Create one →" %}</a>
                         </p>
                     </div>
                 </div>
@@ -81,36 +79,37 @@
                 <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-4 pb-4">
-                <h4 class="fw-bold mb-1">Reset Password</h4>
-                <p class="text-muted small mb-4">Enter your registered phone number to receive a secure OTP.</p>
+                <h4 class="fw-bold mb-1">{% trans "Reset Password" %}</h4>
+                <p class="text-muted small mb-4">{% trans "Enter your registered email address to receive a secure OTP." %}</p>
 
                 <!-- Step 1: Send OTP -->
                 <div id="fpStep1">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Phone Number</label>
+                        <label class="form-label fw-semibold">{% trans "Email Address" %}</label>
                         <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                            <input type="text" class="form-control" id="fpPhone"
-                                placeholder="Enter your 10-digit number">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" id="fpEmail"
+                                placeholder="your@email.com">
                         </div>
                     </div>
                     <div id="fpError1" class="alert alert-danger d-none py-2 small"></div>
-                    <button class="btn btn-success w-100 fw-semibold" onclick="fpSendOTP()" id="fpSendBtn">Send
-                        OTP</button>
+                    <button class="btn btn-success w-100 fw-semibold" onclick="fpSendOTP()" id="fpSendBtn">{% trans "Send OTP" %}</button>
                 </div>
 
                 <!-- Step 2: Verify & Reset -->
                 <div id="fpStep2" class="d-none">
                     <div class="alert alert-success py-2 small mb-3">
-                        <i class="bi bi-check-circle me-1"></i> OTP sent successfully! Check your phone.
+                        <i class="bi bi-check-circle me-1"></i> {% trans "OTP sent successfully! Check your phone." %}
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Enter OTP</label>
+                        <label class="form-label fw-semibold">{% trans "Enter OTP" %}</label>
                         <input type="text" class="form-control text-center tracking-widest fw-bold ms-auto me-auto"
-                            id="fpOtp" maxlength="6" style="letter-spacing: 0.5rem; font-size: 1.25rem;">
+                            id="fpOtp" maxlength="6" inputmode="numeric" autocomplete="one-time-code"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            style="letter-spacing: 0.5rem; font-size: 1.25rem;">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">New Password</label>
+                        <label class="form-label fw-semibold">{% trans "New Password" %}</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
                             <input type="password" class="form-control" id="fpNewPassword"
@@ -122,8 +121,7 @@
                         </div>
                     </div>
                     <div id="fpError2" class="alert alert-danger d-none py-2 small"></div>
-                    <button class="btn btn-success w-100 fw-semibold" onclick="fpResetPassword()" id="fpResetBtn">Reset
-                        Password</button>
+                    <button class="btn btn-success w-100 fw-semibold" onclick="fpResetPassword()" id="fpResetBtn">{% trans "Reset Password" %}</button>
                 </div>
             </div>
         </div>
@@ -225,16 +223,16 @@
     }
 
     // --- Forgot Password Logic ---
-    let fpPhoneGlobal = '';
+    let fpEmailGlobal = '';
 
     async function fpSendOTP() {
-        const phone = document.getElementById('fpPhone').value.trim();
+        const email = document.getElementById('fpEmail').value.trim();
         const err = document.getElementById('fpError1');
         const btn = document.getElementById('fpSendBtn');
         err.classList.add('d-none');
 
-        if (!phone || phone.length < 10) {
-            err.textContent = "Please enter a valid phone number.";
+        if (!email || !email.includes('@')) {
+            err.textContent = "Please enter a valid email address.";
             err.classList.remove('d-none');
             return;
         }
@@ -246,12 +244,12 @@
             const res = await fetch('/api/auth/otp/send/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phone })
+                body: JSON.stringify({ email })
             });
 
             const data = await res.json();
             if (res.ok) {
-                fpPhoneGlobal = phone;
+                fpEmailGlobal = email;
                 document.getElementById('fpStep1').classList.add('d-none');
                 document.getElementById('fpStep2').classList.remove('d-none');
                 if (data.otp) {
@@ -296,7 +294,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    phone: fpPhoneGlobal,
+                    email: fpEmailGlobal,
                     otp: otp,
                     new_password: newPassword
                 })

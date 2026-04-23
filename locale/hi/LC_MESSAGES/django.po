@@ -96,7 +96,7 @@ msgid "Wheat · Winter"
 msgstr "गेहूं · सर्दी"
 
 msgid "Demand Forecast"
-msgstr "मांग का अनुमान"
+msgstr "मांग का पूर्वानुमान"
 
 msgid "Next 3 months"
 msgstr "अगले 3 महीने"
@@ -111,7 +111,7 @@ msgid "Grain"
 msgstr "अनाज"
 
 msgid "Vegetable"
-msgstr "सब्जी"
+msgstr "सब्ज़ी"
 
 msgid "Fruit"
 msgstr "फल"
@@ -138,7 +138,7 @@ msgid "Spring"
 msgstr "वसंत"
 
 msgid "Quantity (kg)"
-msgstr "मात्रा (किलो)"
+msgstr "मात्रा (किग्रा)"
 
 msgid "Predict Price"
 msgstr "मूल्य की भविष्यवाणी करें"
@@ -309,7 +309,7 @@ msgid "Add to Cart"
 msgstr "कार्ट में डालें"
 
 msgid "This crop is already in your cart."
-msgstr "यह फसल आपके कार्ट में पहले से ही है।"
+msgstr "यह फसल पहले से ही आपके कार्ट में है।"
 
 msgid "added to cart"
 msgstr "कार्ट में जोड़ा गया"
@@ -328,3 +328,1196 @@ msgstr "फसलें ब्राउज़ करें"
 
 msgid "About"
 msgstr "हमारे बारे में"
+
+msgid "Email Address"
+msgstr "ईमेल पता"
+
+msgid "Phone Number"
+msgstr "फ़ोन नंबर"
+
+msgid "Address"
+msgstr "पता"
+
+msgid "Account Status"
+msgstr "खाता स्थिति"
+
+msgid "Verified"
+msgstr "सत्यापित"
+
+msgid "Unverified"
+msgstr "असत्यापित"
+
+msgid "Edit Profile"
+msgstr "प्रोफ़ाइल संपादित करें"
+
+msgid "Full Name"
+msgstr "पूरा नाम"
+
+msgid "Address Line"
+msgstr "पता पंक्ति"
+
+msgid "City"
+msgstr "शहर"
+
+msgid "State"
+msgstr "राज्य"
+
+msgid "Country"
+msgstr "देश"
+
+msgid "Pin Code"
+msgstr "पिन कोड"
+
+msgid "Save Changes"
+msgstr "परिवर्तन सहेजें"
+
+msgid "Not provided"
+msgstr "प्रदान नहीं किया गया"
+
+msgid "No Address Provided"
+msgstr "कोई पता प्रदान नहीं किया गया"
+
+msgid "Activity History"
+msgstr "गतिविधि इतिहास"
+
+msgid "Track your orders and payments"
+msgstr "अपने आदेश और भुगतान ट्रैक करें"
+
+msgid "Orders"
+msgstr "आदेश"
+
+msgid "Payments"
+msgstr "भुगतान"
+
+msgid "Welcome back,"
+msgstr "वापसी पर स्वागत है,"
+
+msgid "Agent"
+msgstr "एजेंट"
+
+msgid "Delivery Agent Portal"
+msgstr "डिलीवरी एजेंट पोर्टल"
+
+msgid "Manage your active deliveries and find new orders."
+msgstr "अपनी सक्रिय डिलीवरी प्रबंधित करें और नए आदेश खोजें।"
+
+msgid "Total Delivered"
+msgstr "कुल वितरित"
+
+msgid "Total Cancelled"
+msgstr "कुल रद्द"
+
+msgid "Total Assigned"
+msgstr "कुल आवंटित"
+
+msgid "Active Deliveries"
+msgstr "सक्रिय डिलीवरी"
+
+msgid "Recent Trips"
+msgstr "हाल की यात्राएं"
+
+msgid "Order"
+msgstr "आदेश"
+
+msgid "Customer"
+msgstr "ग्राहक"
+
+msgid "Method"
+msgstr "विधि"
+
+msgid "Status"
+msgstr "स्थिति"
+
+msgid "Updated At"
+msgstr "अद्यतन किया गया"
+
+msgid "Farmer"
+msgstr "किसान"
+
+msgid "Overview"
+msgstr "अवलोकन"
+
+msgid "My Crops"
+msgstr "मेरी फसलें"
+
+msgid "Add Crop"
+msgstr "फसल जोड़ें"
+
+msgid "Price/Demand"
+msgstr "मूल्य/मांग"
+
+msgid "AI Precision Suite"
+msgstr "एआई प्रिसिजन सुइट"
+
+msgid "Crop Prediction"
+msgstr "फसल भविष्यवाणी"
+
+msgid "Fertilizer Advice"
+msgstr "उर्वरक सलाह"
+
+msgid "Disease Detection"
+msgstr "रोग का पता लगाना"
+
+msgid "Weather Forecast"
+msgstr "मौसम का पूर्वानुमान"
+
+msgid "Rainfall Prediction"
+msgstr "बारिश की भविष्यवाणी"
+
+msgid "Yield Prediction"
+msgstr "उपज की भविष्यवाणी"
+
+msgid "News Feed"
+msgstr "समाचार फ़ीड"
+
+msgid "My Profile"
+msgstr "मेरी प्रोफ़ाइल"
+
+msgid "Reviews"
+msgstr "समीक्षाएँ"
+
+msgid "Audit Users"
+msgstr "उपयोगकर्ता ऑडिट करें"
+
+msgid "Crop Batches"
+msgstr "फसल बैच"
+
+msgid "Deliveries"
+msgstr "डिलीवरी"
+
+msgid "Logout"
+msgstr "लॉग आउट"
+
+msgid "Dashboard Overview"
+msgstr "डैशबोर्ड अवलोकन"
+
+msgid "Add New Crop"
+msgstr "नई फसल जोड़ें"
+
+msgid "Received Orders"
+msgstr "प्राप्त आदेश"
+
+msgid "Payment History"
+msgstr "भुगतान इतिहास"
+
+msgid "Reviews & Feedback"
+msgstr "समीक्षा और प्रतिक्रिया"
+
+msgid "Crop Batches Overview"
+msgstr "फसल बैच अवलोकन"
+
+msgid "All Deliveries Overview"
+msgstr "सभी डिलीवरी अवलोकन"
+
+msgid "AI Farming Tools"
+msgstr "एआई खेती के उपकरण"
+
+msgid "Bought by"
+msgstr "द्वारा खरीदा गया"
+
+msgid "people"
+msgstr "लोग"
+
+msgid "/kg"
+msgstr "/किग्रा"
+
+msgid "Crop Reviews"
+msgstr "फसल समीक्षाएँ"
+
+msgid "No reviews yet for this crop."
+msgstr "इस फसल के लिए अभी तक कोई समीक्षा नहीं।"
+
+msgid "No comment provided."
+msgstr "कोई टिप्पणी प्रदान नहीं की गई।"
+
+msgid "Failed to load reviews."
+msgstr "समीक्षाएं लोड करने में विफल।"
+
+msgid "kg Available"
+msgstr "किग्रा उपलब्ध"
+
+msgid "Placed"
+msgstr "दिए गए"
+
+msgid "Cancelled"
+msgstr "रद्द"
+
+msgid "Delivered"
+msgstr "वितरित"
+
+msgid "Assigned"
+msgstr "आवंटित"
+
+msgid "Pending"
+msgstr "लंबित"
+
+msgid "Avg Rating"
+msgstr "औसत रेटिंग"
+
+msgid "Revenue"
+msgstr "राजस्व"
+
+msgid "Crop Performance"
+msgstr "फसल प्रदर्शन"
+
+msgid "Crop Name"
+msgstr "फसल का नाम"
+
+msgid "Total Added (kg)"
+msgstr "कुल जोड़ा (किग्रा)"
+
+msgid "Current Stock (kg)"
+msgstr "वर्तमान स्टॉक (किग्रा)"
+
+msgid "Price/kg (₹)"
+msgstr "मूल्य/किग्रा (₹)"
+
+msgid "Orders Received"
+msgstr "प्राप्त आदेश"
+
+msgid "Revenue Generated (₹)"
+msgstr "उत्पन्न राजस्व (₹)"
+
+msgid "Loading performance data..."
+msgstr "प्रदर्शन डेटा लोड हो रहा है..."
+
+msgid "Other"
+msgstr "अन्य"
+
+msgid "Quantity Available (kg)"
+msgstr "उपलब्ध मात्रा (किग्रा)"
+
+msgid "Price per kg (₹)"
+msgstr "प्रति किग्रा मूल्य (₹)"
+
+msgid "Description"
+msgstr "विवरण"
+
+msgid "Describe your crop..."
+msgstr "अपनी फसल का वर्णन करें..."
+
+msgid "Crop Image"
+msgstr "फसल की छवि"
+
+msgid "Periods (months)"
+msgstr "अवधि (महीने)"
+
+msgid "Forecast Demand"
+msgstr "मांग का पूर्वानुमान लगाएं"
+
+msgid "Input Parameters"
+msgstr "इनपुट पैरामीटर"
+
+msgid "Location"
+msgstr "स्थान"
+
+msgid "Select State"
+msgstr "राज्य चुनें"
+
+msgid "District"
+msgstr "ज़िला"
+
+msgid "Select District"
+msgstr "ज़िला चुनें"
+
+msgid "Season"
+msgstr "मौसम"
+
+msgid "Select Season"
+msgstr "मौसम चुनें"
+
+msgid "Kharif (Monsoon)"
+msgstr "खरीफ (मानसून)"
+
+msgid "Rabi (Winter)"
+msgstr "रबी (सर्दियों)"
+
+msgid "Zaid (Summer)"
+msgstr "ज़ैद (गर्मियों)"
+
+msgid "Soil Parameters"
+msgstr "मिट्टी के पैरामीटर"
+
+msgid "Nitrogen (N)"
+msgstr "नाइट्रोजन (N)"
+
+msgid "Phosphorus (P)"
+msgstr "फास्फोरस (P)"
+
+msgid "Potassium (K)"
+msgstr "पोटेशियम (K)"
+
+msgid "pH Level"
+msgstr "pH स्तर"
+
+msgid "Weather Parameters"
+msgstr "मौसम पैरामीटर"
+
+msgid "Temperature (°C)"
+msgstr "तापमान (°C)"
+
+msgid "Humidity (%)"
+msgstr "नमी (%)"
+
+msgid "Rainfall (mm)"
+msgstr "बारिश (मिमी)"
+
+msgid "Predict Crops"
+msgstr "फसलों की भविष्यवाणी करें"
+
+msgid "AI Recommendation"
+msgstr "एआई सिफारिश"
+
+msgid "Primary Match"
+msgstr "प्राथमिक मेल"
+
+msgid "Best suited for your soil & climate"
+msgstr "आपकी मिट्टी और जलवायु के लिए सबसे उपयुक्त"
+
+msgid "Prediction Confidence"
+msgstr "भविष्यवाणी का विश्वास"
+
+msgid "Market Price"
+msgstr "बाज़ार मूल्य"
+
+msgid "Exp. Yield"
+msgstr "अपेक्षित उपज"
+
+msgid "Cultivation Insights"
+msgstr "खेती की जानकारी"
+
+msgid "Soil & Crop Details"
+msgstr "मिट्टी और फसल का विवरण"
+
+msgid "Target Crop"
+msgstr "लक्ष्य फसल"
+
+msgid "Soil Health / Observations"
+msgstr "मिट्टी का स्वास्थ्य / अवलोकन"
+
+msgid "Analyze & Get Advice"
+msgstr "विश्लेषण करें और सलाह लें"
+
+msgid "Awaiting Soil Data"
+msgstr "मिट्टी के डेटा की प्रतीक्षा है"
+
+msgid "Admin Portal"
+msgstr "व्यवस्थापक पोर्टल"
+
+msgid "Administrator"
+msgstr "प्रशासक"
+
+msgid "Get AI-powered crop recommendations based on your soil and location"
+msgstr "अपनी मिट्टी और स्थान के आधार पर एआई-संचालित फसल सिफारिशें प्राप्त करें"
+
+msgid "Ready to analyze your field. Enter parameters and click Predict Crops."
+msgstr "आपके खेत का विश्लेषण करने के लिए तैयार। पैरामीटर दर्ज करें और 'फसलों की भविष्यवाणी करें' पर क्लिक करें।"
+
+msgid "Personalized fertilizer plans based on crop and soil health"
+msgstr "फसल और मिट्टी के स्वास्थ्य के आधार पर व्यक्तिगत उर्वरक योजनाएं"
+
+msgid "e.g. Yellow leaves, slow growth, sandy soil..."
+msgstr "जैसे पीले पत्ते, धीमी वृद्धि, रेतीली मिट्टी..."
+
+msgid "Your personalized nutrient optimization plan will appear here after analysis."
+msgstr "विश्लेषण के बाद आपकी व्यक्तिगत पोषक तत्व अनुकूलन योजना यहाँ दिखाई देगी।"
+
+msgid "Soil Health Report"
+msgstr "मिट्टी स्वास्थ्य रिपोर्ट"
+
+msgid "Expert Analysis"
+msgstr "विशेषज्ञ विश्लेषण"
+
+msgid "Recommended Supplements"
+msgstr "अनुशंसित पूरक"
+
+msgid "Optimum Dosage"
+msgstr "इष्टतम खुराक"
+
+msgid "Application Mode"
+msgstr "प्रयोग विधि"
+
+msgid "Safety Precautions"
+msgstr "सुरक्षा सावधानियाँ"
+
+msgid "Upload crop photos to detect pests and diseases instantly"
+msgstr "कीटों और बीमारियों का तुरंत पता लगाने के लिए फसल की तस्वीरें अपलोड करें"
+
+msgid "Drag & Drop Image"
+msgstr "छवि यहाँ खींचें और छोड़ें"
+
+msgid "Supported formats: JPG, PNG, WEBP"
+msgstr "समर्थित प्रारूप: JPG, PNG, WEBP"
+
+msgid "Browse Files"
+msgstr "फ़ाइलें ब्राउज़ करें"
+
+msgid "Analyze Crop Health"
+msgstr "फसल स्वास्थ्य का विश्लेषण करें"
+
+msgid "Pathogen Diagnostic Report"
+msgstr "रोगज़नक़ निदान रिपोर्ट"
+
+msgid "Agri-Weather Intelligence"
+msgstr "कृषि-मौसम बुद्धिमत्ता"
+
+msgid "Hyper-local 5-day forecast for agricultural planning"
+msgstr "कृषि योजना के लिए हाइपर-लोकल 5-दिवसीय पूर्वानुमान"
+
+msgid "Refresh Location"
+msgstr "स्थान रिफ्रेश करें"
+
+msgid "Accessing meteorological data..."
+msgstr "मौसम संबंधी डेटा एक्सेस किया जा रहा है..."
+
+msgid "Farming Advisory"
+msgstr "कृषि सलाह"
+
+msgid "Regularly check weather patterns to optimize your irrigation and fertilization schedules."
+msgstr "अपनी सिंचाई और उर्वरक कार्यक्रम को अनुकूलित करने के लिए नियमित रूप से मौसम के पैटर्न की जांच करें।"
+
+msgid "Harvest Parameters"
+msgstr "फसल पैरामीटर"
+
+msgid "Crop Selection"
+msgstr "फसल चयन"
+
+msgid "Area (Acres)"
+msgstr "क्षेत्र (एकड़)"
+
+msgid "Fertilizer Used"
+msgstr "उपयोग किया गया उर्वरक"
+
+msgid "Calculate Estimated Yield"
+msgstr "अनुमानित उपज की गणना करें"
+
+msgid "Estimated Total Harvest"
+msgstr "अनुमानित कुल फसल"
+
+msgid "Classification"
+msgstr "वर्गीकरण"
+
+msgid "Probability"
+msgstr "संभावना"
+
+msgid "High"
+msgstr "उच्च"
+
+msgid "Yield Optimization Steps"
+msgstr "उपज अनुकूलन चरण"
+
+msgid "Environmental Factors"
+msgstr "पर्यावरणीय कारक"
+
+msgid "e.g. Basmati Rice"
+msgstr "जैसे बासमती चावल"
+
+msgid "e.g. Urea, Compost"
+msgstr "जैसे यूरिया, कम्पोस्ट"
+
+msgid "Predict Price"
+msgstr "मूल्य की भविष्यवाणी करें"
+
+msgid "Forecast Demand"
+msgstr "मांग का पूर्वानुमान लगाएं"
+ 
+ 
+
+msgid "error"
+msgstr "AI service unavailable"
+
+
+
+msgid "error"
+msgstr "AI service unavailable"
+
+
+
+msgid "Reviews for"
+msgstr "इसके लिए समीक्षाएं"
+
+msgid "My Profile – Delivery Agent"
+msgstr "मेरी प्रोफ़ाइल – डिलीवरी एजेंट"
+
+msgid "Portal"
+msgstr "पोर्टल"
+
+msgid "Back to Dashboard"
+msgstr "डैशबोर्ड पर वापस जाएं"
+
+msgid "Current Status"
+msgstr "वर्तमान स्थिति"
+
+msgid "Online"
+msgstr "ऑनलाइन"
+
+msgid "Go Offline"
+msgstr "ऑफ़लाइन जाएं"
+
+msgid "My Details"
+msgstr "मेरे विवरण"
+
+msgid "Contact Info"
+msgstr "संपर्क जानकारी"
+
+msgid "Agent Verification Info"
+msgstr "एजेंट सत्यापन जानकारी"
+
+msgid "Vehicle Type"
+msgstr "वाहन का प्रकार"
+
+msgid "Select..."
+msgstr "चुनें..."
+
+msgid "Bike / Motorcycle"
+msgstr "बाइक / मोटरसाइकिल"
+
+msgid "Auto / TukTuk"
+msgstr "ऑटो / टुकटुक"
+
+msgid "Mini Van"
+msgstr "मिनी वैन"
+
+msgid "Truck"
+msgstr "ट्रक"
+
+msgid "Driving License Number"
+msgstr "ड्राइविंग लाइसेंस नंबर"
+
+msgid "Base Area Address"
+msgstr "आधार क्षेत्र का पता"
+
+msgid "City / Village"
+msgstr "शहर / गांव"
+
+msgid "Online & Ready"
+msgstr "ऑनलाइन और तैयार"
+
+msgid "Offline"
+msgstr "ऑफ़लाइन"
+
+msgid "Go Online"
+msgstr "ऑनलाइन जाएं"
+
+msgid "Saving..."
+msgstr "सहेज रहा है..."
+
+msgid "Saved"
+msgstr "सहेजा गया"
+
+msgid "Error"
+msgstr "त्रुटि"
+
+msgid "Network Error"
+msgstr "नेटवर्क त्रुटि"
+
+msgid "Uploading..."
+msgstr "अपलोड हो रहा है..."
+
+msgid "Photo updated"
+msgstr "फोटो अपडेट किया गया"
+
+msgid "Failed to upload"
+msgstr "अपलोड करने में विफल"
+
+msgid "Precipitation Forecast"
+msgstr "वर्षा का पूर्वानुमान"
+
+msgid "Confidence-Based Pattern Analysis"
+msgstr "आत्मविश्वास-आधारित पैटर्न विश्लेषण"
+
+msgid "Estimated Range"
+msgstr "अनुमानित सीमा"
+
+msgid "Impact Score"
+msgstr "प्रभाव स्कोर"
+
+msgid "Medium"
+msgstr "मध्यम"
+
+msgid "Strategic Action Plan"
+msgstr "रणनीतिक कार्य योजना"
+
+msgid "Predict your harvest volume with high precision"
+msgstr "अपनी कटाई की मात्रा का उच्च परिशुद्धता के साथ अनुमान लगाएं"
+
+msgid "Agricultural News Feed"
+msgstr "कृषि समाचार फ़ीड"
+
+msgid "Refresh"
+msgstr "रिफ्रेश"
+
+msgid "Click refresh to fetch latest agriculture headlines."
+msgstr "नवीनतम कृषि सुर्खियां प्राप्त करने के लिए रिफ्रेश पर क्लिक करें।"
+
+msgid "My Profile Dashboard"
+msgstr "मेरी प्रोफ़ाइल डैशबोर्ड"
+
+msgid "Location Map"
+msgstr "स्थान मानचित्र"
+
+msgid "Auto Detect"
+msgstr "स्वचालित पता लगाएं"
+
+msgid "Updating..."
+msgstr "अपडेट हो रहा है..."
+
+msgid "Save New Location"
+msgstr "नया स्थान सहेजें"
+
+msgid "Location Details"
+msgstr "स्थान विवरण"
+
+msgid "Village / City"
+msgstr "गाँव / शहर"
+
+msgid "Mandal"
+msgstr "मंडल"
+
+msgid "Pincode"
+msgstr "पिनकोड"
+
+msgid "Farming Info"
+msgstr "खेती की जानकारी"
+
+msgid "Land Size"
+msgstr "भूमि का आकार"
+
+msgid "Acres"
+msgstr "एकड़"
+
+msgid "Soil Type"
+msgstr "मिट्टी का प्रकार"
+
+msgid "Farming Type"
+msgstr "खेती का प्रकार"
+
+msgid "About / Bio"
+msgstr "बारे में / बायो"
+
+msgid "Payment Audit History"
+msgstr "भुगतान ऑडिट इतिहास"
+
+msgid "A complete security and financial log of your transactions on AgroBridge (including failed attempts)."
+msgstr "एग्रोब्रिज पर आपके लेन-देन का एक पूर्ण सुरक्षा और वित्तीय लॉग (विफल प्रयासों सहित)।"
+
+msgid "Basic Info"
+msgstr "बुनियादी जानकारी"
+
+msgid "Profile Picture"
+msgstr "प्रोफ़ाइल चित्र"
+
+msgid "Bio / About"
+msgstr "बायो / बारे में"
+
+msgid "Tell us about yourself..."
+msgstr "अपने बारे में बताएं..."
+
+msgid "Land Size (Acres)"
+msgstr "भूमि का आकार (एकड़)"
+
+msgid "Loamy"
+msgstr "दोमट"
+
+msgid "Sandy"
+msgstr "रेतीली"
+
+msgid "Clay"
+msgstr "चिकनी"
+
+msgid "Black Cotton"
+msgstr "काली कपास"
+
+msgid "Red Laterite"
+msgstr "लाल लेटेराइट"
+
+msgid "Alluvial"
+msgstr "जलोढ़"
+
+msgid "Organic"
+msgstr "जैविक"
+
+msgid "Non-Organic"
+msgstr "गैर-जैविक"
+
+msgid "Mixed"
+msgstr "मिश्रित"
+
+msgid "Edit Crop"
+msgstr "फसल संपादित करें"
+
+msgid "User Trade History"
+msgstr "उपयोगकर्ता व्यापार इतिहास"
+
+msgid "Close"
+msgstr "बंद करें"
+
+
+
+msgid "Crop"
+msgstr "फसल"
+
+msgid "Buyer"
+msgstr "खरीदार"
+
+msgid "Amount"
+msgstr "राशि"
+
+msgid "Date"
+msgstr "दिनांक"
+
+msgid "Consumer"
+msgstr "उपभोक्ता"
+
+msgid "Status & Delivery"
+msgstr "स्थिति और डिलीवरी"
+
+msgid "Rating"
+msgstr "रेटिंग"
+
+msgid "Comment"
+msgstr "टिप्पणी"
+
+msgid "ID"
+msgstr "आईडी"
+
+msgid "Name"
+msgstr "नाम"
+
+msgid "Contact"
+msgstr "संपर्क"
+
+msgid "Password Hash"
+msgstr "पासवर्ड हैश"
+
+msgid "Role"
+msgstr "भूमिका"
+
+msgid "Actions"
+msgstr "कार्यवाहियाँ"
+
+msgid "Order ID"
+msgstr "ऑर्डर आईडी"
+
+msgid "Crop & Total"
+msgstr "फसल और कुल"
+
+msgid "Delivery Address"
+msgstr "डिलीवरी पता"
+
+msgid "Delivery Agent"
+msgstr "डिलीवरी एजेंट"
+
+msgid "Batch Number"
+msgstr "बैच संख्या"
+
+msgid "Farmer (Uploader)"
+msgstr "किसान (अपलोडर)"
+
+msgid "Type"
+msgstr "प्रकार"
+
+msgid "Quantity (Total)"
+msgstr "मात्रा (कुल)"
+
+msgid "Price/kg"
+msgstr "मूल्य/किग्रा"
+
+msgid "All Crops"
+msgstr "सभी फसलें"
+
+msgid "All Farmers"
+msgstr "सभी किसान"
+
+msgid "Audit ID"
+msgstr "ऑडिट आईडी"
+
+msgid "Timestamp"
+msgstr "टाइमस्टैम्प"
+
+msgid "No payment history found."
+msgstr "कोई भुगतान इतिहास नहीं मिला।"
+
+msgid "Failed to load audit history."
+msgstr "ऑडिट इतिहास लोड करने में विफल रहा।"
+
+
+
+msgid "Order"
+msgstr "आदेश (Order)"
+
+msgid "Crop"
+msgstr "फसल"
+
+msgid "Buyer"
+msgstr "खरीदार"
+
+msgid "Amount"
+msgstr "रकम"
+
+msgid "Status"
+msgstr "स्थिति"
+
+msgid "Date"
+msgstr "तारीख"
+
+msgid "Consumer"
+msgstr "उपभोक्ता"
+
+msgid "Total"
+msgstr "कुल"
+
+msgid "Status & Delivery"
+msgstr "स्थिति और वितरण"
+
+msgid "Rating"
+msgstr "रेटिंग"
+
+msgid "Comment"
+msgstr "टिप्पणी"
+
+msgid "ID"
+msgstr "आईडी"
+
+msgid "Name"
+msgstr "नाम"
+
+msgid "Contact"
+msgstr "संपर्क"
+
+msgid "Address"
+msgstr "पता"
+
+msgid "Password Hash"
+msgstr "पासवर्ड हैश"
+
+msgid "Role"
+msgstr "भूमिका"
+
+msgid "Actions"
+msgstr "कार्य"
+
+msgid "Order ID"
+msgstr "आदेश आईडी"
+
+msgid "Crop & Total"
+msgstr "फसल और कुल"
+
+msgid "Delivery Address"
+msgstr "वितरण पता"
+
+msgid "Delivery Agent"
+msgstr "वितरण एजेंट"
+
+
+
+msgid "Batch Number"
+msgstr "बैच संख्या"
+
+msgid "Farmer (Uploader)"
+msgstr "किसान (अपलोडर)"
+
+msgid "Type"
+msgstr "प्रकार"
+
+msgid "Quantity (Total)"
+msgstr "मात्रा (कुल)"
+
+msgid "Price/kg"
+msgstr "कीमत/किलो"
+
+msgid "All Crops"
+msgstr "सभी फसलें"
+
+msgid "All Farmers"
+msgstr "सभी किसान"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "Loading your dashboard..."
+msgstr "आपका डैशबोर्ड लोड हो रहा है..."
+
+msgid "Welcome,"
+msgstr "स्वागत है,"
+
+msgid "Here's a summary of your AgroBridge activity."
+msgstr "यह आपकी एग्रोब्रिज गतिविधि का सारांश है।"
+
+msgid "My Orders"
+msgstr "मेरे ऑर्डर"
+
+msgid "Total Orders"
+msgstr "कुल ऑर्डर"
+
+msgid "Active Orders"
+msgstr "सक्रिय ऑर्डर"
+
+msgid "Total Spent"
+msgstr "कुल खर्च"
+
+msgid "No active deliveries at the moment."
+msgstr "फिलहाल कोई सक्रिय डिलीवरी नहीं है।"
+
+msgid "Recent Orders"
+msgstr "हाल के ऑर्डर"
+
+msgid "View All"
+msgstr "सभी देखें"
+
+msgid "Recommended Fresh Picks"
+msgstr "अनुशंसित ताज़ी फसलें"
+
+msgid "View Marketplace"
+msgstr "बाज़ार देखें"
+
+msgid "Consumer Dashboard"
+msgstr "उपभोक्ता डैशबोर्ड"
+
+msgid "Street Address"
+msgstr "गली का पता"
+
+msgid "Delivery Address Details"
+msgstr "डिलीवरी पते का विवरण"
+
+msgid "Platform Purchase History"
+msgstr "प्लेटफ़ॉर्म खरीद इतिहास"
+
+msgid "A complete log of all crops and products you purchased through AgroBridge."
+msgstr "एग्रोब्रिज के माध्यम से आपके द्वारा खरीदे गए सभी फसलों और उत्पादों का एक पूरा लॉग।"
+
+msgid "Order Cancelled"
+msgstr "ऑर्डर रद्द किया गया"
+
+msgid "Ordered"
+msgstr "ऑर्डर किया गया"
+
+msgid "Confirmed"
+msgstr "पुष्टि की गई"
+
+msgid "Picked Up"
+msgstr "उठाया गया"
+
+msgid "Scan for Delivery"
+msgstr "डिलीवरी के लिए स्कैन करें"
+
+msgid "Live GPS Tracking"
+msgstr "लाइव जीपीएस ट्रैकिंग"
+
+msgid "Ordered:"
+msgstr "ऑर्डर किया गया:"
+
+msgid "ETA:"
+msgstr "अनुमानित आगमन समय:"
+
+msgid "Delivered on:"
+msgstr "डिलीवर किया गया:"
+
+msgid "Review Crop"
+msgstr "फसल की समीक्षा करें"
+
+msgid "Complete Payment"
+msgstr "भुगतान पूरा करें"
+
+msgid "Cancel Order"
+msgstr "ऑर्डर रद्द करें"
+
+msgid "Review Your Product"
+msgstr "अपने उत्पाद की समीक्षा करें"
+
+
+
+msgid "Delivery Map"
+msgstr "डिलीवरी मैप"
+
+msgid "# Audit ID"
+msgstr "# ऑडिट आईडी"
+
+msgid "No purchase history found."
+msgstr "कोई खरीद इतिहास नहीं मिला।"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "Service Hub Location"
+msgstr "सेवा केंद्र स्थान"
+
+msgid "Service Performance"
+msgstr "सेवा प्रदर्शन"
+
+msgid "Delivery Agent Dashboard"
+msgstr "डिलीवरी एजेंट डैशबोर्ड"
+
+
+msgid "Service Hub Location"
+msgstr "सेवा हब स्थान"
+
+msgid "Service Performance"
+msgstr "सेवा प्रदर्शन"
+
+msgid "Delivery Agent Dashboard"
+msgstr "डिलीवरी एजेंट डैशबोर्ड"
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+msgid "Welcome Back"
+msgstr "वापसी पर स्वागत है"
+
+msgid "Sign in to your AgroBridge account"
+msgstr "अपने एग्रोब्रिज खाते में साइन इन करें"
+
+msgid "I am a..."
+msgstr "मैं एक..."
+
+msgid "Consumer (Buyer)"
+msgstr "उपभोक्ता (खरीदार)"
+
+msgid "Farmer (Seller)"
+msgstr "किसान (विक्रेता)"
+
+msgid "Delivery Agent"
+msgstr "डिलीवरी एजेंट"
+
+msgid "Administrator"
+msgstr "व्यवस्थापक"
+
+msgid "Email Address"
+msgstr "ईमेल पता"
+
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgid "Forgot Password?"
+msgstr "पासवर्ड भूल गए?"
+
+msgid "Sign In"
+msgstr "साइन इन करें"
+
+msgid "Don't have an account?"
+msgstr "खाता नहीं है?"
+
+msgid "Create one →"
+msgstr "एक बनाएँ →"
+
+msgid "Reset Password"
+msgstr "पासवर्ड रीसेट करें"
+
+msgid "Enter your registered email address to receive a secure OTP."
+msgstr "सुरक्षित ओटीपी प्राप्त करने के लिए अपना पंजीकृत ईमेल पता दर्ज करें।"
+
+msgid "Send OTP"
+msgstr "ओटीपी भेजें"
+
+msgid "OTP sent successfully! Check your phone."
+msgstr "ओटीपी सफलतापूर्वक भेजा गया! अपना फोन जांचें।"
+
+msgid "Enter OTP"
+msgstr "ओटीपी दर्ज करें"
+
+msgid "New Password"
+msgstr "नया पासवर्ड"
+
+msgid "Refund Summary"
+msgstr "रिफंड सारांश"
+
+msgid "Total Refunds"
+msgstr "कुल रिफंड"
+
+msgid "Net Revenue (Retained Fees)"
+msgstr "शुद्ध राजस्व (रोकी गई फीस)"
+
+msgid "Refund Transactions Table"
+msgstr "रिफंड लेनदेन तालिका"
+
+msgid "Order Cancelled"
+msgstr "आदेश रद्द किया गया"
+
+msgid "Refund"
+msgstr "धनवापसी"
+
+msgid "Cancelled"
+msgstr "रद्द किया गया"
+
+msgid "Cancellation window closed"
+msgstr "रद्दीकरण विंडो बंद हो गई"
+
+msgid "Refund Summary"
+msgstr "धनवापसी सारांश"
+
+msgid "Total Refunds"
+msgstr "कुल धनवापसी"
+
+msgid "Net Revenue (Retained Fees)"
+msgstr "शुद्ध राजस्व (प्रतिधारित शुल्क)"
+
+msgid "Today's Refunds"
+msgstr "आज की धनवापसी"
+
+msgid "Refund Rate"
+msgstr "धनवापसी दर"
+
+msgid "Refund Transactions Table"
+msgstr "धनवापसी लेनदेन तालिका"
+
+msgid "Refund Trend (Last 7 Days)"
+msgstr "धनवापसी रुझान (पिछले 7 दिन)"
+
+msgid "Revenue vs Refund"
+msgstr "राजस्व बनाम धनवापसी"
+
+msgid "Action"
+msgstr "कार्रवाई"
+
+msgid "Pending"
+msgstr "लंबित"
+
+msgid "Completed"
+msgstr "पूरा हुआ"
+
+msgid "Complete"
+msgstr "पूरा करें"
+
+msgid "Refund Timeline"
+msgstr "धनवापसी समयरेखा"
+
+msgid "Refund Initiated"
+msgstr "धनवापसी शुरू की गई"
+
+msgid "Refund Completed"
+msgstr "धनवापसी पूरी हुई"
+
+msgid "Refund Processing"
+msgstr "धनवापसी प्रक्रिया में है"
+
+msgid "Order already picked up by delivery agent"
+msgstr "ऑर्डर पहले ही डिलीवरी एजेंट द्वारा उठा लिया गया है"
+
+msgid "Order is already out for delivery"
+msgstr "ऑर्डर पहले से ही डिलीवरी के लिए निकल चुका है"
+
+msgid "Refund Amount (₹)"
+msgstr "धनवापसी राशि (₹)"
+
+msgid "Revenue (₹)"
+msgstr "राजस्व (₹)"
+

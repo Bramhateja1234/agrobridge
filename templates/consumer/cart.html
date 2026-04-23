@@ -10,7 +10,7 @@
             <div id="cartItems"></div>
         </div>
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top:80px">
+            <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top:80px; z-index: 10;">
                 <h5 class="fw-bold mb-3">{% trans "Order Summary" %}</h5>
                 <div id="cartSummary"></div>
 
@@ -157,20 +157,20 @@
         try {
             // Place all orders first, then checkout first one (MVP: checkout first item)
             const item = cart[0];
-            const orderRes = await fetch('/api/orders/place/', {
+            const payload = {
+                crop_id: item.id,
+                quantity: item.order_qty,
+                payment_method: paymentMethod,
+                delivery_address: address
+            };
+            const orderRes = await authFetch('/api/orders/place/', {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    crop_id: item.id,
-                    quantity: item.order_qty,
-                    payment_method: paymentMethod,
-                    delivery_address: address
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             });
             const orderData = await orderRes.json();
             if (orderRes.status === 401) {
-                localStorage.removeItem('accessToken');
-                window.location.href = '/auth/login/?role=consumer';
+                // authFetch failed to refresh
                 return;
             }
             if (!orderRes.ok) {
@@ -188,15 +188,14 @@
                 return;
             }
 
-            const checkoutRes = await fetch('/api/payments/checkout/', {
+            const checkoutRes = await authFetch('/api/payments/checkout/', {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ order_id: orderData.id })
             });
             const checkoutData = await checkoutRes.json();
             if (checkoutRes.status === 401) {
-                localStorage.removeItem('accessToken');
-                window.location.href = '/auth/login/?role=consumer';
+                // authFetch failed to refresh
                 return;
             }
             if (!checkoutRes.ok) { throw new Error(JSON.stringify(checkoutData)); }

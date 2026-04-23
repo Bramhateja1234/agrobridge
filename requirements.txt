@@ -13,5 +13,6 @@ whitenoise
 python-decouple
 gunicorn
 joblib
-google-generativeai
+google-genai
 requests
+qrcode

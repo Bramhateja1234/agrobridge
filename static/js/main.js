@@ -48,13 +48,18 @@ function populateNav() {
         }
 
         let dashLink = '/browse/';
-        if (user.role === 'farmer' || user.role === 'admin') dashLink = '/farmer/dashboard/';
+        if (user.role === 'consumer') dashLink = '/consumer/dashboard/';
+        else if (user.role === 'farmer' || user.role === 'admin') dashLink = '/farmer/dashboard/';
         else if (user.role === 'delivery') dashLink = '/delivery/dashboard/';
+
+        let profileLink = '/consumer/profile/';
+        if (user.role === 'farmer' || user.role === 'admin') profileLink = '/farmer/dashboard/#profile';
+        else if (user.role === 'delivery') profileLink = '/delivery/profile/';
 
         const historyLink = '/orders/';
         container.innerHTML = `
             ${user.role === 'consumer' ? `
-            <li class="nav-item"><a class="nav-link" href="/cart/"><i class="bi bi-cart3 me-1"></i>${labels.cart}</a></li>
+            <li class="nav-item"><a class="nav-link" href="/cart/"><i class="bi bi-cart3 me-1"></i>${labels.cart} <span id="navCartBadge" class="badge bg-danger rounded-pill" style="display:none">0</span></a></li>
             ` : ''}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown">
@@ -69,7 +74,7 @@ function populateNav() {
                         </div>
                     </li>
                     <li><hr class="dropdown-divider m-0"></li>
-                    <li><a class="dropdown-item py-2 mt-1" href="/profile/"><i class="bi bi-person-badge me-2 text-primary"></i>${labels.profile}</a></li>
+                    <li><a class="dropdown-item py-2 mt-1" href="${profileLink}"><i class="bi bi-person-badge me-2 text-primary"></i>${labels.profile}</a></li>
                     <li><a class="dropdown-item py-2" href="${dashLink}"><i class="bi bi-grid me-2 text-success"></i>${labels.dashboard}</a></li>
                     ${user.role === 'consumer' ? `<li><a class="dropdown-item py-2" href="${historyLink}"><i class="bi bi-bag-check me-2 text-info"></i>${labels.orders}</a></li>` : ''}
                     <li><hr class="dropdown-divider"></li>
@@ -80,6 +85,21 @@ function populateNav() {
         container.innerHTML = `
             <li class="nav-item"><a class="btn btn-outline-light btn-sm px-3" href="/auth/login/">${labels.login}</a></li>
             <li class="nav-item ms-2"><a class="btn btn-warning btn-sm px-3 fw-semibold" href="/auth/register/">${labels.getStarted}</a></li>`;
+    }
+    
+    // Update cart badge after nav is populated
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const badge = document.getElementById('navCartBadge');
+    if (!badge) return;
+    try {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        badge.textContent = cart.length;
+        badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
+    } catch {
+        badge.style.display = 'none';
     }
 }
 

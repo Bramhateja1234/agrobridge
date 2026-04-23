@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}Delivery Dashboard – AgroBridge{% endblock %}
 
 {% block content %}
@@ -9,9 +10,9 @@
         <div class="row mb-5 align-items-center">
             <div class="col-md-8">
                 <span class="badge bg-warning text-dark mb-2 px-3 py-2 rounded-pill"><i
-                        class="bi bi-truck me-1"></i>Delivery Agent Portal</span>
-                <h2 class="fw-bold mb-1">Welcome back, <span id="agentName" class="text-success">Agent</span> 👋</h2>
-                <p class="text-muted">Manage your active deliveries and find new orders.</p>
+                        class="bi bi-truck me-1"></i>{% trans "Delivery Agent Portal" %}</span>
+                <h2 class="fw-bold mb-1">{% trans "Welcome back," %} <span id="agentName" class="text-success">{% trans "Agent" %}</span> 👋</h2>
+                <p class="text-muted">{% trans "Manage your active deliveries and find new orders." %}</p>
             </div>
             <div class="col-md-4 text-md-end">
                 <button class="btn btn-danger px-4 rounded-pill" onclick="logout()"><i
@@ -29,7 +30,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-white-50 fw-bold mb-1 text-uppercase">Total Delivered</h6>
+                                <h6 class="text-white-50 fw-bold mb-1 text-uppercase">{% trans "Total Delivered" %}</h6>
                                 <h2 class="fw-bold mb-0" id="statDelivered">0</h2>
                             </div>
                             <div class="bg-white bg-opacity-25 p-3 rounded-circle">
@@ -46,7 +47,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-white-50 fw-bold mb-1 text-uppercase">Total Cancelled</h6>
+                                <h6 class="text-white-50 fw-bold mb-1 text-uppercase">{% trans "Total Cancelled" %}</h6>
                                 <h2 class="fw-bold mb-0" id="statCancelled">0</h2>
                             </div>
                             <div class="bg-white bg-opacity-25 p-3 rounded-circle">
@@ -63,7 +64,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="text-white-50 fw-bold mb-1 text-uppercase">Total Assigned</h6>
+                                <h6 class="text-white-50 fw-bold mb-1 text-uppercase">{% trans "Total Assigned" %}</h6>
                                 <h2 class="fw-bold mb-0" id="statTotal">0</h2>
                             </div>
                             <div class="bg-white bg-opacity-25 p-3 rounded-circle">
@@ -75,7 +76,7 @@
             </div>
         </div>
 
-        <h4 class="fw-bold mb-4">Active Deliveries</h4>
+        <h4 class="fw-bold mb-4">{% trans "Active Deliveries" %}</h4>
 
         <!-- Orders View -->
         <div id="ordersContainer">
@@ -86,18 +87,18 @@
         </div>
 
         <!-- Delivery History -->
-        <h4 class="fw-bold mb-4 mt-5">Recent Trips</h4>
+        <h4 class="fw-bold mb-4 mt-5">{% trans "Recent Trips" %}</h4>
         <div class="card border-0 shadow-sm rounded-4 mb-5">
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-4 fw-semibold border-0 py-3"># Order</th>
-                                <th class="fw-semibold border-0 py-3">Customer</th>
-                                <th class="fw-semibold border-0 py-3">Method</th>
-                                <th class="fw-semibold border-0 py-3">Status</th>
-                                <th class="pe-4 fw-semibold border-0 py-3">Updated At</th>
+                                <th class="ps-4 fw-semibold border-0 py-3"># {% trans "Order" %}</th>
+                                <th class="fw-semibold border-0 py-3">{% trans "Customer" %}</th>
+                                <th class="fw-semibold border-0 py-3">{% trans "Method" %}</th>
+                                <th class="fw-semibold border-0 py-3">{% trans "Status" %}</th>
+                                <th class="pe-4 fw-semibold border-0 py-3">{% trans "Updated At" %}</th>
                             </tr>
                         </thead>
                         <tbody id="historyTableBody">
@@ -266,18 +267,21 @@
 
     // Payment Modal Logic
     let currentPaymentOrderId = null;
-    function promptDeliveryPayment(orderId) {
+    let currentScannedQR = null;
+
+    function promptDeliveryPayment(orderId, scannedQr = null) {
         const order = currentOrders.find(o => o.id === orderId);
         if (!order) return;
 
         // If it's already paid online or not COD, just strictly mark delivered
         if (order.payment_method !== 'cod' || order.payment_status === 'paid') {
-            updateOrderStatus(orderId, 'delivered');
+            updateOrderStatus(orderId, 'delivered', true, null, scannedQr);
             return;
         }
 
         // Otherwise, it's COD and unpaid: show payment modal
         currentPaymentOrderId = orderId;
+        currentScannedQR = scannedQr;
         document.getElementById('paymentModalAmount').textContent = '₹' + parseFloat(order.total_price).toFixed(2);
         const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
         modal.show();
@@ -286,7 +290,8 @@
     async function processCashPayment() {
         if (!currentPaymentOrderId) return;
         // Cash means we just mark it delivered (backend auto-sets to paid)
-        await updateOrderStatus(currentPaymentOrderId, 'delivered', true, 'cash');
+        await updateOrderStatus(currentPaymentOrderId, 'delivered', true, 'cash', currentScannedQR);
+        currentScannedQR = null;
         const modalEl = document.getElementById('paymentModal');
         const modal = bootstrap.Modal.getInstance(modalEl);
         if (modal) modal.hide();
@@ -412,16 +417,16 @@
         if (typeof Html5QrcodeScanner !== 'undefined') {
             html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: { width: 250, height: 250 } });
             html5QrcodeScanner.render((decodedText) => {
-                if (decodedText === expectedCode) {
-                    html5QrcodeScanner.clear();
-                    html5QrcodeScanner = null;
-                    if (nextStatus === 'delivered') {
-                        promptDeliveryPayment(orderId);
-                    } else {
-                        updateOrderStatus(orderId, nextStatus);
-                    }
+                let scannedText = decodedText.trim();
+                console.log("Scanned QR:", scannedText);
+
+                html5QrcodeScanner.clear();
+                html5QrcodeScanner = null;
+                
+                if (nextStatus === 'delivered') {
+                    promptDeliveryPayment(orderId, scannedText);
                 } else {
-                    alert('Invalid QR Code. This does not match the expected ' + expectedCode);
+                    updateOrderStatus(orderId, nextStatus, true, null, scannedText);
                 }
             }, (err) => {
                 // Ignore errors
@@ -439,11 +444,12 @@
         renderOrders();
     }
 
-    async function updateOrderStatus(orderId, newStatus, skipConfirm = false, codPaymentType = null) {
+    async function updateOrderStatus(orderId, newStatus, skipConfirm = false, codPaymentType = null, scannedQr = null) {
         if (!skipConfirm && !confirm(`Are you sure you want to change this order status to ${newStatus.replace('_', ' ').toUpperCase()}?`)) return;
 
         const body = { order_status: newStatus };
         if (codPaymentType) body.cod_payment_type = codPaymentType;
+        if (scannedQr) body.scanned_qr = scannedQr;
 
         try {
             const res = await fetch(`/api/orders/${orderId}/status/`, {

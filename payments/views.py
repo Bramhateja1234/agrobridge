@@ -37,6 +37,10 @@ class CreateCheckoutSessionView(APIView):
         if order.total_price < 50:
             return Response({'error': 'Minimum order amount for Online Payment is ₹50 due to payment gateway limits. Please collect cash instead.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        origin = request.META.get('HTTP_ORIGIN')
+        if not origin:
+            origin = f"{request.scheme}://{request.get_host()}"
+
         try:
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
@@ -52,8 +56,8 @@ class CreateCheckoutSessionView(APIView):
                     'quantity': 1,
                 }],
                 mode='payment',
-                success_url=f"{settings.FRONTEND_URL}/orders/success/?session_id={{CHECKOUT_SESSION_ID}}",
-                cancel_url=f"{settings.FRONTEND_URL}/cart/",
+                success_url=f"{origin}/orders/success/?session_id={{CHECKOUT_SESSION_ID}}",
+                cancel_url=f"{origin}/cart/",
                 metadata={
                     'order_id': str(order.id),
                     'consumer_id': str(order.consumer.id),
@@ -120,7 +124,14 @@ class StripeWebhookView(APIView):
         return HttpResponse(status=200)
 
     def _handle_successful_payment(self, session):
-        order_id = session.get('metadata', {}).get('order_id')
+        metadata = getattr(session, 'metadata', None)
+        if metadata is None and hasattr(session, 'get'):
+            metadata = session.get('metadata', {})
+            
+        order_id = getattr(metadata, 'order_id', None)
+        if not order_id and hasattr(metadata, 'get'):
+            order_id = metadata.get('order_id')
+
         if not order_id:
             return
 
@@ -142,17 +153,23 @@ class StripeWebhookView(APIView):
                 order.order_status = 'delivered'
                 order.cod_payment_type = 'online'
 
-            order.stripe_payment_id = session.get('payment_intent', '')
+            payment_intent = getattr(session, 'payment_intent', None) or (session.get('payment_intent', '') if hasattr(session, 'get') else '')
+            session_id = getattr(session, 'id', None) or (session.get('id', '') if hasattr(session, 'get') else '')
+            amount_total = getattr(session, 'amount_total', None) or (session.get('amount_total', 0) if hasattr(session, 'get') else 0)
+            currency = getattr(session, 'currency', None) or (session.get('currency', 'inr') if hasattr(session, 'get') else 'inr')
+
+            order.stripe_payment_id = payment_intent
             order.save()
 
             # Create PaymentLog
+            from .models import PaymentLog
             PaymentLog.objects.get_or_create(
                 order=order,
                 defaults={
-                    'stripe_payment_id': session.get('payment_intent', session['id']),
-                    'stripe_session_id': session['id'],
-                    'amount': session.get('amount_total', 0) / 100,
-                    'currency': session.get('currency', 'inr'),
+                    'stripe_payment_id': payment_intent or session_id,
+                    'stripe_session_id': session_id,
+                    'amount': amount_total / 100 if amount_total else 0,
+                    'currency': currency,
                     'status': 'succeeded',
                 }
             )

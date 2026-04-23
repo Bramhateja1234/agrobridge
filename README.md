@@ -74,18 +74,13 @@ AgroBridge supports:
 
 Switch languages using the dropdown in the navigation bar.
 
-## 🌍 Deployment on Render (Free)
-
-AgroBridge is ready to be hosted for free on [Render.com](https://render.com).
-
-1.  **Push to GitHub**: Create a repository and push your code.
-2.  **Connect to Render**:
-    -   Click **"New"** → **"Blueprint"**.
-    -   Connect your GitHub repository.
-    -   Render will automatically read `render.yaml` and set up your **Web Service** and **MySQL Database**.
-3.  **Set Environment Variables**: In the Render Dashboard, add these:
-    -   `SECRET_KEY`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`, `FRONTEND_URL`.
-4.  **SEO Ready**: We've included a `robots.txt` and optimized meta tags so your site can be found on **Google**!
+## 🌍 Deployment on Render (PostgreSQL + Docker)
+AgroBridge is configured for professional deployment on Render using the `render.yaml` blueprint.
+1.  **Push to GitHub**.
+2.  **Connect to Render** (New -> Blueprint).
+3.  **Automatic Provisioning**: Render will set up a **PostgreSQL** database and a **Docker-based Web Service**.
+4.  **Data Load**: The first deploy automatically runs `migrate` and `loaddata` via the `preDeployCommand`.
+5.  **SEO Ready**: We've included a `robots.txt` and optimized meta tags for **Google**!
 
 ---
 

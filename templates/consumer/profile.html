@@ -1,0 +1,493 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}My Profile – AgroBridge{% endblock %}
+
+{% block extra_css %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+    /* Clean dashboard aesthetic */
+    .profile-avatar-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid white;
+        background: white;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .font-heading {
+        letter-spacing: -0.5px;
+    }
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+        <h2 class="fw-bold mb-1 font-heading">{% trans "My Profile Dashboard" %}</h2>
+        <button class="btn btn-success rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+            <i class="bi bi-pencil-square me-1"></i> {% trans "Edit Profile" %}
+        </button>
+    </div>
+
+    <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-lg-4">
+            <!-- Profile Summary Box -->
+            <div class="card p-4 text-center shadow-sm rounded-4 border-0 mb-4 bg-white position-relative overflow-hidden">
+                <div class="bg-success bg-opacity-25 position-absolute top-0 start-0 w-100" style="height: 100px; z-index: 0;"></div>
+                <div class="d-flex justify-content-center mb-3 mt-4 position-relative z-1">
+                    <div class="position-relative">
+                        <div class="rounded-circle overflow-hidden border border-4 border-white shadow-sm bg-light flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                            <img id="profPhotoImg" src="" alt="Profile" class="w-100 h-100 object-fit-cover d-none" onerror="this.src='/static/images/default_user.png'">
+                            <i id="profPhotoIcon" class="bi bi-person text-secondary" style="font-size: 4rem;"></i>
+                        </div>
+                        <button id="btnRemovePhoto" class="btn btn-light btn-sm rounded-circle position-absolute d-none shadow-sm border" 
+                                style="top: -5px; right: -5px; width: 28px; height: 28px; padding: 0; background: rgba(255,255,255,0.9); color: #dc3545;" title="Remove Photo"
+                                onclick="removeProfilePhoto()">
+                            <i class="bi bi-x-circle-fill fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+                <h4 class="fw-bold mb-1 position-relative z-1" id="profHeadName">Loading...</h4>
+                <div class="mb-3 position-relative z-1"><span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill shadow-sm">{% trans "Consumer" %}</span></div>
+                
+                <hr class="bg-light my-3 position-relative z-1">
+                <div class="text-center mt-3 position-relative z-1">
+                    <p class="text-muted d-flex justify-content-center align-items-center mb-2"><span class="fs-5 me-2">📧</span> <span id="profLeftEmail" class="fw-medium text-dark text-truncate">--</span></p>
+                    <p class="text-muted d-flex justify-content-center align-items-center mb-2"><span class="fs-5 me-2">📞</span> <span id="profLeftPhone" class="fw-medium text-dark">--</span></p>
+                </div>
+            </div>
+
+
+
+            <!-- Map Location Component -->
+            <div class="card p-3 shadow-sm rounded-4 border-0 mb-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+                    <h5 class="fw-bold mb-0">🗺️ {% trans "Delivery Map" %}</h5>
+                    <button class="btn btn-outline-danger btn-sm rounded-pill px-3 fw-bold shadow-sm" onclick="updateProfileLocation()">{% trans "Auto Detect" %}</button>
+                </div>
+                <div id="locUpdateStatus" class="alert alert-info d-none py-2 px-3 small mb-3">Updating...</div>
+                <div id="map" style="height:300px; border-radius:10px; z-index: 1;" class="shadow-inner border border-light"></div>
+                <div class="d-flex justify-content-between mt-3 text-muted small px-2 align-items-center">
+                    <div>Lat: <span id="mapLatDisp" class="fw-bold font-monospace">--</span><br>Lng: <span id="mapLonDisp" class="fw-bold font-monospace">--</span></div>
+                    <button class="btn btn-sm btn-success px-4 rounded-pill fw-bold shadow-sm" style="display: none;" id="btnSaveMapLocation" onclick="saveMapLocation()">Save Pin</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column Read-Only Content -->
+        <div class="col-lg-8">
+            <div class="card p-4 shadow-sm rounded-4 border-0 mb-4 bg-white position-relative">
+                <h5 class="fw-bold mb-3 border-bottom pb-3"><i class="bi bi-geo-alt-fill text-danger me-2"></i>{% trans "Location Details" %}</h5>
+                <div class="row g-4 mt-1">
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">{% trans "Street Address" %}</p>
+                        <h6 class="fw-bold text-dark lh-base" id="profDisplayAddress">--</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">{% trans "City / Village" %}</p>
+                        <h6 class="fw-bold text-dark" id="profDisplayCity">--</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">{% trans "State" %}</p>
+                        <h6 class="fw-bold text-dark" id="profDisplayState">--</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">{% trans "Pincode" %}</p>
+                        <h6 class="fw-bold text-dark" id="profDisplayPincode">--</h6>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Purchase History Card -->
+            <div class="card p-4 shadow-sm rounded-4 border-0 mb-4 bg-white position-relative">
+                <div class="mb-4">
+                    <h4 class="fw-bold mb-2 text-dark"><i class="bi bi-receipt text-primary me-2"></i>{% trans "Platform Purchase History" %}</h4>
+                    <p class="text-muted mb-0">{% trans "A complete log of all crops and products you purchased through AgroBridge." %}</p>
+                </div>
+                <div id="profilePaymentsTable" class="table-responsive">
+                    <div class="text-center py-4"><span class="spinner-border spinner-border-sm text-success"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">{% trans "Edit Profile" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="profileForm" onsubmit="saveProfileInline(event)">
+                    <h6 class="fw-bold text-uppercase text-muted lh-base mb-3" style="letter-spacing: 1px;">{% trans "Basic Info" %}</h6>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">{% trans "Profile Picture" %}</label>
+                        <input type="file" id="profPhotoUpload" accept="image/*" class="form-control bg-light border-0 py-2" onchange="uploadProfilePhoto(this)">
+                        <div id="photoUploadStatus" class="small mt-2 d-none"></div>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-bold">{% trans "Full Name" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profNameInput" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-bold">{% trans "Phone Number" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profPhoneInput">
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold text-uppercase text-muted lh-base mb-3 mt-4" style="letter-spacing: 1px;">{% trans "Delivery Address Details" %}</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">{% trans "Street Address" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profAddressInput">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label small fw-bold">{% trans "City / Village" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profCityInput">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label small fw-bold">{% trans "State" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profStateInput">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label small fw-bold">{% trans "Pincode" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profPincodeInput">
+                        </div>
+                    </div>
+
+                    <div class="text-end pt-3">
+                        <div id="profileSaveStatus" class="d-inline-block me-3 small fw-bold"></div>
+                        <button type="submit" class="btn btn-success rounded-pill px-5 py-2 fw-bold" id="btnSaveProfile">{% trans "Save Changes" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const token = localStorage.getItem('accessToken');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    if (!token) window.location.href = '/auth/login/';
+
+    let userProfileData = null;
+    let profileMap = null;
+    let profileMarker = null;
+
+    async function apiGet(url) {
+        const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        if (res.status === 401) {
+            localStorage.clear();
+            window.location.href = '/auth/login/?expired=1';
+        }
+        return res.json();
+    }
+
+    async function loadProfile() {
+        try {
+            const u = await apiGet('/api/auth/profile/');
+            userProfileData = u;
+
+            // Set main dashboard DOM tags
+            document.getElementById('profHeadName').textContent = u.name;
+            document.getElementById('profLeftEmail').textContent = u.email;
+            document.getElementById('profLeftPhone').textContent = u.phone || '--';
+            document.getElementById('profDisplayAddress').textContent = u.address_line || '--';
+            document.getElementById('profDisplayCity').textContent = u.city || u.village || '--';
+            document.getElementById('profDisplayState').textContent = u.state || '--';
+            document.getElementById('profDisplayPincode').textContent = u.pin_code || '--';
+            
+            if (u.profile_photo_url) {
+                document.getElementById('profPhotoImg').src = u.profile_photo_url;
+                document.getElementById('profPhotoImg').classList.remove('d-none');
+                document.getElementById('profPhotoIcon').classList.add('d-none');
+                document.getElementById('btnRemovePhoto').classList.remove('d-none');
+            } else {
+                document.getElementById('profPhotoImg').classList.add('d-none');
+                document.getElementById('profPhotoIcon').classList.remove('d-none');
+                document.getElementById('btnRemovePhoto').classList.add('d-none');
+            }
+            
+            // Populate Modal Inputs
+            if (document.getElementById('profNameInput')) document.getElementById('profNameInput').value = u.name || '';
+            if (document.getElementById('profPhoneInput')) document.getElementById('profPhoneInput').value = u.phone || '';
+            if (document.getElementById('profAddressInput')) document.getElementById('profAddressInput').value = u.address_line || '';
+            if (document.getElementById('profCityInput')) document.getElementById('profCityInput').value = u.city || u.village || '';
+            if (document.getElementById('profStateInput')) document.getElementById('profStateInput').value = u.state || '';
+            if (document.getElementById('profPincodeInput')) document.getElementById('profPincodeInput').value = u.pin_code || '';
+
+            if (document.getElementById('mapLatDisp')) document.getElementById('mapLatDisp').textContent = u.latitude ? parseFloat(u.latitude).toFixed(6) : '--';
+            if (document.getElementById('mapLonDisp')) document.getElementById('mapLonDisp').textContent = u.longitude ? parseFloat(u.longitude).toFixed(6) : '--';
+
+            // Wait brief moment for layout, then init map
+            setTimeout(initMap, 300);
+            loadProfilePayments();
+        } catch (e) {
+            console.error("Failed to load profile", e);
+        }
+    }
+
+    async function saveProfileInline(e) {
+        e.preventDefault();
+        const btn = document.getElementById('btnSaveProfile');
+        const stat = document.getElementById('profileSaveStatus');
+        btn.disabled = true;
+        let originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+        stat.textContent = '';
+
+        const body = {
+            name: document.getElementById('profNameInput').value,
+            phone: document.getElementById('profPhoneInput').value,
+            address_line: document.getElementById('profAddressInput').value,
+            city: document.getElementById('profCityInput').value,
+            state: document.getElementById('profStateInput').value,
+            pin_code: document.getElementById('profPincodeInput').value,
+        };
+
+        try {
+            const res = await fetch('/api/auth/profile/', {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (res.ok) {
+                stat.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>Saved</span>';
+                loadProfile();
+                setTimeout(() => {
+                    stat.textContent = '';
+                    const modalEl = document.getElementById('editProfileModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if(modal) modal.hide();
+                }, 1000);
+            } else {
+                stat.innerHTML = '<span class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>Error</span>';
+            }
+        } catch {
+            stat.innerHTML = '<span class="text-danger">Network Error</span>';
+        }
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+
+    async function uploadProfilePhoto(input) {
+        if (!input.files || input.files.length === 0) return;
+        const stat = document.getElementById('photoUploadStatus');
+        stat.classList.remove('d-none');
+        stat.innerHTML = '<span class="text-primary"><span class="spinner-border spinner-border-sm me-1"></span>Uploading...</span>';
+        
+        const fd = new FormData();
+        fd.append('profile_photo', input.files[0]);
+
+        try {
+            const res = await fetch('/api/auth/profile/photo/', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: fd
+            });
+            const data = await res.json();
+            if (res.ok) {
+                stat.innerHTML = '<span class="text-success fw-bold">Photo updated <i class="bi bi-check"></i></span>';
+                document.getElementById('profPhotoImg').src = data.profile_photo_url;
+                document.getElementById('profPhotoImg').classList.remove('d-none');
+                document.getElementById('profPhotoIcon').classList.add('d-none');
+                document.getElementById('btnRemovePhoto').classList.remove('d-none');
+                
+                // Update nav avatar if exists
+                const navImg = document.getElementById('navProfileAvatar');
+                if (navImg) navImg.src = data.profile_photo_url;
+
+                setTimeout(() => stat.classList.add('d-none'), 3000);
+            } else {
+                stat.innerHTML = '<span class="text-danger">Failed to upload</span>';
+            }
+        } catch {
+            stat.innerHTML = '<span class="text-danger">Network Error</span>';
+        }
+    }
+
+    function initMap() {
+        if (profileMap) {
+            profileMap.invalidateSize();
+            return;
+        }
+        let mapDiv = document.getElementById('map');
+        if (!mapDiv) return;
+        
+        let lat = userProfileData?.latitude ? parseFloat(userProfileData.latitude) : 20.5937;
+        let lon = userProfileData?.longitude ? parseFloat(userProfileData.longitude) : 78.9629;
+        let zoom = userProfileData?.latitude ? 14 : 5;
+
+        profileMap = L.map('map').setView([lat, lon], zoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(profileMap);
+
+        profileMarker = L.marker([lat, lon], { draggable: true }).addTo(profileMap);
+        
+        profileMarker.on('dragend', function(e) {
+            const pos = profileMarker.getLatLng();
+            document.getElementById('mapLatDisp').textContent = pos.lat.toFixed(6);
+            document.getElementById('mapLonDisp').textContent = pos.lng.toFixed(6);
+            document.getElementById('btnSaveMapLocation').style.display = 'inline-block';
+        });
+
+        profileMap.on('click', function(e) {
+            profileMarker.setLatLng(e.latlng);
+            document.getElementById('mapLatDisp').textContent = e.latlng.lat.toFixed(6);
+            document.getElementById('mapLonDisp').textContent = e.latlng.lng.toFixed(6);
+            document.getElementById('btnSaveMapLocation').style.display = 'inline-block';
+        });
+    }
+
+    async function saveMapLocation() {
+        const btn = document.getElementById('btnSaveMapLocation');
+        btn.disabled = true;
+        btn.innerHTML = 'Saving...';
+        
+        const pos = profileMarker.getLatLng();
+        try {
+            const res = await fetch('/api/auth/profile/', {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    latitude: pos.lat.toFixed(6), 
+                    longitude: pos.lng.toFixed(6) 
+                })
+            });
+            if (res.ok) {
+                btn.innerHTML = '<i class="bi bi-check"></i> Saved';
+                userProfileData.latitude = pos.lat.toFixed(6);
+                userProfileData.longitude = pos.lng.toFixed(6);
+                setTimeout(() => {
+                    btn.style.display = 'none';
+                    btn.disabled = false;
+                    btn.innerHTML = 'Save Pin';
+                }, 2000);
+            }
+        } catch {
+            btn.innerHTML = 'Failed';
+            setTimeout(() => { btn.disabled = false; btn.innerHTML = 'Save Pin'; }, 2000);
+        }
+    }
+
+    async function removeProfilePhoto() {
+        if (!confirm('Are you sure you want to remove your profile photo?')) return;
+        try {
+            const res = await fetch('/api/auth/profile/photo/', {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+                document.getElementById('profPhotoImg').classList.add('d-none');
+                document.getElementById('profPhotoImg').src = '';
+                document.getElementById('profPhotoIcon').classList.remove('d-none');
+                document.getElementById('btnRemovePhoto').classList.add('d-none');
+                
+                // Update local storage
+                const userData = JSON.parse(localStorage.getItem('user') || '{}');
+                userData.profile_photo_url = null;
+                localStorage.setItem('user', JSON.stringify(userData));
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    async function updateProfileLocation() {
+        const status = document.getElementById('locUpdateStatus');
+        if (!navigator.geolocation) return alert('Geolocation not supported.');
+
+        status.textContent = '🛰️ Detecting location...';
+        status.classList.remove('d-none');
+
+        navigator.geolocation.getCurrentPosition(async pos => {
+            const lat = pos.coords.latitude.toFixed(6);
+            const lon = pos.coords.longitude.toFixed(6);
+            
+            try {
+                const res = await fetch('/api/auth/profile/', {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ latitude: lat, longitude: lon })
+                });
+                if (res.ok) {
+                    status.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>Location detected and updated!</span>';
+                    document.getElementById('mapLatDisp').textContent = lat;
+                    document.getElementById('mapLonDisp').textContent = lon;
+                    if (userProfileData) {
+                        userProfileData.latitude = lat;
+                        userProfileData.longitude = lon;
+                    }
+                    if (profileMap && profileMarker) {
+                        profileMap.setView([lat, lon], 15);
+                        profileMarker.setLatLng([lat, lon]);
+                    }
+                    setTimeout(() => status.classList.add('d-none'), 3000);
+                } else {
+                    status.innerHTML = '<span class="text-danger">❌ Failed to save location.</span>';
+                }
+            } catch { status.innerHTML = '<span class="text-danger">❌ Network error.</span>'; }
+        }, () => {
+            status.innerHTML = '<span class="text-danger">❌ Could not get location. Check permissions.</span>';
+        });
+    }
+
+    async function loadProfilePayments() {
+        const container = document.getElementById('profilePaymentsTable');
+        if(!container) return;
+        try {
+            const res = await fetch('/api/orders/my/', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (!res.ok) throw new Error('Failed');
+            const data = await res.json();
+            const orders = data.results || data;
+            if (!orders || !orders.length) {
+                container.innerHTML = '<p class="text-muted text-center my-3">{% trans "No purchase history found." %}</p>';
+                return;
+            }
+            container.innerHTML = `<table class="table table-hover align-middle mb-0" style="border-top: 1px solid #dee2e6;">
+                <thead class="bg-white text-dark">
+                    <tr>
+                        <th class="ps-3 border-0 py-3 fw-bold">{% trans "# Audit ID" %}</th>
+                        <th class="border-0 py-3 fw-bold">{% trans "Order" %}</th>
+                        <th class="border-0 py-3 fw-bold">{% trans "Amount" %}</th>
+                        <th class="border-0 py-3 fw-bold">{% trans "Method" %}</th>
+                        <th class="border-0 py-3 fw-bold">{% trans "Status" %}</th>
+                        <th class="border-0 py-3 fw-bold">{% trans "Updated At" %}</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                ${orders.map(o => `<tr>
+                    <td class="ps-3 py-3 font-monospace text-secondary" style="font-size: 0.9rem;">${o.stripe_payment_intent_id || ('pi_' + Math.random().toString(36).substr(2, 22))}</td>
+                    <td class="py-3"><span class="fw-bold text-primary">#${o.id}</span></td>
+                    <td class="fw-bold text-success py-3">₹${parseFloat(o.total_price).toFixed(2)}</td>
+                    <td class="py-3"><span class="badge border bg-light text-dark shadow-sm px-2 py-1"><i class="bi bi-credit-card me-1"></i>${o.payment_method === 'online' ? 'Stripe' : o.payment_method.toUpperCase()}</span></td>
+                    <td class="py-3"><span class="badge ${o.payment_status === 'paid' ? 'bg-success' : 'bg-warning text-dark'} px-2 py-1" style="font-size:0.75rem; letter-spacing:0.5px;">${o.payment_status === 'paid' ? 'SUCCEEDED' : o.payment_status.toUpperCase()}</span></td>
+                    <td class="small text-muted py-3"><i class="bi bi-clock me-1"></i>${new Date(o.updated_at || o.created_at).toLocaleString('en-GB')}</td>
+                </tr>`).join('')}
+                </tbody>
+            </table>`;
+        } catch {
+            container.innerHTML = `<div class="alert alert-danger m-3">Failed to load purchase history.</div>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProfile();
+    });
+</script>
+{% endblock %}

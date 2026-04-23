@@ -1,0 +1,533 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block title %}{% trans "My Profile – Delivery Agent" %}{% endblock %}
+
+{% block extra_css %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+    /* Clean dashboard aesthetic */
+    .profile-avatar-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid white;
+        background: white;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .font-heading {
+        letter-spacing: -0.5px;
+    }
+    .shadow-inner {
+        box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-header text-center d-none">
+    <!-- Removed to align with the new unified aesthetic -->
+</div>
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+        <h2 class="fw-bold mb-1 font-heading">{% trans "Delivery Agent Dashboard" %}</h2>
+        <div>
+            <button class="btn btn-warning rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                <i class="bi bi-pencil-square me-1"></i> {% trans "Edit Profile" %}
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-lg-4">
+            <!-- Profile Summary Box -->
+            <div class="card p-4 text-center shadow-sm rounded-4 border-0 mb-4 bg-white position-relative overflow-hidden">
+                <div class="bg-warning bg-opacity-50 position-absolute top-0 start-0 w-100" style="height: 100px; z-index: 0;"></div>
+                <div class="d-flex justify-content-center mb-3 mt-4 position-relative z-1">
+                    <div class="position-relative">
+                        <div class="rounded-circle overflow-hidden border border-4 border-white shadow-sm bg-light flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+                            <img id="profPhotoImg" src="" alt="Profile" class="w-100 h-100 object-fit-cover d-none" onerror="this.src='/static/images/default_user.png'">
+                            <i id="profPhotoIcon" class="bi bi-person text-secondary" style="font-size: 4rem;"></i>
+                        </div>
+                        <button id="btnRemovePhoto" class="btn btn-light btn-sm rounded-circle position-absolute d-none shadow-sm border" 
+                                style="top: -5px; right: -5px; width: 28px; height: 28px; padding: 0; background: rgba(255,255,255,0.9); color: #dc3545;" title="Remove Photo"
+                                onclick="removeProfilePhoto()">
+                            <i class="bi bi-x-circle-fill fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+                <h4 class="fw-bold mb-1 position-relative z-1" id="profHeadName">...</h4>
+                
+                <div class="mb-3 position-relative z-1">
+                    <div id="statusBadge" class="badge py-2 px-3 rounded-pill fs-6 mb-2 shadow-sm" style="cursor: pointer;" onclick="toggleAvailability()">
+                        <i class="bi bi-circle-fill me-2 small"></i>...
+                    </div>
+                    <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 d-none" id="btnToggleAvail" onclick="toggleAvailability()">Toggle</button>
+                </div>
+                
+                <hr class="bg-light my-3 position-relative z-1">
+                <div class="text-center mt-3 position-relative z-1">
+                    <p class="text-muted d-flex justify-content-center align-items-center mb-2"><span class="fs-5 me-2">📧</span> <span id="profLeftEmail" class="fw-medium text-dark text-truncate">--</span></p>
+                    <p class="text-muted d-flex justify-content-center align-items-center mb-2"><span class="fs-5 me-2">📞</span> <span id="profLeftPhone" class="fw-medium text-dark">--</span></p>
+                </div>
+            </div>
+
+            <!-- Service Performance Suggestion -->
+            <div class="card border-0 shadow-sm rounded-4 mt-4 overflow-hidden mb-4">
+                <div class="card-header bg-warning text-dark border-0 py-3">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-speedometer2 pe-2"></i>{% trans "Service Performance" %}</h6>
+                </div>
+                <div class="card-body p-4">
+                    <div id="deliveryStatsExtra" class="d-none text-center">
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-1">{% trans "Total Completed" %}</small>
+                            <h3 class="fw-bold mb-0" id="statCompleted">0</h3>
+                        </div>
+                        <div class="row g-2 mt-3 border-top pt-3">
+                            <div class="col-6 border-end">
+                                <small class="text-muted d-block mb-1">{% trans "Success Rate" %}</small>
+                                <span class="fw-bold text-success">98%</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block mb-1">{% trans "Est. Bonus" %}</small>
+                                <span class="fw-bold text-dark">₹<span id="statEarnings">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-3" id="deliveryStatsSpinner">
+                        <span class="spinner-border spinner-border-sm text-warning"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Location Component -->
+            <div class="card p-3 shadow-sm rounded-4 border-0 mb-4 bg-white">
+                <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+                    <h5 class="fw-bold mb-0">🗺️ {% trans "Service Hub Location" %}</h5>
+                    <button class="btn btn-outline-danger btn-sm rounded-pill px-3 fw-bold shadow-sm" onclick="updateProfileLocation()">{% trans "Auto Detect" %}</button>
+                </div>
+                <div id="locUpdateStatus" class="alert alert-info d-none py-2 px-3 small mb-3">{% trans "Updating..." %}</div>
+                <div id="map" style="height:300px; border-radius:10px; z-index: 1;" class="shadow-inner border border-light"></div>
+                <div class="d-flex justify-content-between mt-3 text-muted small px-2 align-items-center">
+                    <div>{% trans "Lat:" %} <span id="mapLatDisp" class="fw-bold font-monospace">--</span><br>{% trans "Lng:" %} <span id="mapLonDisp" class="fw-bold font-monospace">--</span></div>
+                    <button class="btn btn-sm btn-success px-4 rounded-pill fw-bold shadow-sm" style="display: none;" id="btnSaveMapLocation" onclick="saveMapLocation()">{% trans "Save Location" %}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column Read-Only Content -->
+        <div class="col-lg-8">
+            <div class="card p-4 shadow-sm rounded-4 border-0 mb-4 bg-white position-relative">
+                <h5 class="fw-bold mb-3 border-bottom pb-3"><i class="bi bi-person-badge text-warning me-2"></i>{% trans "Agent Verification Info" %}</h5>
+                <div class="row g-4 mt-1 mb-4">
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">{% trans "Vehicle Type" %}</p>
+                        <h6 class="fw-bold text-dark text-capitalize" id="profDisplayVehicle">--</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted small mb-1">{% trans "Driving License Number" %}</p>
+                        <h6 class="fw-bold text-dark text-uppercase font-monospace" id="profDisplayLicense">--</h6>
+                    </div>
+                </div>
+
+                <h5 class="fw-bold mb-3 border-bottom pb-3 mt-4"><i class="bi bi-geo-alt-fill text-danger me-2"></i>{% trans "Base Area Address" %}</h5>
+                <div class="row g-4 mt-1">
+                    <div class="col-md-4">
+                        <p class="text-muted small mb-1">{% trans "City / Village" %}</p>
+                        <h6 class="fw-bold text-dark" id="profDisplayCity">--</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted small mb-1">{% trans "State" %}</p>
+                        <h6 class="fw-bold text-dark" id="profDisplayState">--</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted small mb-1">{% trans "Pincode" %}</p>
+                        <h6 class="fw-bold text-dark" id="profDisplayPincode">--</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">{% trans "Edit Profile" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="profileForm" onsubmit="saveProfileInline(event)">
+                    <h6 class="fw-bold text-uppercase text-muted lh-base mb-3" style="letter-spacing: 1px;">{% trans "Basic Info" %}</h6>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">{% trans "Profile Picture" %}</label>
+                        <input type="file" id="profPhotoUpload" accept="image/*" class="form-control bg-light border-0 py-2" onchange="uploadProfilePhoto(this)">
+                        <div id="photoUploadStatus" class="small mt-2 d-none"></div>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-bold">{% trans "Full Name" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profNameInput" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label small fw-bold">{% trans "Phone Number" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profPhoneInput">
+                        </div>
+                    </div>
+
+                    <h6 class="fw-bold text-uppercase text-muted lh-base mb-3 mt-4" style="letter-spacing: 1px;">{% trans "Agent Verification Info" %}</h6>
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">{% trans "Vehicle Type" %}</label>
+                            <select class="form-select bg-light border-0 py-2" id="profVehicleInput">
+                                <option value="">{% trans "Select..." %}</option>
+                                <option value="bike">{% trans "Bike / Motorcycle" %}</option>
+                                <option value="auto">{% trans "Auto / TukTuk" %}</option>
+                                <option value="van">{% trans "Mini Van" %}</option>
+                                <option value="truck">{% trans "Truck" %}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">{% trans "Driving License Number" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profLicenseInput">
+                        </div>
+                    </div>
+                    
+                    <h6 class="fw-bold text-uppercase text-muted lh-base mb-3 mt-4" style="letter-spacing: 1px;">{% trans "Base Area Address" %}</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-4">
+                            <label class="form-label small fw-bold">{% trans "City / Village" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profCityInput">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label small fw-bold">{% trans "State" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profStateInput">
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="form-label small fw-bold">{% trans "Pincode" %}</label>
+                            <input type="text" class="form-control bg-light border-0 py-2" id="profPincodeInput">
+                        </div>
+                    </div>
+
+                    <div class="text-end pt-3">
+                        <div id="profileSaveStatus" class="d-inline-block me-3 small fw-bold"></div>
+                        <button type="submit" class="btn btn-warning rounded-pill px-5 py-2 fw-bold" id="btnSaveProfile">{% trans "Save Changes" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    const token = localStorage.getItem('accessToken');
+    if (!token) window.location.href = '/auth/login/';
+
+    const i18n = {
+        onlineReady: "{% trans 'Online & Ready' %}",
+        goOffline: "{% trans 'Go Offline' %}",
+        offline: "{% trans 'Offline' %}",
+        goOnline: "{% trans 'Go Online' %}",
+        saving: "{% trans 'Saving...' %}",
+        saved: "{% trans 'Saved' %}",
+        error: "{% trans 'Error' %}",
+        networkError: "{% trans 'Network Error' %}",
+        uploading: "{% trans 'Uploading...' %}",
+        photoUpdated: "{% trans 'Photo updated' %}",
+        failedToUpload: "{% trans 'Failed to upload' %}"
+    };
+
+    let isAvailable = true;
+    let profileMap = null;
+    let profileMarker = null;
+    let userProfileData = {};
+
+    async function loadProfile() {
+        try {
+            const res = await fetch('/api/auth/profile/', { headers: { 'Authorization': `Bearer ${token}` } });
+            if (!res.ok) throw new Error('Auth err');
+            const u = await res.json();
+            userProfileData = u;
+
+            // DOM Updates Grid
+            document.getElementById('profHeadName').textContent = u.name;
+            document.getElementById('profLeftEmail').textContent = u.email;
+            document.getElementById('profLeftPhone').textContent = u.phone || '--';
+            document.getElementById('profDisplayCity').textContent = u.city || u.village || '--';
+            document.getElementById('profDisplayState').textContent = u.state || '--';
+            document.getElementById('profDisplayPincode').textContent = u.pin_code || '--';
+            
+            document.getElementById('profDisplayVehicle').textContent = u.vehicle_type ? u.vehicle_type.replace('_', ' ') : '--';
+            document.getElementById('profDisplayLicense').textContent = u.license_number || '--';
+
+            // Modal Inputs Grid
+            if (document.getElementById('profNameInput')) document.getElementById('profNameInput').value = u.name || '';
+            if (document.getElementById('profPhoneInput')) document.getElementById('profPhoneInput').value = u.phone || '';
+            if (document.getElementById('profCityInput')) document.getElementById('profCityInput').value = u.city || u.village || '';
+            if (document.getElementById('profStateInput')) document.getElementById('profStateInput').value = u.state || '';
+            if (document.getElementById('profPincodeInput')) document.getElementById('profPincodeInput').value = u.pin_code || '';
+            if (document.getElementById('profVehicleInput')) document.getElementById('profVehicleInput').value = u.vehicle_type || '';
+            if (document.getElementById('profLicenseInput')) document.getElementById('profLicenseInput').value = u.license_number || '';
+            
+            // Map Setup
+            document.getElementById('mapLatDisp').textContent = u.latitude || '--';
+            document.getElementById('mapLonDisp').textContent = u.longitude || '--';
+
+            if (u.profile_photo_url) {
+                document.getElementById('profPhotoImg').src = u.profile_photo_url;
+                document.getElementById('profPhotoImg').classList.remove('d-none');
+                document.getElementById('profPhotoIcon').classList.add('d-none');
+                document.getElementById('btnRemovePhoto').classList.remove('d-none');
+            } else {
+                document.getElementById('profPhotoImg').classList.add('d-none');
+                document.getElementById('profPhotoIcon').classList.remove('d-none');
+                document.getElementById('btnRemovePhoto').classList.add('d-none');
+            }
+
+            isAvailable = u.is_available === undefined ? true : u.is_available;
+            renderAvailability();
+            
+            setTimeout(initMap, 400);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function renderAvailability() {
+        const badge = document.getElementById('statusBadge');
+        if (isAvailable) {
+            badge.className = 'badge bg-success py-2 px-4 rounded-pill fs-6 mb-2 shadow-sm';
+            badge.innerHTML = `<i class="bi bi-circle-fill me-2 small"></i>${i18n.onlineReady}`;
+        } else {
+            badge.className = 'badge bg-secondary py-2 px-4 rounded-pill fs-6 mb-2 shadow-sm';
+            badge.innerHTML = `<i class="bi bi-pause-circle text-white me-2 small"></i>${i18n.offline}`;
+        }
+    }
+
+    async function toggleAvailability() {
+        isAvailable = !isAvailable;
+        renderAvailability();
+        try {
+            await fetch('/api/auth/profile/', {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ is_available: isAvailable })
+            });
+        } catch {}
+    }
+
+    async function saveProfileInline(e) {
+        e.preventDefault();
+        const btn = document.getElementById('btnSaveProfile');
+        const stat = document.getElementById('profileSaveStatus');
+        btn.disabled = true;
+        let originalText = btn.innerHTML;
+        btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>${i18n.saving}`;
+        stat.textContent = '';
+
+        const body = {
+            name: document.getElementById('profNameInput').value,
+            phone: document.getElementById('profPhoneInput').value,
+            city: document.getElementById('profCityInput').value,
+            state: document.getElementById('profStateInput').value,
+            pin_code: document.getElementById('profPincodeInput').value,
+            vehicle_type: document.getElementById('profVehicleInput').value,
+            license_number: document.getElementById('profLicenseInput').value,
+        };
+
+        try {
+            const res = await fetch('/api/auth/profile/', {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (res.ok) {
+                stat.innerHTML = `<span class="text-success"><i class="bi bi-check-circle me-1"></i>${i18n.saved}</span>`;
+                loadProfile();
+                setTimeout(() => {
+                    stat.textContent = '';
+                    const modalEl = document.getElementById('editProfileModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if(modal) modal.hide();
+                }, 1000);
+            } else {
+                stat.innerHTML = `<span class="text-danger"><i class="bi bi-exclamation-triangle me-1"></i>${i18n.error}</span>`;
+            }
+        } catch {
+            stat.innerHTML = `<span class="text-danger">${i18n.networkError}</span>`;
+        }
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+
+    async function uploadProfilePhoto(input) {
+        if (!input.files || input.files.length === 0) return;
+        const stat = document.getElementById('photoUploadStatus');
+        stat.classList.remove('d-none');
+        stat.innerHTML = `<span class="text-primary"><span class="spinner-border spinner-border-sm me-1"></span>${i18n.uploading}</span>`;
+        
+        const fd = new FormData();
+        fd.append('profile_photo', input.files[0]);
+
+        try {
+            const res = await fetch('/api/auth/profile/photo/', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: fd
+            });
+            const data = await res.json();
+            if (res.ok) {
+                stat.innerHTML = `<span class="text-success fw-bold">${i18n.photoUpdated} <i class="bi bi-check"></i></span>`;
+                document.getElementById('profPhotoImg').src = data.profile_photo_url;
+                document.getElementById('profPhotoImg').classList.remove('d-none');
+                document.getElementById('profPhotoIcon').classList.add('d-none');
+                setTimeout(() => stat.classList.add('d-none'), 3000);
+            } else {
+                stat.innerHTML = `<span class="text-danger">${i18n.failedToUpload}</span>`;
+            }
+        } catch {
+            stat.innerHTML = `<span class="text-danger">${i18n.networkError}</span>`;
+        }
+    }
+
+    function initMap() {
+        if (profileMap) {
+            profileMap.invalidateSize();
+            return;
+        }
+        let mapDiv = document.getElementById('map');
+        if (!mapDiv) return;
+        
+        let lat = userProfileData?.latitude ? parseFloat(userProfileData.latitude) : 17.3850;
+        let lon = userProfileData?.longitude ? parseFloat(userProfileData.longitude) : 78.4867;
+        let zoom = userProfileData?.latitude ? 14 : 10;
+
+        profileMap = L.map('map').setView([lat, lon], zoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(profileMap);
+
+        profileMarker = L.marker([lat, lon], { draggable: true }).addTo(profileMap);
+        
+        profileMarker.on('dragend', function(e) {
+            const pos = profileMarker.getLatLng();
+            document.getElementById('mapLatDisp').textContent = pos.lat.toFixed(6);
+            document.getElementById('mapLonDisp').textContent = pos.lng.toFixed(6);
+            document.getElementById('btnSaveMapLocation').style.display = 'inline-block';
+        });
+
+        profileMap.on('click', function(e) {
+            profileMarker.setLatLng(e.latlng);
+            document.getElementById('mapLatDisp').textContent = e.latlng.lat.toFixed(6);
+            document.getElementById('mapLonDisp').textContent = e.latlng.lng.toFixed(6);
+            document.getElementById('btnSaveMapLocation').style.display = 'inline-block';
+        });
+    }
+
+    async function saveMapLocation() {
+        const btn = document.getElementById('btnSaveMapLocation');
+        btn.disabled = true;
+        btn.innerHTML = '{% trans "Saving..." %}';
+        
+        const pos = profileMarker.getLatLng();
+        try {
+            const res = await fetch('/api/auth/profile/', {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    latitude: pos.lat.toFixed(6), 
+                    longitude: pos.lng.toFixed(6) 
+                })
+            });
+            if (res.ok) {
+                btn.innerHTML = '<i class="bi bi-check"></i> {% trans "Saved" %}';
+                setTimeout(() => {
+                    btn.style.display = 'none';
+                    btn.disabled = false;
+                    btn.innerHTML = '{% trans "Save Location" %}';
+                }, 2000);
+            }
+        } catch {
+            btn.innerHTML = '{% trans "Error" %}';
+            setTimeout(() => { btn.disabled = false; btn.innerHTML = '{% trans "Save Location" %}'; }, 2000);
+        }
+    }
+
+    async function removeProfilePhoto() {
+        if (!confirm('Are you sure you want to remove your profile photo?')) return;
+        try {
+            const res = await fetch('/api/auth/profile/photo/', {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+                document.getElementById('profPhotoImg').classList.add('d-none');
+                document.getElementById('profPhotoImg').src = '';
+                document.getElementById('profPhotoIcon').classList.remove('d-none');
+                document.getElementById('btnRemovePhoto').classList.add('d-none');
+                
+                const userData = JSON.parse(localStorage.getItem('user') || '{}');
+                userData.profile_photo_url = null;
+                localStorage.setItem('user', JSON.stringify(userData));
+            }
+        } catch (e) { console.error(e); }
+    }
+
+    async function updateProfileLocation() {
+        const status = document.getElementById('locUpdateStatus');
+        status.classList.remove('d-none');
+        
+        if (!navigator.geolocation) {
+            status.textContent = "Geolocation not supported";
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+            
+            document.getElementById('mapLatDisp').textContent = lat.toFixed(6);
+            document.getElementById('mapLonDisp').textContent = lon.toFixed(6);
+            
+            if (profileMap) {
+                profileMap.setView([lat, lon], 15);
+                profileMarker.setLatLng([lat, lon]);
+            }
+            
+            document.getElementById('btnSaveMapLocation').style.display = 'inline-block';
+            status.classList.add('d-none');
+        }, () => {
+            status.textContent = "Permission denied";
+            setTimeout(() => status.classList.add('d-none'), 3000);
+        });
+    }
+
+    async function loadStats() {
+        try {
+            const res = await fetch('/api/auth/profile/stats/', { headers: { 'Authorization': `Bearer ${token}` } });
+            const s = await res.json();
+            
+            document.getElementById('deliveryStatsSpinner')?.classList.add('d-none');
+            document.getElementById('deliveryStatsExtra')?.classList.remove('d-none');
+            
+            document.getElementById('statCompleted').textContent = s.completed_deliveries || 0;
+            document.getElementById('statEarnings').textContent = s.estimated_earnings || 0;
+        } catch {}
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProfile();
+        loadStats();
+    });
+</script>
+{% endblock %}

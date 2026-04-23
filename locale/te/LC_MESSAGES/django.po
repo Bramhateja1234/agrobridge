@@ -96,7 +96,7 @@ msgid "Wheat · Winter"
 msgstr "గోధుమ · శీతాకాలం"
 
 msgid "Demand Forecast"
-msgstr "డిమాండ్ సూచన"
+msgstr "డిమాండ్ అంచనా"
 
 msgid "Next 3 months"
 msgstr "తదుపరి 3 నెలలు"
@@ -105,7 +105,7 @@ msgid "Try AI Tools"
 msgstr "AI సాధనాలను ప్రయత్నించండి"
 
 msgid "Price Predictor"
-msgstr "ధర అంచనా వేసేది"
+msgstr "ధర అంచనాడు"
 
 msgid "Grain"
 msgstr "ధాన్యం"
@@ -117,13 +117,13 @@ msgid "Fruit"
 msgstr "పండు"
 
 msgid "Pulse"
-msgstr "పప్పు దినుసులు"
+msgstr "పప్పు"
 
 msgid "Oilseed"
-msgstr "నూనెగింజలు"
+msgstr "నూనె గింజలు"
 
 msgid "Spice"
-msgstr "మసాలా దినుసులు"
+msgstr "మసాలా"
 
 msgid "Summer"
 msgstr "వేసవి"
@@ -305,19 +305,19 @@ msgid "Loading..."
 msgstr "లోడ్ అవుతోంది..."
 
 msgid "Failed to load crops."
-msgstr "పంటలను లోడ్ చేయడంలో విఫలమైంది."
+msgstr "పంటలను లోడ్ చేయడం విఫలమైంది."
 
 msgid "Add to Cart"
-msgstr "కార్ట్‌లో చేర్చండి"
+msgstr "కార్ట్‌కి జోడించండ"
 
 msgid "This crop is already in your cart."
 msgstr "ఈ పంట ఇప్పటికే మీ కార్ట్‌లో ఉంది."
 
 msgid "added to cart"
-msgstr "కార్ట్‌కు జోడించబడింది"
+msgstr "కార్ట్‌కి జోడించబడింది"
 
 msgid "Geolocation not supported."
-msgstr "జియోలొకేషన్‌కు మద్దతు లేదు."
+msgstr "జియోలొకేషన్ మద్దతు లేదు."
 
 msgid "Could not get location."
 msgstr "స్థానాన్ని పొందలేకపోయాము."
@@ -330,3 +330,1141 @@ msgstr "పంటలను బ్రౌజ్ చేయండి"
 
 msgid "About"
 msgstr "మా గురించి"
+
+msgid "Email Address"
+msgstr "ఇమెయిల్ చిరునామా"
+
+msgid "Phone Number"
+msgstr "ఫోన్ నంబర్"
+
+msgid "Address"
+msgstr "చిరునామా"
+
+msgid "Account Status"
+msgstr "ఖాతా స్థితి"
+
+msgid "Verified"
+msgstr "ధృవీకరించబడింది"
+
+msgid "Unverified"
+msgstr "ధృవీకరించబడలేదు"
+
+msgid "Edit Profile"
+msgstr "ప్రొఫైల్ సవరించండి"
+
+msgid "Full Name"
+msgstr "పూర్తి పేరు"
+
+msgid "Address Line"
+msgstr "చిరునామా లైన్"
+
+msgid "City"
+msgstr "నగరం"
+
+msgid "State"
+msgstr "రాష్ట్రం"
+
+msgid "Country"
+msgstr "దేశం"
+
+msgid "Pin Code"
+msgstr "పిన్ కోడ్"
+
+msgid "Save Changes"
+msgstr "మార్పులను సేవ్ చేయండి"
+
+msgid "Not provided"
+msgstr "అందించబడలేదు"
+
+msgid "No Address Provided"
+msgstr "చిరునామా అందించబడలేదు"
+
+msgid "Activity History"
+msgstr "కార్యాచరణ చరిత్ర"
+
+msgid "Track your orders and payments"
+msgstr "మీ ఆర్డర్‌లు మరియు చెల్లింపులను ట్రాక్ చేయండి"
+
+msgid "Orders"
+msgstr "ఆర్డర్‌లు"
+
+msgid "Payments"
+msgstr "చెల్లింపులు"
+
+msgid "Welcome back,"
+msgstr "తిరిగి స్వాగతం,"
+
+msgid "Agent"
+msgstr "ఏజెంట్"
+
+msgid "Delivery Agent Portal"
+msgstr "డెలివరీ ఏజెంట్ పోర్టల్"
+
+msgid "Manage your active deliveries and find new orders."
+msgstr "మీ సక్రియ డెలివరీలను నిర్వహించండి మరియు కొత్త ఆర్డర్‌లను కనుగొనండి."
+
+msgid "Total Delivered"
+msgstr "మొత్తం పంపిణీ చేయబడింది"
+
+msgid "Total Cancelled"
+msgstr "మొత్తం రద్దు చేయబడింది"
+
+msgid "Total Assigned"
+msgstr "మొత్తం కేటాయించబడింది"
+
+msgid "Active Deliveries"
+msgstr "సక్రియ డెలివరీలు"
+
+msgid "Recent Trips"
+msgstr "ఇటీవలి ప్రయాణాలు"
+
+msgid "Order"
+msgstr "ఆర్డర్"
+
+msgid "Customer"
+msgstr "కస్టమర్"
+
+msgid "Method"
+msgstr "పద్ధతి"
+
+msgid "Status"
+msgstr "స్థితి"
+
+msgid "Updated At"
+msgstr "తాజాగా నవీకరించబడింది"
+
+msgid "Farmer"
+msgstr "రైతు"
+
+msgid "Overview"
+msgstr "అవలోకనం"
+
+msgid "My Crops"
+msgstr "నా పంటలు"
+
+msgid "Add Crop"
+msgstr "పంటను జోడించండి"
+
+msgid "Price/Demand"
+msgstr "ధర/డిమాండ్"
+
+msgid "AI Precision Suite"
+msgstr "AI ప్రెసిషన్ సూట్"
+
+msgid "Crop Prediction"
+msgstr "పంట అంచనా"
+
+msgid "Fertilizer Advice"
+msgstr "ఎరువుల సలహా"
+
+msgid "Disease Detection"
+msgstr "వ్యాధి గుర్తింపు"
+
+msgid "Weather Forecast"
+msgstr "వాతావరణ సూచన"
+
+msgid "Rainfall Prediction"
+msgstr "వర్షపాతం అంచనా"
+
+msgid "Yield Prediction"
+msgstr "దిగుబడి అంచనా"
+
+msgid "News Feed"
+msgstr "వార్తల ఫీడ్"
+
+msgid "My Profile"
+msgstr "నా ప్రొఫైల్"
+
+msgid "Reviews"
+msgstr "సమీక్షలు"
+
+msgid "Audit Users"
+msgstr "వినియోగదారుల ఆడిట్"
+
+msgid "Crop Batches"
+msgstr "పంట బ్యాచ్‌లు"
+
+msgid "Deliveries"
+msgstr "డెలివరీలు"
+
+msgid "Logout"
+msgstr "లాగ్అవుట్"
+
+msgid "Dashboard Overview"
+msgstr "డాష్‌బోర్డ్ అవలోకనం"
+
+msgid "Add New Crop"
+msgstr "కొత్త పంటను జోడించండి"
+
+msgid "Received Orders"
+msgstr "స్వీకరించిన ఆర్డర్‌లు"
+
+msgid "Payment History"
+msgstr "చెల్లింపు చరిత్ర"
+
+msgid "Reviews & Feedback"
+msgstr "సమీక్షలు & ఫీడ్‌బ్యాక్"
+
+msgid "Crop Batches Overview"
+msgstr "పంట బ్యాచ్‌ల అవలోకనం"
+
+msgid "All Deliveries Overview"
+msgstr "అన్ని డెలివరీల అవలోకనం"
+
+msgid "AI Farming Tools"
+msgstr "AI వ్యవసాయ సాధనాలు"
+
+msgid "Bought by"
+msgstr "కొనినవారు"
+
+msgid "people"
+msgstr "ప్రజలు"
+
+msgid "/kg"
+msgstr "/కిలో"
+
+msgid "Crop Reviews"
+msgstr "పంట సమీక్షలు"
+
+msgid "No reviews yet for this crop."
+msgstr "ఈ పంటకు ఇంకా సమీక్షలు లేవు."
+
+msgid "No comment provided."
+msgstr "ఎలాంటి వ్యాఖ్య అందించబడలేదు."
+
+msgid "Failed to load reviews."
+msgstr "సమీక్షలను లోడ్ చేయడంలో విఫలమైంది."
+
+msgid "kg Available"
+msgstr "కిలోలు అందుబాటులో ఉన్నాయి"
+
+msgid "Placed"
+msgstr "ఉంచబడినవి"
+
+msgid "Cancelled"
+msgstr "రద్దు "
+
+msgid "Delivered"
+msgstr "పంపిణీ చేయబడింది"
+
+msgid "Assigned"
+msgstr "కేటాయించబడింది"
+
+msgid "Pending"
+msgstr "పెండింగ్‌లో ఉంది"
+
+msgid "Avg Rating"
+msgstr "సగటు రేటింగ్"
+
+msgid "Revenue"
+msgstr "ఆదాయం"
+
+msgid "Crop Performance"
+msgstr "పంట పనితీరు"
+
+msgid "Crop Name"
+msgstr "పంట పేరు"
+
+msgid "Total Added (kg)"
+msgstr "మొత్తం జోడించినవి (కిలోలు)"
+
+msgid "Current Stock (kg)"
+msgstr "ప్రస్తుత స్టాక్ (కిలోలు)"
+
+msgid "Price/kg (₹)"
+msgstr "ధర/కిలోకు (₹)"
+
+msgid "Orders Received"
+msgstr "అందుకున్న ఆర్డర్‌లు"
+
+msgid "Revenue Generated (₹)"
+msgstr "ఉత్పత్తి చేయబడిన ఆదాయం (₹)"
+
+msgid "Loading performance data..."
+msgstr "పనితీరు డేటా లోడ్ అవుతోంది..."
+
+msgid "Other"
+msgstr "ఇతర"
+
+msgid "Quantity Available (kg)"
+msgstr "అందుబాటులో ఉన్న పరిమాణం (కిలోలు)"
+
+msgid "Price per kg (₹)"
+msgstr "కిలోకు ధర (₹)"
+
+msgid "Description"
+msgstr "వివరణ"
+
+msgid "Describe your crop..."
+msgstr "మీ పంటను వివరించండి..."
+
+msgid "Crop Image"
+msgstr "పంట చిత్రం"
+
+msgid "Periods (months)"
+msgstr "పీరియడ్స్ (నెలలు)"
+
+msgid "Forecast Demand"
+msgstr "డిమాండ్‌ను అంచనా వేయండి"
+
+msgid "Input Parameters"
+msgstr "ఇన్‌పుట్ పారామితులు"
+
+msgid "Location"
+msgstr "స్థానం"
+
+msgid "Select State"
+msgstr "రాష్ట్రాన్ని ఎంచుకోండి"
+
+msgid "District"
+msgstr "జిల్లా"
+
+msgid "Select District"
+msgstr "జిల్లాను ఎంచుకోండి"
+
+msgid "Season"
+msgstr "సీజన్"
+
+msgid "Select Season"
+msgstr "సీజన్‌ను ఎంచుకోండి"
+
+msgid "Kharif (Monsoon)"
+msgstr "ఖరీఫ్ (వర్షాకాలం)"
+
+msgid "Rabi (Winter)"
+msgstr "రబీ (శీతాకాలం)"
+
+msgid "Zaid (Summer)"
+msgstr "జైద్ (వేసవి కాలం)"
+
+msgid "Soil Parameters"
+msgstr "నేల పారామితులు"
+
+msgid "Nitrogen (N)"
+msgstr "నత్రజని (N)"
+
+msgid "Phosphorus (P)"
+msgstr "భాస్వరం (P)"
+
+msgid "Potassium (K)"
+msgstr "పొటాషియం (K)"
+
+msgid "pH Level"
+msgstr "pH స్థాయి"
+
+msgid "Weather Parameters"
+msgstr "వాతావరణ పారామితులు"
+
+msgid "Temperature (°C)"
+msgstr "ఉష్ణోగ్రత (°C)"
+
+msgid "Humidity (%)"
+msgstr "తేమ (%)"
+
+msgid "Rainfall (mm)"
+msgstr "వర్షపాతం (మి.మీ.)"
+
+msgid "Predict Crops"
+msgstr "పంటలను అంచనా వేయండి"
+
+msgid "AI Recommendation"
+msgstr "AI సిఫార్సు"
+
+msgid "Primary Match"
+msgstr "ప్రాథమిక సరిపోలిక"
+
+msgid "Best suited for your soil & climate"
+msgstr "మీ నేల & వాతావరణానికి ఉత్తమంగా సరిపోతుంది"
+
+msgid "Prediction Confidence"
+msgstr "అంచనా విశ్వాసం"
+
+msgid "Market Price"
+msgstr "మార్కెట్ ధర"
+
+msgid "Exp. Yield"
+msgstr "ఆశించిన దిగుబడి"
+
+msgid "Cultivation Insights"
+msgstr "సాగు అంతర్దృష్టులు"
+
+msgid "Soil & Crop Details"
+msgstr "నేల & పంట వివరాలు"
+
+msgid "Target Crop"
+msgstr "లక్ష్య పంట"
+
+msgid "Soil Health / Observations"
+msgstr "నేల ఆరోగ్యం / పరిశీలనలు"
+
+msgid "Analyze & Get Advice"
+msgstr "విశ్లేషించండి & సలహా పొందండి"
+
+msgid "Awaiting Soil Data"
+msgstr "నేల డేటా కోసం వేచి ఉంది"
+
+msgid "Admin Portal"
+msgstr "అడ్మిన్ పోర్టల్"
+
+msgid "Administrator"
+msgstr "అడ్మినిస్ట్రేటర్"
+
+msgid "Get AI-powered crop recommendations based on your soil and location"
+msgstr "మీ నేల మరియు స్థానం ఆధారంగా AI-ఆధారిత పంట సిఫార్సులను పొందండి"
+
+msgid "Ready to analyze your field. Enter parameters and click Predict Crops."
+msgstr "మీ పొలాన్ని విశ్లేషించడానికి సిద్ధంగా ఉంది. పారామితులు నమోదు చేసి 'పంటలను అంచనా వేయండి' పై క్లిక్ చేయండి."
+
+msgid "Personalized fertilizer plans based on crop and soil health"
+msgstr "పంట మరియు నేల ఆరోగ్యం ఆధారంగా వ్యక్తిగతీకరించిన ఎరువుల ప్రణాళికలు"
+
+msgid "e.g. Yellow leaves, slow growth, sandy soil..."
+msgstr "ఉదా. పసుపు ఆకులు, నెమ్మదిగా పెరుగుదల, ఇసుక నేల..."
+
+msgid "Your personalized nutrient optimization plan will appear here after analysis."
+msgstr "విశ్లేషణ తర్వాత మీ వ్యక్తిగత పోషక అభివృద్ధి ప్రణాళిక ఇక్కడ కనిపిస్తుంది."
+
+msgid "Soil Health Report"
+msgstr "నేల ఆరోగ్య నివేదిక"
+
+msgid "Expert Analysis"
+msgstr "నిపుణుల విశ్లేషణ"
+
+msgid "Recommended Supplements"
+msgstr "సిఫార్సు చేయబడిన సప్లిమెంట్లు"
+
+msgid "Optimum Dosage"
+msgstr "వినియోగ మోతాదు"
+
+msgid "Application Mode"
+msgstr "వినియోగ విధానం"
+
+msgid "Safety Precautions"
+msgstr "భద్రత జాగ్రత్తలు"
+
+msgid "Upload crop photos to detect pests and diseases instantly"
+msgstr "తెగుళ్ళు మరియు వ్యాధులను వెంటనే గుర్తించడానికి పంట ఫోటోలను అప్‌లోడ్ చేయండి"
+
+msgid "Drag & Drop Image"
+msgstr "చిత్రాన్ని లాగి వదలండి"
+
+msgid "Supported formats: JPG, PNG, WEBP"
+msgstr "మద్దతు ఉన్న ఆకృతులు: JPG, PNG, WEBP"
+
+msgid "Browse Files"
+msgstr "ఫైళ్ళను బ్రౌజ్ చేయండి"
+
+msgid "Analyze Crop Health"
+msgstr "పంట ఆరోగ్యాన్ని విశ్లేషించండి"
+
+msgid "Pathogen Diagnostic Report"
+msgstr "వ్యాధి కారక రోగనిర్ధారణ నివేదిక"
+
+msgid "Agri-Weather Intelligence"
+msgstr "వ్యవసాయ-వాతావరణ మేధస్సు"
+
+msgid "Hyper-local 5-day forecast for agricultural planning"
+msgstr "వ్యవసాయ ప్రణాళిక కోసం హైపర్-లోకల్ 5-రోజుల సూచన"
+
+msgid "Refresh Location"
+msgstr "స్థానాన్ని రిఫ్రెష్ చేయండి"
+
+msgid "Accessing meteorological data..."
+msgstr "వాతావరణ డేటాను యాక్సెస్ చేస్తోంది..."
+
+msgid "Farming Advisory"
+msgstr "వ్యవసాయ సలహా"
+
+msgid "Regularly check weather patterns to optimize your irrigation and fertilization schedules."
+msgstr "మీ నీటిపారుదల మరియు ఎరువుల కార్యక్రమాలను అభివృద్ధి చేయడానికి నియమితంగా వాతావరణ నమూనాలను తనిఖీ చేయండి."
+
+msgid "Harvest Parameters"
+msgstr "పంట పారామితులు"
+
+msgid "Crop Selection"
+msgstr "పంట ఎంపిక"
+
+msgid "Area (Acres)"
+msgstr "విస్తీర్ణం (ఎకరాలు)"
+
+msgid "Fertilizer Used"
+msgstr "ఉపయోగించిన ఎరువు"
+
+msgid "Calculate Estimated Yield"
+msgstr "అంచనా వేసిన దిగుబడిని లెక్కించండి"
+
+msgid "Estimated Total Harvest"
+msgstr "అంచనా మొత్తం పంట"
+
+msgid "Classification"
+msgstr "వర్గీకరణ"
+
+msgid "Probability"
+msgstr "సంభావ్యత"
+
+msgid "High"
+msgstr "అధిక"
+
+msgid "Yield Optimization Steps"
+msgstr "దిగుబడి అభివృద్ధి దశలు"
+
+msgid "Environmental Factors"
+msgstr "పర్యావరణ కారకాలు"
+
+msgid "e.g. Basmati Rice"
+msgstr "ఉదా. బాస్మతి వరి"
+
+msgid "e.g. Urea, Compost"
+msgstr "ఉదా. యూరియా, కంపోస్ట్"
+
+msgid "Predict Price"
+msgstr "ధరను అంచనా వేయండి"
+
+msgid "Forecast Demand"
+msgstr "డిమాండ్‌ను అంచనా వేయండి"
+
+
+msgid "error"
+msgstr "AI service unavailable"
+
+
+
+msgid "error"
+msgstr "AI service unavailable"
+
+
+
+msgid "Reviews for"
+msgstr "దీని సమీక్షలు"
+
+msgid "My Profile – Delivery Agent"
+msgstr "నా ప్రొఫైల్ – డెలివరీ ఏజెంట్"
+
+msgid "Portal"
+msgstr "పోర్టల్"
+
+msgid "Back to Dashboard"
+msgstr "డాష్‌బోర్డ్‌కి తిరిగి వెళ్ళండి"
+
+msgid "Current Status"
+msgstr "ప్రస్తుత స్థితి"
+
+msgid "Online"
+msgstr "ఆన్‌లైన్"
+
+msgid "Go Offline"
+msgstr "ఆఫ్‌లైన్‌కి వెళ్ళు"
+
+msgid "My Details"
+msgstr "నా వివరాలు"
+
+msgid "Contact Info"
+msgstr "సంప్రదింపు సమాచారం"
+
+msgid "Agent Verification Info"
+msgstr "ఏజెంట్ ధృవీకరణ సమాచారం"
+
+msgid "Vehicle Type"
+msgstr "వాహన రకం"
+
+msgid "Select..."
+msgstr "ఎంచుకోండి..."
+
+msgid "Bike / Motorcycle"
+msgstr "బైక్ / మోటార్‌సైకిల్"
+
+msgid "Auto / TukTuk"
+msgstr "ఆటో / టిక్-టిక్"
+
+msgid "Mini Van"
+msgstr "మినీ వ్యాన్"
+
+msgid "Truck"
+msgstr "ట్రక్"
+
+msgid "Driving License Number"
+msgstr "డ్రైవింగ్ లైసెన్స్ నంబర్"
+
+msgid "Base Area Address"
+msgstr "బేస్ ఏరియా చిరునామా"
+
+msgid "City / Village"
+msgstr "నగరం / గ్రామం"
+
+msgid "Online & Ready"
+msgstr "ఆన్‌లైన్ & సిద్ధంగా ఉన్నారు"
+
+msgid "Offline"
+msgstr "ఆఫ్‌లైన్"
+
+msgid "Go Online"
+msgstr "ఆన్‌లైన్‌కి వెళ్ళు"
+
+msgid "Saving..."
+msgstr "సేవ్ అవుతోంది..."
+
+msgid "Saved"
+msgstr "సేవ్ చేయబడింది"
+
+msgid "Error"
+msgstr "లోపం"
+
+msgid "Network Error"
+msgstr "నెట్‌వర్క్ లోపం"
+
+msgid "Uploading..."
+msgstr "అప్‌లోడ్ అవుతోంది..."
+
+msgid "Photo updated"
+msgstr "ఫోటో నవీకరించబడింది"
+
+msgid "Failed to upload"
+msgstr "అప్‌లోడ్ విఫలమైంది"
+
+msgid "Precipitation Forecast"
+msgstr "వర్షపాత సూచన"
+
+msgid "Confidence-Based Pattern Analysis"
+msgstr "కాన్ఫిడెన్స్ ఆధారిత నమూనా విశ్లేషణ"
+
+msgid "Estimated Range"
+msgstr "అంచనా పరిధి"
+
+msgid "Impact Score"
+msgstr "ప్రభావ స్కోర్"
+
+msgid "Medium"
+msgstr "మధ్యస్థం"
+
+msgid "Strategic Action Plan"
+msgstr "వ్యూహాత్మక కార్యాచరణ ప్రణాళిక"
+
+msgid "Predict your harvest volume with high precision"
+msgstr "మీ పంట పరిమాణాన్ని అధిక ఖచ్చితత్వంతో అంచనా వేయండి"
+
+msgid "Agricultural News Feed"
+msgstr "వ్యవసాయ వార్తల ఫీడ్"
+
+msgid "Refresh"
+msgstr "రిఫ్రెష్ చేయండి"
+
+msgid "Click refresh to fetch latest agriculture headlines."
+msgstr "తాజా వ్యవసాయ ముఖ్యాంశాలను పొందడానికి రిఫ్రెష్‌పై క్లిక్ చేయండి."
+
+msgid "My Profile Dashboard"
+msgstr "నా ప్రొఫైల్ డాష్‌బోర్డ్"
+
+msgid "Location Map"
+msgstr "స్థాన పటం"
+
+msgid "Auto Detect"
+msgstr "ఆటో డిటెక్ట్"
+
+msgid "Updating..."
+msgstr "నవీకరిస్తోంది..."
+
+msgid "Save New Location"
+msgstr "కొత్త స్థానాన్ని సేవ్ చేయండి"
+
+msgid "Location Details"
+msgstr "స్థాన వివరాలు"
+
+msgid "Village / City"
+msgstr "గ్రామం / నగరం"
+
+msgid "Mandal"
+msgstr "మండలం"
+
+msgid "Pincode"
+msgstr "పిన్‌కోడ్"
+
+msgid "Farming Info"
+msgstr "వ్యవసాయ సమాచారం"
+
+msgid "Land Size"
+msgstr "భూమి పరిమాణం"
+
+msgid "Acres"
+msgstr "ఎకరాలు"
+
+msgid "Soil Type"
+msgstr "నేల రకం"
+
+msgid "Farming Type"
+msgstr "వ్యవసాయ రకం"
+
+msgid "About / Bio"
+msgstr "గురించి / బయో"
+
+msgid "Payment Audit History"
+msgstr "చెల్లింపు ఆడిట్ చరిత్ర"
+
+msgid "A complete security and financial log of your transactions on AgroBridge (including failed attempts)."
+msgstr "AgroBridge లో మీ లావాదేవీల పూర్తి భద్రత మరియు ఆర్థిక లాగ్ (విఫలమైన ప్రయత్నాలతో సహా)."
+
+msgid "Basic Info"
+msgstr "ప్రాథమిక సమాచారం"
+
+msgid "Profile Picture"
+msgstr "ప్రొఫైల్ చిత్రం"
+
+msgid "Bio / About"
+msgstr "బయో / గురించి"
+
+msgid "Tell us about yourself..."
+msgstr "మీ గురించి మాకు చెప్పండి..."
+
+msgid "Land Size (Acres)"
+msgstr "భూమి పరిమాణం (ఎకరాలు)"
+
+msgid "Loamy"
+msgstr "లోమీ"
+
+msgid "Sandy"
+msgstr "ఇసుక"
+
+msgid "Clay"
+msgstr "బంకమట్టి"
+
+msgid "Black Cotton"
+msgstr "నల్ల పత్తి"
+
+msgid "Red Laterite"
+msgstr "ఎర్ర లాటరైట్"
+
+msgid "Alluvial"
+msgstr "అల్యూవియల్"
+
+msgid "Organic"
+msgstr "సేంద్రీయ"
+
+msgid "Non-Organic"
+msgstr "సేంద్రీయం కాని"
+
+msgid "Mixed"
+msgstr "మిశ్రమ"
+
+msgid "Edit Crop"
+msgstr "పంటను సవరించండి"
+
+msgid "User Trade History"
+msgstr "వినియోగదారు వాణిజ్య చరిత్ర"
+
+msgid "Close"
+msgstr "మూసివేయండి"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "Order"
+msgstr "ఆర్డర్"
+
+msgid "Crop"
+msgstr "పంట"
+
+msgid "Buyer"
+msgstr "కొనుగోలుదారు"
+
+msgid "Amount"
+msgstr "మొత్తం"
+
+msgid "Status"
+msgstr "స్థితి"
+
+msgid "Date"
+msgstr "తేదీ"
+
+msgid "Consumer"
+msgstr "వినియోగదారు"
+
+msgid "Total"
+msgstr "మొత్తం"
+
+msgid "Status & Delivery"
+msgstr "స్థితి & డెలివరీ"
+
+msgid "Rating"
+msgstr "రేటింగ్"
+
+msgid "Comment"
+msgstr "వ్యాఖ్య"
+
+msgid "ID"
+msgstr "ఐడి"
+
+msgid "Name"
+msgstr "పేరు"
+
+msgid "Contact"
+msgstr "పరిచయం"
+
+msgid "Address"
+msgstr "చిరునామా"
+
+msgid "Password Hash"
+msgstr "పాస్వర్డ్ హాష్"
+
+msgid "Role"
+msgstr "పాత్ర"
+
+msgid "Actions"
+msgstr "చర్యలు"
+
+msgid "Order ID"
+msgstr "ఆర్డర్ ఐడి"
+
+msgid "Crop & Total"
+msgstr "పంట & మొత్తం"
+
+msgid "Delivery Address"
+msgstr "డెలివరీ చిరునామా"
+
+msgid "Delivery Agent"
+msgstr "డెలివరీ ఏజెంట్"
+
+
+
+msgid "Batch Number"
+msgstr "బ్యాచ్ సంఖ్య"
+
+msgid "Farmer (Uploader)"
+msgstr "రైతు (అప్‌లోడర్)"
+
+msgid "Type"
+msgstr "రకం"
+
+msgid "Quantity (Total)"
+msgstr "పరిమాణం (మొత్తం)"
+
+msgid "Price/kg"
+msgstr "ధర/కిలో"
+
+msgid "All Crops"
+msgstr "అన్ని పంటలు"
+
+msgid "All Farmers"
+msgstr "అందరు రైతులు"
+
+
+
+msgid "Audit ID"
+msgstr "ఆడిట్ ID"
+
+msgid "Timestamp"
+msgstr "కాలముద్ర"
+
+msgid "No payment history found."
+msgstr "చెల్లింపు చరిత్ర కనుగొనబడలేదు."
+
+msgid "Failed to load audit history."
+msgstr "ఆడిట్ చరిత్రను లోడ్ చేయడంలో విఫలమైంది."
+
+msgid "Loading your dashboard..."
+msgstr "మీ డాష్‌బోర్డ్‌ను లోడ్ చేస్తోంది..."
+
+msgid "Welcome,"
+msgstr "స్వాగతం,"
+
+msgid "Here's a summary of your AgroBridge activity."
+msgstr "ఇది మీ అగ్రోబ్రిడ్జ్ కార్యకలాపాల సారాంశం."
+
+msgid "My Orders"
+msgstr "నా ఆర్డర్‌లు"
+
+msgid "Total Orders"
+msgstr "మొత్తం ఆర్డర్‌లు"
+
+msgid "Active Orders"
+msgstr "క్రియాశీల ఆర్డర్‌లు"
+
+msgid "Total Spent"
+msgstr "మొత్తం ఖర్చు"
+
+msgid "No active deliveries at the moment."
+msgstr "ప్రస్తుతం క్రియాశీల డెలివరీలు లేవు."
+
+msgid "Recent Orders"
+msgstr "ఇటీవలి ఆర్డర్‌లు"
+
+msgid "View All"
+msgstr "అన్నీ చూడండి"
+
+msgid "Recommended Fresh Picks"
+msgstr "సిఫార్సు చేయబడిన తాజా ఎంపికలు"
+
+msgid "View Marketplace"
+msgstr "మార్కెట్‌ప్లేస్‌ను చూడండి"
+
+msgid "Consumer Dashboard"
+msgstr "వినియోగదారు డాష్‌బోర్డ్"
+
+msgid "Street Address"
+msgstr "వీధి చిరునామా"
+
+msgid "Delivery Address Details"
+msgstr "డెలివరీ చిరునామా వివరాలు"
+
+msgid "Platform Purchase History"
+msgstr "ప్లాట్‌ఫారమ్ కొనుగోలు చరిత్ర"
+
+msgid "A complete log of all crops and products you purchased through AgroBridge."
+msgstr "అగ్రోబ్రిడ్జ్ ద్వారా మీరు కొనుగోలు చేసిన అన్ని పంటలు మరియు ఉత్పత్తుల పూర్తి లాగ్."
+
+
+
+msgid "Order Cancelled"
+msgstr "ఆర్డర్ రద్దు చేయబడింది"
+
+msgid "Ordered"
+msgstr "ఆర్డర్ చేయబడింది"
+
+msgid "Confirmed"
+msgstr "నిర్ధారించబడింది"
+
+msgid "Picked Up"
+msgstr "సేకరించబడింది"
+
+msgid "Scan for Delivery"
+msgstr "డెలివరీ కోసం స్కాన్ చేయండి"
+
+msgid "Live GPS Tracking"
+msgstr "లైవ్ GPS ట్రాకింగ్"
+
+msgid "Ordered:"
+msgstr "ఆర్డర్ చేయబడింది:"
+
+msgid "ETA:"
+msgstr "అంచనా సమయం:"
+
+msgid "Delivered on:"
+msgstr "డెలివరీ చేయబడింది:"
+
+msgid "Review Crop"
+msgstr "పంటను సమీక్షించండి"
+
+msgid "Complete Payment"
+msgstr "చెల్లింపును పూర్తి చేయండి"
+
+msgid "Cancel Order"
+msgstr "ఆర్డర్‌ను రద్దు చేయండి"
+
+msgid "Review Your Product"
+msgstr "మీ ఉత్పత్తిని సమీక్షించండి"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "Delivery Map"
+msgstr "డెలివరీ మ్యాప్"
+
+msgid "# Audit ID"
+msgstr "ఆడిట్ ID"
+
+msgid "No purchase history found."
+msgstr "కొనుగోలు చరిత్ర కనుగొనబడలేదు."
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+msgid "Service Hub Location"
+msgstr "సేవా కేంద్రం స్థానం"
+
+msgid "Service Performance"
+msgstr "సేవా పనితీరు"
+
+msgid "Delivery Agent Dashboard"
+msgstr "డెలివరీ ఏజెంట్ డ్యాష్‌బోర్డ్"
+
+
+msgid "advice"
+msgstr "Unable to fetch AI response at this moment. Please base decisions on local observation and general best practices."
+
+msgid "confidence"
+msgstr "low"
+
+
+msgid "Welcome Back"
+msgstr "స్వాగతం"
+
+msgid "Sign in to your AgroBridge account"
+msgstr "మీ ఆగ్రోబ్రిడ్జ్ ఖాతాకు సైన్ ఇన్ చేయండి"
+
+msgid "I am a..."
+msgstr "నేను ఒక..."
+
+msgid "Consumer (Buyer)"
+msgstr "వినియోగదారుడు (కొనుగోలుదారు)"
+
+msgid "Farmer (Seller)"
+msgstr "రైతు (విక్రేత)"
+
+msgid "Delivery Agent"
+msgstr "డెలివరీ ఏజెంట్"
+
+msgid "Administrator"
+msgstr "నిర్వాహకుడు"
+
+msgid "Email Address"
+msgstr "ఇమెయిల్ చిరునామా"
+
+msgid "Password"
+msgstr "పాస్వర్డ్"
+
+msgid "Forgot Password?"
+msgstr "పాస్వర్డ్ మర్చిపోయారా?"
+
+msgid "Sign In"
+msgstr "సైన్ ఇన్ చేయండి"
+
+msgid "Don't have an account?"
+msgstr "ఖాతా లేదా?"
+
+msgid "Create one →"
+msgstr "ఒకటి సృష్టించండి →"
+
+msgid "Reset Password"
+msgstr "పాస్వర్డ్ని రీసెట్ చేయండి"
+
+msgid "Enter your registered email address to receive a secure OTP."
+msgstr "సురక్షితమైన OTPని స్వీకరించడానికి మీ నమోదిత ఇమెయిల్ చిరునామాను నమోదు చేయండి."
+
+msgid "Send OTP"
+msgstr "OTP పంపండి"
+
+msgid "OTP sent successfully! Check your phone."
+msgstr "OTP విజయవంతంగా పంపబడింది! మీ ఫోన్‌ను తనిఖీ చేయండి."
+
+msgid "Enter OTP"
+msgstr "OTP నమోదు చేయండి"
+
+msgid "New Password"
+msgstr "కొత్త పాస్వర్డ్"
+
+msgid "Refund Summary"
+msgstr "రీఫండ్ సారాంశం"
+
+msgid "Total Refunds"
+msgstr "మొత్తం రీఫండ్స్"
+
+msgid "Net Revenue (Retained Fees)"
+msgstr "నికర రాబడి (నిలుపుకున్న ఫీజు)"
+
+msgid "Refund Transactions Table"
+msgstr "రీఫండ్ లావాదేవీల పట్టిక"
+
+msgid "Order Cancelled"
+msgstr "ఆర్డర్ రద్దు చేయబడింది"
+
+msgid "Refund"
+msgstr "రీఫండ్"
+
+msgid "Cancelled"
+msgstr "రద్దు చేయబడింది"
+
+msgid "Cancellation window closed"
+msgstr "రద్దు విండో మూసివేయబడింది"
+
+msgid "Refund Summary"
+msgstr "రీఫండ్ సారాంశం"
+
+msgid "Total Refunds"
+msgstr "మొత్తం రీఫండ్‌లు"
+
+msgid "Net Revenue (Retained Fees)"
+msgstr "నికర ఆదాయం (నిలుపుకున్న ఫీజులు)"
+
+msgid "Today's Refunds"
+msgstr "ఈరోజు రీఫండ్‌లు"
+
+msgid "Refund Rate"
+msgstr "రీఫండ్ రేటు"
+
+msgid "Refund Transactions Table"
+msgstr "రీఫండ్ లావాదేవీల పట్టిక"
+
+msgid "Refund Trend (Last 7 Days)"
+msgstr "రీఫండ్ ట్రెండ్ (గత 7 రోజులు)"
+
+msgid "Revenue vs Refund"
+msgstr "ఆదాయం వర్సెస్ రీఫండ్"
+
+msgid "Action"
+msgstr "చర్య"
+
+msgid "Pending"
+msgstr "పెండింగ్"
+
+msgid "Completed"
+msgstr "పూర్తయింది"
+
+msgid "Complete"
+msgstr "పూర్తి చేయండి"
+
+msgid "Refund Timeline"
+msgstr "రీఫండ్ టైమ్‌లైన్"
+
+msgid "Refund Initiated"
+msgstr "రీఫండ్ ప్రారంభించబడింది"
+
+msgid "Refund Completed"
+msgstr "రీఫండ్ పూర్తయింది"
+
+msgid "Refund Processing"
+msgstr "రీఫండ్ ప్రాసెసింగ్ అవుతోంది"
+
+msgid "Order already picked up by delivery agent"
+msgstr "ఆర్డర్ ఇప్పటికే డెలివరీ ఏజెంట్ ద్వారా తీసుకోబడింది"
+
+msgid "Order is already out for delivery"
+msgstr "ఆర్డర్ ఇప్పటికే డెలివరీ కోసం బయలుదేరింది"
+
+msgid "Refund Amount (₹)"
+msgstr "రీఫండ్ మొత్తం (₹)"
+
+msgid "Revenue (₹)"
+msgstr "ఆదాయం (₹)"
+

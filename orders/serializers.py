@@ -1,6 +1,6 @@
 """Orders serializers."""
 from rest_framework import serializers
-from .models import Order
+from .models import Order, RefundLog
 from crops.serializers import CropSerializer
 
 
@@ -11,6 +11,7 @@ class OrderSerializer(serializers.ModelSerializer):
     farmer_name = serializers.CharField(source='crop.farmer.name', read_only=True)
     consumer_id = serializers.IntegerField(source='consumer.id', read_only=True)
     farmer_id = serializers.IntegerField(source='crop.farmer.id', read_only=True)
+    review_rating = serializers.IntegerField(source='review.rating', read_only=True, allow_null=True)
 
     class Meta:
         model = Order
@@ -18,10 +19,12 @@ class OrderSerializer(serializers.ModelSerializer):
             'id', 'consumer_name', 'farmer_name', 'consumer_id', 'farmer_id', 'crop', 'crop_name', 'crop_price',
             'quantity', 'total_price', 'payment_method', 'payment_status', 'cod_payment_type', 'order_status',
             'pickup_address', 'delivery_address', 'estimated_delivery_time', 'delivery_latitude', 'delivery_longitude',
-            'delivery_agent', 'pickup_qr', 'delivery_qr', 'stripe_session_id', 'stripe_payment_id', 'created_at', 'updated_at'
+            'delivery_agent', 'pickup_qr', 'delivery_qr', 'stripe_session_id', 'stripe_payment_id', 'created_at', 'updated_at', 'review_rating',
+            'is_cancelled', 'refund_amount', 'refund_status', 'cancelled_by'
         ]
         read_only_fields = ['id', 'total_price', 'payment_status', 'order_status',
-                            'estimated_delivery_time', 'stripe_session_id', 'stripe_payment_id', 'created_at', 'updated_at']
+                            'estimated_delivery_time', 'stripe_session_id', 'stripe_payment_id', 'created_at', 'updated_at',
+                            'is_cancelled', 'refund_amount', 'refund_status', 'cancelled_by']
 
 
 class PlaceOrderSerializer(serializers.Serializer):
@@ -48,3 +51,18 @@ class PlaceOrderSerializer(serializers.Serializer):
         base_price = round(float(crop.price_per_kg) * float(attrs['quantity']), 2)
         attrs['total_price'] = base_price + 30 if base_price < 50 else base_price
         return attrs
+
+
+class RefundLogSerializer(serializers.ModelSerializer):
+    order_id = serializers.IntegerField(source='order.id', read_only=True)
+    consumer_name = serializers.CharField(source='order.consumer.name', read_only=True)
+    crop_name = serializers.CharField(source='order.crop.name', read_only=True)
+
+    class Meta:
+        model = RefundLog
+        fields = [
+            'id', 'order_id', 'consumer_name', 'crop_name',
+            'total_original', 'delivery_fee', 'amount',
+            'status', 'cancelled_by', 'created_at'
+        ]
+        read_only_fields = fields

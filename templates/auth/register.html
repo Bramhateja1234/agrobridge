@@ -45,7 +45,21 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Phone Number</label>
-                                <input type="tel" class="form-control" id="regPhone" placeholder="+91 9876543210">
+                                <input type="tel" class="form-control" id="regPhone" placeholder="+91 9876543210" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Address</label>
+                                <input type="text" class="form-control" id="regAddress" placeholder="Street Address" required>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">State</label>
+                                    <input type="text" class="form-control" id="regState" placeholder="e.g. Maharashtra" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-semibold">Country</label>
+                                    <input type="text" class="form-control" id="regCountry" placeholder="e.g. India" required>
+                                </div>
                             </div>
                             <div class="row g-3 mb-3 farmer-only" style="display:none!important" id="locationFields">
                                 <div class="col-6">
@@ -137,6 +151,9 @@
             name: document.getElementById('regName').value,
             email: document.getElementById('regEmail').value,
             phone: document.getElementById('regPhone').value,
+            address_line: document.getElementById('regAddress').value,
+            state: document.getElementById('regState').value,
+            country: document.getElementById('regCountry').value,
             role,
             password: document.getElementById('regPassword').value,
             password_confirm: document.getElementById('regPasswordConfirm').value,
