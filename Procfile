@@ -1,1 +1,1 @@
-web: gunicorn agro_platform.wsgi
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn agro_platform.wsgi
